@@ -77,8 +77,10 @@ documentation in English.
   route from Norway to the first song; interstitials with `routeToNextSong`
   start the route between the surrounding song stops.
 - `Left Arrow` and the on-screen left arrow go back one card or song. During a
-  flight, Left cancels it and shows the previous country's photos. Song routes
-  otherwise animate in reverse, and arrival waits for a press before photos.
+  flight, Left cancels it to an interstitial immediately before the destination,
+  or shows the previous country's photos when there is no such card. At
+  arrival, interstitials are visited in order before returning farther back;
+  direct song routes otherwise animate in reverse and wait for confirmation.
 - `F` and the Fullscreen button toggle fullscreen.
 - `H` hides or shows the slide number, fullscreen button, navigation arrows, and
   keyboard hints. Keep the project mark, current song, and place visible. The

@@ -19,11 +19,14 @@ Open `index.html` in a browser and use the Fullscreen button.
 - `Space` or `Right Arrow`: advance to the next card or song. Song changes
   begin a 60-second flight. During a flight, press again to cancel it and show
   the next country's photos; if you wait for arrival, press again to start them.
-- `Left Arrow`: go back; during a flight, cancel it and show the previous
+- `Left Arrow`: go back; during a flight, cancel it to the previous card when
+  an interstitial precedes the destination, otherwise show the previous
   country's photos.
 - `F`: toggle fullscreen
 - `H`: hide or show the slide number, fullscreen button, navigation arrows, and
   keyboard hints; the project title and current song/place stay visible
+- Debugging only: `J` shows the previous photo and `K` the next; either resets
+  the automatic photo timer.
 - The on-screen arrows are also clickable
 
 The show starts with `Velkommen`, followed by a flight from Norway to the first

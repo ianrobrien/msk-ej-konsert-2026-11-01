@@ -133,6 +133,14 @@
     nextLayer.src = photo.src;
   }
 
+  function startPhotoTimer(slide) {
+    if (slide.photos.length < 2) return;
+
+    photoTimer = window.setInterval(() => {
+      showPhoto((photoIndex + 1) % slide.photos.length);
+    }, config.photoIntervalMs);
+  }
+
   function hideTravelOverlay() {
     travelOverlay.classList.remove("is-active");
     travelOverlay.setAttribute("aria-hidden", "true");
@@ -177,12 +185,25 @@
 
     photoStatusElement.hidden = true;
     showPhoto(0);
+    startPhotoTimer(slide);
+  }
 
-    if (slide.photos.length > 1) {
-      photoTimer = window.setInterval(() => {
-        showPhoto((photoIndex + 1) % slide.photos.length);
-      }, config.photoIntervalMs);
+  function movePhoto(direction) {
+    const slide = config.slides[slideIndex];
+    if (
+      isTransitioning ||
+      isWaitingForPhotos ||
+      slide.type === "interstitial" ||
+      slide.photos.length < 2
+    ) {
+      return;
     }
+
+    photoIndex = (photoIndex + direction + slide.photos.length) %
+      slide.photos.length;
+    window.clearInterval(photoTimer);
+    showPhoto(photoIndex);
+    startPhotoTimer(slide);
   }
 
   function project(point) {
@@ -445,7 +466,12 @@
   function cancelFlightToPreviousCountry() {
     if (!activeFlight) return;
 
-    const previousIndex = Math.min(activeFlight.fromIndex, activeFlight.toIndex);
+    const destinationPreviousIndex = activeFlight.toIndex - 1;
+    const destinationPreviousSlide = config.slides[destinationPreviousIndex];
+    const previousIndex = activeFlight.toIndex > activeFlight.fromIndex &&
+        destinationPreviousSlide?.type === "interstitial"
+      ? destinationPreviousIndex
+      : Math.min(activeFlight.fromIndex, activeFlight.toIndex);
     cancelFlightAndShowSlide(previousIndex);
   }
 
@@ -459,8 +485,18 @@
     if (isWaitingForPhotos) {
       if (direction > 0) {
         renderSlide();
-      } else if (lastFlightOriginIndex !== null) {
-        startFlight(slideIndex, lastFlightOriginIndex);
+      } else {
+        const previousIndex = slideIndex + direction;
+        const previousSlide = config.slides[previousIndex];
+        if (
+          previousSlide?.type === "interstitial" &&
+          !previousSlide.routeOrigin
+        ) {
+          slideIndex = previousIndex;
+          renderSlide();
+        } else if (lastFlightOriginIndex !== null) {
+          startFlight(slideIndex, lastFlightOriginIndex);
+        }
       }
       return;
     }
@@ -473,6 +509,7 @@
 
     if (
       currentSlide.type === "interstitial" &&
+      direction > 0 &&
       currentSlide.routeToNextSong &&
       nextSlide.type !== "interstitial"
     ) {
@@ -532,6 +569,12 @@
     } else if (event.key === "ArrowLeft") {
       event.preventDefault();
       moveSlide(-1);
+    } else if (event.key.toLowerCase() === "j") {
+      event.preventDefault();
+      if (!event.repeat) movePhoto(-1);
+    } else if (event.key.toLowerCase() === "k") {
+      event.preventDefault();
+      if (!event.repeat) movePhoto(1);
     } else if (event.key.toLowerCase() === "f") {
       event.preventDefault();
       toggleFullscreen();
