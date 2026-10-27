@@ -176,6 +176,14 @@ window.CONCERT_CONFIG = {
       id: "pause",
       type: "interstitial",
       title: "Pause",
+      routeToNextSong: true,
+      photos: [],
+    },
+    {
+      id: "rekrutter-aspiranter",
+      type: "interstitial",
+      title: "Innslag med rekrutter/aspiranter",
+      routeToNextSong: true,
       photos: [],
     },
     {

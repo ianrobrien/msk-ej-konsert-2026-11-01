@@ -469,7 +469,7 @@
 
     if (
       currentSlide.type === "interstitial" &&
-      currentSlide.id === "pause" &&
+      currentSlide.routeToNextSong &&
       nextSlide.type !== "interstitial"
     ) {
       const originIndex = findSongIndex(slideIndex - direction, -direction);
