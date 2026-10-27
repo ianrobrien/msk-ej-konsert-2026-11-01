@@ -12,6 +12,14 @@ Keep the presentation simple and readable from a distance. Song changes must
 remain manual; only photos rotate automatically. The song order and number of
 stops may change, so do not hardcode the current sequence or slide count elsewhere.
 
+## Language
+
+All presentation-facing text, including interface labels, place names, photo
+descriptions, error messages, and keyboard hints, must be in Norwegian Bokmål.
+Keep the document language set to `nb`. Preserve song titles as supplied unless
+asked to translate them. Keep code, identifiers, comments, and technical
+documentation in English.
+
 ## Architecture
 
 - This is a static, offline-first site built with plain HTML, CSS, and JavaScript.
@@ -51,6 +59,9 @@ stops may change, so do not hardcode the current sequence or slide count elsewhe
 - `Space` or `Right Arrow`, and the on-screen right arrow, advance one song.
 - `Left Arrow` and the on-screen left arrow go back one song.
 - `F` and the Fullscreen button toggle fullscreen.
+- `H` hides or shows the slide number, fullscreen button, navigation arrows, and
+  keyboard hints. Keep the project mark, current song, and place visible. The
+  animated route remains visible.
 - Preserve visible error messages for missing photos, meaningful image alt text,
   and the reduced-motion preference for the flight animation.
 

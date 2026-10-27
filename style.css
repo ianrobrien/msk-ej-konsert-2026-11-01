@@ -340,6 +340,13 @@ kbd {
   font: inherit;
 }
 
+.stage.is-ui-hidden .slide-count,
+.stage.is-ui-hidden .fullscreen-button,
+.stage.is-ui-hidden .controls,
+.stage.is-ui-hidden .key-hint {
+  display: none;
+}
+
 @media (max-width: 640px) {
   .stage::before {
     inset: 8% 5%;
@@ -399,7 +406,10 @@ kbd {
   .key-hint {
     right: 7vw;
     bottom: 28px;
+    max-width: 86vw;
     gap: 10px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
     font-size: 0.5rem;
     letter-spacing: 0.04em;
   }

@@ -12,6 +12,8 @@ Open `index.html` in a browser and use the Fullscreen button.
 - `Space` or `Right Arrow`: next song
 - `Left Arrow`: previous song
 - `F`: toggle fullscreen
+- `H`: hide or show the slide number, fullscreen button, navigation arrows, and
+  keyboard hints; the project title and current song/place stay visible
 - The on-screen arrows are also clickable
 
 ## Songs, order, and photos

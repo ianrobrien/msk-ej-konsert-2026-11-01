@@ -19,7 +19,7 @@
 
   if (!config || !Array.isArray(config.slides) || config.slides.length === 0) {
     photoStatusElement.hidden = false;
-    photoStatusElement.textContent = "No songs are configured.";
+    photoStatusElement.textContent = "Ingen sanger er konfigurert.";
     console.error("Concert slideshow has no configured songs.");
     return;
   }
@@ -52,7 +52,7 @@
       if (token !== imageLoadToken) return;
 
       photoStatusElement.hidden = false;
-      photoStatusElement.textContent = `Could not load photo: ${photo.src}`;
+      photoStatusElement.textContent = `Kunne ikke laste inn bildet: ${photo.src}`;
       console.error(`Could not load concert photo: ${photo.src}`);
     };
 
@@ -83,7 +83,7 @@
 
     if (slide.photos.length === 0) {
       photoStatusElement.hidden = false;
-      photoStatusElement.textContent = "Photos will be added here";
+      photoStatusElement.textContent = "Bilder legges til her";
       return;
     }
 
@@ -211,7 +211,8 @@
       }
     } catch (error) {
       photoStatusElement.hidden = false;
-      photoStatusElement.textContent = "Fullscreen is unavailable in this browser.";
+      photoStatusElement.textContent =
+        "Fullskjerm er ikke tilgjengelig i denne nettleseren.";
       console.error("Could not toggle fullscreen mode.", error);
     }
   }
@@ -236,6 +237,9 @@
     } else if (event.key.toLowerCase() === "f") {
       event.preventDefault();
       toggleFullscreen();
+    } else if (event.key.toLowerCase() === "h") {
+      event.preventDefault();
+      if (!event.repeat) stage.classList.toggle("is-ui-hidden");
     }
   });
 

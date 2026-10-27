@@ -4,12 +4,12 @@ window.CONCERT_CONFIG = {
     {
       id: "african-symphony",
       song: "African Symphony",
-      place: "Africa",
+      place: "Afrika",
       point: { latitude: 0, longitude: 20 },
       photos: [
         {
           src: "assets/photos/01-africa-1.jpg",
-          alt: "Sunrise over the Serengeti plains",
+          alt: "Soloppgang over Serengeti-slettene",
           credit: "Giles Laurent",
           license: "CC BY-SA 4.0",
           source:
@@ -17,7 +17,7 @@ window.CONCERT_CONFIG = {
         },
         {
           src: "assets/photos/01-africa-2.jpg",
-          alt: "Acacia tree on the grasslands of the Serengeti",
+          alt: "Akasiatre på Serengeti-gresslettene",
           credit: "Bjoern Christian Toerrissen",
           license: "CC BY-SA 3.0",
           source:
@@ -25,7 +25,7 @@ window.CONCERT_CONFIG = {
         },
         {
           src: "assets/photos/01-africa-3.jpg",
-          alt: "African elephant and calf in the Serengeti",
+          alt: "Afrikansk elefant med kalv i Serengeti",
           credit: "Charles J. Sharp",
           license: "CC BY-SA 4.0",
           source:
@@ -36,12 +36,12 @@ window.CONCERT_CONFIG = {
     {
       id: "banana-boat-song",
       song: "The Banana Boat Song",
-      place: "Caribbean",
+      place: "Karibia",
       point: { latitude: 18.1, longitude: -77.3 },
       photos: [
         {
           src: "assets/photos/02-caribbean-1.jpg",
-          alt: "Aerial view of Santa Barbara beach in Curacao",
+          alt: "Luftfoto av Santa Barbara-stranden på Curaçao",
           credit: "dronepicr",
           license: "CC BY 2.0",
           source:
@@ -49,7 +49,7 @@ window.CONCERT_CONFIG = {
         },
         {
           src: "assets/photos/02-caribbean-2.jpg",
-          alt: "Maho Beach on the Caribbean island of Saint Martin",
+          alt: "Maho-stranden på den karibiske øya Saint Martin",
           credit: "alljengi",
           license: "CC BY-SA 2.0",
           source:
@@ -57,7 +57,7 @@ window.CONCERT_CONFIG = {
         },
         {
           src: "assets/photos/02-caribbean-3.jpg",
-          alt: "Dunn's River Falls in Jamaica",
+          alt: "Dunn's River Falls på Jamaica",
           credit: "Dr. Thomas Liptak",
           license: "CC BY-SA 4.0",
           source:
@@ -68,12 +68,12 @@ window.CONCERT_CONFIG = {
     {
       id: "portias-slottsorkester",
       song: "Portias slottsorkester",
-      place: "Ireland",
+      place: "Irland",
       point: { latitude: 53.4, longitude: -8.2 },
       photos: [
         {
           src: "assets/photos/03-ireland-1.jpg",
-          alt: "Cliffs of Moher and O'Brien's Tower",
+          alt: "Cliffs of Moher og O'Brien's Tower",
           credit: "Berthold Werner",
           license: "CC BY-SA 4.0",
           source:
@@ -81,7 +81,7 @@ window.CONCERT_CONFIG = {
         },
         {
           src: "assets/photos/03-ireland-2.jpg",
-          alt: "Dingle Lighthouse above the coast",
+          alt: "Dingle fyr over kysten",
           credit: "Superbass",
           license: "CC BY-SA 4.0",
           source:
@@ -89,7 +89,7 @@ window.CONCERT_CONFIG = {
         },
         {
           src: "assets/photos/03-ireland-3.jpg",
-          alt: "Rocky shoreline on the north coast of Valentia Island",
+          alt: "Steinete kystlinje på nordkysten av Valentia Island",
           credit: "Rauenstein",
           license: "CC BY-SA 3.0",
           source:
@@ -105,7 +105,7 @@ window.CONCERT_CONFIG = {
       photos: [
         {
           src: "assets/photos/04-norge-1.jpg",
-          alt: "Lyngen fjord beneath the mountains",
+          alt: "Lyngenfjorden under fjellene",
           credit: "Ximonic (Simo Rasanen)",
           license: "CC BY-SA 3.0",
           source:
@@ -113,7 +113,7 @@ window.CONCERT_CONFIG = {
         },
         {
           src: "assets/photos/04-norge-2.jpg",
-          alt: "The fishing village of Reine in the Lofoten Islands",
+          alt: "Fiskeværet Reine i Lofoten",
           credit: "Ximonic (Simo Rasanen)",
           license: "CC BY-SA 3.0",
           source:
@@ -121,7 +121,7 @@ window.CONCERT_CONFIG = {
         },
         {
           src: "assets/photos/04-norge-3.jpg",
-          alt: "View across Geirangerfjord from Ornesvingen",
+          alt: "Utsikt over Geirangerfjorden fra Ørnesvingen",
           credit: "Ximonic (Simo Rasanen)",
           license: "CC BY-SA 3.0",
           source:
@@ -132,12 +132,12 @@ window.CONCERT_CONFIG = {
     {
       id: "copacabana",
       song: "Copacabana",
-      place: "Brazil",
+      place: "Brasil",
       point: { latitude: -10, longitude: -52 },
       photos: [
         {
           src: "assets/photos/05-brazil-1.jpg",
-          alt: "Rio de Janeiro and Sugarloaf Mountain at sunset",
+          alt: "Rio de Janeiro og Sukkertoppen ved solnedgang",
           credit: "Wilfredor",
           license: "CC0",
           source:
@@ -145,7 +145,7 @@ window.CONCERT_CONFIG = {
         },
         {
           src: "assets/photos/05-brazil-2.jpg",
-          alt: "Sunrise over Rio de Janeiro and Sugarloaf Mountain",
+          alt: "Soloppgang over Rio de Janeiro og Sukkertoppen",
           credit: "Donatas Dabravolskas",
           license: "CC BY-SA 4.0",
           source:
@@ -153,7 +153,7 @@ window.CONCERT_CONFIG = {
         },
         {
           src: "assets/photos/05-brazil-3.jpg",
-          alt: "Mountain peaks in Serra dos Orgaos National Park",
+          alt: "Fjelltopper i Serra dos Órgãos nasjonalpark",
           credit: "Carlos Perez Couto",
           license: "CC BY-SA 3.0",
           source:
@@ -164,12 +164,12 @@ window.CONCERT_CONFIG = {
     {
       id: "copenhagen-steam-railway-galop",
       song: "Copenhagen Steam Railway Galop",
-      place: "Denmark",
+      place: "Danmark",
       point: { latitude: 55.7, longitude: 9.5 },
       photos: [
         {
           src: "assets/photos/06-denmark-1.jpg",
-          alt: "Copenhagen's Nyhavn harbor at sunset",
+          alt: "Nyhavn i København ved solnedgang",
           credit: "Moahim",
           license: "CC BY-SA 4.0",
           source:
@@ -177,7 +177,7 @@ window.CONCERT_CONFIG = {
         },
         {
           src: "assets/photos/06-denmark-2.jpg",
-          alt: "A Danish heritage steam locomotive at Grasted",
+          alt: "Dansk veterandamplokomotiv ved Græsted",
           credit: "Leif Jorgensen",
           license: "CC BY-SA 4.0",
           source:
@@ -185,7 +185,7 @@ window.CONCERT_CONFIG = {
         },
         {
           src: "assets/photos/06-denmark-3.jpg",
-          alt: "Peblinge Lake in Copenhagen",
+          alt: "Peblingesjøen i København",
           credit: "Dietmar Rabich",
           license: "CC BY-SA 4.0",
           source:
@@ -196,12 +196,12 @@ window.CONCERT_CONFIG = {
     {
       id: "monterosi",
       song: "Monterosi",
-      place: "Italy",
+      place: "Italia",
       point: { latitude: 42.8, longitude: 12.5 },
       photos: [
         {
           src: "assets/photos/07-italy-1.jpg",
-          alt: "San Giuseppe church in Monterosi, Lazio",
+          alt: "San Giuseppe-kirken i Monterosi i Lazio",
           credit: "Bjoern Christian Toerrissen",
           license: "CC BY-SA 3.0",
           source:
@@ -209,7 +209,7 @@ window.CONCERT_CONFIG = {
         },
         {
           src: "assets/photos/07-italy-2.jpg",
-          alt: "Harvested fields in the countryside near Monterosi",
+          alt: "Høstede åkre på landsbygda nær Monterosi",
           credit: "Albarubescens",
           license: "CC BY-SA 4.0",
           source:
@@ -217,7 +217,7 @@ window.CONCERT_CONFIG = {
         },
         {
           src: "assets/photos/07-italy-3.jpg",
-          alt: "Cypress-lined hills in Tuscany at sunset",
+          alt: "Åser med sypresser i Toscana ved solnedgang",
           credit: "Eric Kilby",
           license: "CC BY-SA 2.0",
           source:
@@ -228,12 +228,12 @@ window.CONCERT_CONFIG = {
     {
       id: "how-to-train-your-dragon",
       song: "How to Train Your Dragon",
-      place: "Scotland",
+      place: "Skottland",
       point: { latitude: 56.8, longitude: -4.2 },
       photos: [
         {
           src: "assets/photos/08-scotland-1.jpg",
-          alt: "Early morning view across the Scottish Highlands from Ben Lawers",
+          alt: "Tidlig morgenutsikt over Det skotske høylandet fra Ben Lawers",
           credit: "Michal Klajban",
           license: "CC BY-SA 4.0",
           source:
@@ -241,7 +241,7 @@ window.CONCERT_CONFIG = {
         },
         {
           src: "assets/photos/08-scotland-2.jpg",
-          alt: "A small loch between Beinn an Dothaidh and Beinn Dorain",
+          alt: "En liten innsjø mellom Beinn an Dothaidh og Beinn Dorain",
           credit: "Michal Klajban",
           license: "CC BY-SA 4.0",
           source:
@@ -249,7 +249,7 @@ window.CONCERT_CONFIG = {
         },
         {
           src: "assets/photos/08-scotland-3.jpg",
-          alt: "Eilean Donan Castle at sunrise",
+          alt: "Eilean Donan-slottet ved soloppgang",
           credit: "Diliff",
           license: "CC BY-SA 3.0",
           source:
@@ -265,7 +265,7 @@ window.CONCERT_CONFIG = {
       photos: [
         {
           src: "assets/photos/09-usa-1.jpg",
-          alt: "Benny Goodman with his jazz orchestra",
+          alt: "Benny Goodman med jazzorkesteret sitt",
           credit: "Hans Gerber",
           license: "CC BY-SA 4.0",
           source:
@@ -273,7 +273,7 @@ window.CONCERT_CONFIG = {
         },
         {
           src: "assets/photos/09-usa-2.jpg",
-          alt: "Billie Holiday at the Downbeat club in New York",
+          alt: "Billie Holiday på klubben Downbeat i New York",
           credit: "William P. Gottlieb",
           license: "Public domain",
           source:
@@ -281,7 +281,7 @@ window.CONCERT_CONFIG = {
         },
         {
           src: "assets/photos/09-usa-3.jpg",
-          alt: "Leonard Bernstein and Benny Goodman in rehearsal",
+          alt: "Leonard Bernstein og Benny Goodman under en prøve",
           credit: "William P. Gottlieb",
           license: "Public domain",
           source:

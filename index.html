@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="en">
+<html lang="nb">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#101817">
-    <title>Concert Journey</title>
+    <title>Konsertreisen</title>
     <link rel="stylesheet" href="style.css">
     <script defer src="slides.js"></script>
     <script defer src="app.js"></script>
@@ -17,7 +17,7 @@
 
       <section class="travel-overlay" id="travel-overlay" aria-hidden="true">
         <div class="travel-header">
-          <p class="travel-kicker">IN TRANSIT</p>
+          <p class="travel-kicker">PÅ REISE</p>
           <p class="travel-route-label" id="travel-route-label"></p>
         </div>
         <div class="map-frame">
@@ -51,15 +51,15 @@
             </g>
           </svg>
         </div>
-        <p class="travel-caption">The route follows the current show order.</p>
+        <p class="travel-caption">Ruten følger rekkefølgen på sangene.</p>
       </section>
 
       <header class="topbar">
-        <p class="project-mark">CONCERT JOURNEY</p>
+        <p class="project-mark">KONSERTREISEN</p>
         <div class="topbar-right">
           <p class="slide-count" id="slide-count" aria-live="polite"></p>
           <button class="fullscreen-button" id="fullscreen-button" type="button">
-            Fullscreen
+            Fullskjerm
           </button>
         </div>
       </header>
@@ -70,19 +70,20 @@
         <p class="photo-status" id="photo-status" hidden></p>
       </section>
 
-      <nav class="controls" aria-label="Slideshow controls">
-        <button id="previous-button" type="button" aria-label="Previous song">
+      <nav class="controls" aria-label="Kontroller for lysbildefremvisningen">
+        <button id="previous-button" type="button" aria-label="Forrige sang">
           <span aria-hidden="true">&larr;</span>
         </button>
-        <button id="next-button" type="button" aria-label="Next song">
+        <button id="next-button" type="button" aria-label="Neste sang">
           <span aria-hidden="true">&rarr;</span>
         </button>
       </nav>
 
       <footer class="key-hint">
-        <span><kbd>&larr;</kbd> Previous</span>
-        <span><kbd>Space</kbd> or <kbd>&rarr;</kbd> Next</span>
-        <span><kbd>F</kbd> Fullscreen</span>
+        <span><kbd>&larr;</kbd> Forrige</span>
+        <span><kbd>Mellomrom</kbd> eller <kbd>&rarr;</kbd> Neste</span>
+        <span><kbd>F</kbd> Fullskjerm</span>
+        <span><kbd>H</kbd> Skjul/vis kontroller</span>
       </footer>
     </main>
   </body>
