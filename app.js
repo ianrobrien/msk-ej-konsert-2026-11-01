@@ -22,12 +22,46 @@
     document.getElementById("photo-a"),
     document.getElementById("photo-b"),
   ];
+  // Robinson projection scale factors at five-degree latitude intervals.
+  const robinsonX = [
+    1, 0.9986, 0.9954, 0.99, 0.9822, 0.973, 0.96, 0.9427, 0.9216,
+    0.8962, 0.8679, 0.835, 0.7986, 0.7597, 0.7186, 0.6732, 0.6213,
+    0.5722, 0.5322,
+  ];
+  const robinsonY = [
+    0, 0.062, 0.124, 0.186, 0.248, 0.31, 0.372, 0.434, 0.4958, 0.5571,
+    0.6176, 0.6769, 0.7346, 0.7903, 0.8435, 0.8936, 0.9394, 0.9761, 1,
+  ];
   const mapProjection = {
     width: 1200,
-    height: 500,
+    height: 600,
     northLatitude: 90,
     southLatitude: -60,
+    xFactor: 0.8487,
+    yFactor: 1.3523,
   };
+
+  function interpolateRobinson(values, latitude) {
+    const position = Math.min(Math.abs(latitude) / 5, values.length - 1);
+    const lower = Math.floor(position);
+    const upper = Math.min(lower + 1, values.length - 1);
+    const fraction = position - lower;
+
+    return values[lower] + (values[upper] - values[lower]) * fraction;
+  }
+
+  const projectionScale = mapProjection.width /
+    (2 * mapProjection.xFactor * Math.PI);
+  const projectionTop = mapProjection.yFactor *
+    interpolateRobinson(robinsonY, mapProjection.northLatitude);
+  const projectionBottom =
+    Math.sign(mapProjection.southLatitude) *
+    mapProjection.yFactor *
+    interpolateRobinson(robinsonY, mapProjection.southLatitude);
+  const projectionTopMargin =
+    (mapProjection.height -
+      (projectionTop - projectionBottom) * projectionScale) /
+    2;
 
   if (!config || !Array.isArray(config.slides) || config.slides.length === 0) {
     photoStatusElement.hidden = false;
@@ -148,23 +182,23 @@
   }
 
   function project(point) {
+    const xScale = interpolateRobinson(robinsonX, point.latitude);
+    const yScale = interpolateRobinson(robinsonY, point.latitude);
+    const longitudeRadians = point.longitude * (Math.PI / 180);
+    const projectedNorthing = Math.sign(point.latitude) *
+      mapProjection.yFactor * yScale;
+
     return {
-      x: ((point.longitude + 180) / 360) * mapProjection.width,
-      y: (
-        (mapProjection.northLatitude - point.latitude) /
-        (mapProjection.northLatitude - mapProjection.southLatitude)
-      ) * mapProjection.height,
+      x: mapProjection.width / 2 +
+        mapProjection.xFactor * longitudeRadians * xScale * projectionScale,
+      y: projectionTopMargin +
+        (projectionTop - projectedNorthing) * projectionScale,
     };
   }
 
   function animateFlight(fromPoint, toPoint, flight, onComplete) {
     const start = project(fromPoint);
-    const longitudeDelta =
-      ((toPoint.longitude - fromPoint.longitude + 540) % 360) - 180;
-    const end = {
-      x: start.x + (longitudeDelta / 360) * mapProjection.width,
-      y: project(toPoint).y,
-    };
+    const end = project(toPoint);
     const distance = Math.hypot(end.x - start.x, end.y - start.y);
     const control = {
       x: (start.x + end.x) / 2,

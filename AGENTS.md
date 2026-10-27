@@ -41,9 +41,9 @@ documentation in English.
   transitions. Keep text and controls legible on a large screen.
 - `assets/photos/` contains the locally bundled photographs.
   `assets/world-map.svg` is the map used by the flight animation, based on the
-  public-domain Natural Earth 1:110m land dataset. Its 1200x500 equirectangular
-  viewBox is cropped at 60 degrees south; keep it aligned with the route
-  projection in `app.js`.
+  public-domain Natural Earth 1:110m land dataset. It uses the Robinson
+  projection in a 1200x600 viewBox, cropped at 60 degrees south. Keep it
+  aligned with the route projection in `app.js`.
 
 ## Changing songs, places, or photos
 

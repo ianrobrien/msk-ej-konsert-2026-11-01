@@ -46,5 +46,5 @@ the route animation duration.
 
 The vintage-style route map uses the public-domain
 [Natural Earth 1:110m land dataset](https://www.naturalearthdata.com/). Its
-1200x500 equirectangular viewBox is cropped at 60 degrees south and matches the
-flight-route coordinates.
+1200x600 Robinson-projection viewBox is cropped at 60 degrees south and matches
+the flight-route coordinates.
