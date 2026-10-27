@@ -9,7 +9,9 @@
   const photoCreditLabelElement = document.getElementById("photo-credit-label");
   const photoCreditSourceElement = document.getElementById("photo-credit-source");
   const travelOverlay = document.getElementById("travel-overlay");
+  const travelKickerElement = document.getElementById("travel-kicker");
   const travelRouteLabel = document.getElementById("travel-route-label");
+  const travelCaptionElement = document.getElementById("travel-caption");
   const routeDots = document.getElementById("route-dots");
   const routeActive = document.getElementById("route-active");
   const routeOrigin = document.getElementById("route-origin");
@@ -33,6 +35,9 @@
   let imageLoadToken = 0;
   let photoTimer;
   let isTransitioning = false;
+  let isWaitingForPhotos = false;
+  let lastFlightOriginIndex = null;
+  let activeFlight = null;
 
   function renderPhotoCredit(photo) {
     photoCreditElement.hidden = false;
@@ -83,17 +88,27 @@
     nextLayer.src = photo.src;
   }
 
+  function hideTravelOverlay() {
+    travelOverlay.classList.remove("is-active");
+    travelOverlay.setAttribute("aria-hidden", "true");
+  }
+
   function renderSlide() {
     window.clearInterval(photoTimer);
     imageLoadToken += 1;
     photoCreditElement.hidden = true;
+    isWaitingForPhotos = false;
+    hideTravelOverlay();
 
     const slide = config.slides[slideIndex];
     const slideNumber = String(slideIndex + 1).padStart(2, "0");
     const totalSlides = String(config.slides.length).padStart(2, "0");
 
-    placeElement.textContent = slide.place;
-    songElement.textContent = slide.song;
+    placeElement.textContent = slide.place || "";
+    placeElement.hidden = !slide.place;
+    songElement.textContent = slide.type === "interstitial"
+      ? slide.title
+      : slide.song;
     slideCountElement.textContent = `${slideNumber} / ${totalSlides}`;
     stage.classList.toggle("has-photos", slide.photos.length > 0);
 
@@ -103,6 +118,11 @@
     });
     visibleLayerIndex = 0;
     photoIndex = 0;
+
+    if (slide.type === "interstitial") {
+      photoStatusElement.hidden = true;
+      return;
+    }
 
     if (slide.photos.length === 0) {
       photoStatusElement.hidden = false;
@@ -127,7 +147,7 @@
     };
   }
 
-  function animateFlight(fromPoint, toPoint, onComplete) {
+  function animateFlight(fromPoint, toPoint, flight, onComplete) {
     const start = project(fromPoint);
     const longitudeDelta =
       ((toPoint.longitude - fromPoint.longitude + 540) % 360) - 180;
@@ -156,10 +176,12 @@
     const reducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
-    const duration = reducedMotion ? 1 : 2400;
+    const duration = reducedMotion ? 1 : (config.flightDurationMs ?? 60_000);
     let startTime;
 
     function frame(timestamp) {
+      if (activeFlight !== flight) return;
+
       if (startTime === undefined) startTime = timestamp;
       const progress = Math.min((timestamp - startTime) / duration, 1);
       const eased = 1 - (1 - progress) ** 3;
@@ -179,50 +201,139 @@
       );
 
       if (progress < 1) {
-        window.requestAnimationFrame(frame);
+        flight.frameId = window.requestAnimationFrame(frame);
       } else {
+        flight.frameId = null;
         onComplete();
       }
     }
 
-    window.requestAnimationFrame(frame);
+    flight.frameId = window.requestAnimationFrame(frame);
+  }
+
+  function findSongIndex(startIndex, direction) {
+    for (
+      let index = startIndex;
+      index >= 0 && index < config.slides.length;
+      index += direction
+    ) {
+      if (config.slides[index].type !== "interstitial") return index;
+    }
+
+    return -1;
+  }
+
+  function startFlight(fromIndex, toIndex) {
+    const fromSlide = config.slides[fromIndex];
+    const toSlide = config.slides[toIndex];
+    if (!fromSlide.point || !toSlide.point) {
+      console.error(
+        "A song is missing its map point; showing it without a route.",
+      );
+      slideIndex = toIndex;
+      renderSlide();
+      return;
+    }
+
+    window.clearInterval(photoTimer);
+    const flight = { fromIndex, toIndex, frameId: null };
+    activeFlight = flight;
+    isWaitingForPhotos = false;
+    isTransitioning = true;
+    travelKickerElement.textContent = "PÅ REISE";
+    travelCaptionElement.textContent =
+      "Trykk høyre pil eller mellomrom for neste land, eller venstre pil for forrige.";
+    travelRouteLabel.textContent =
+      `${fromSlide.place}  \u2192  ${toSlide.place}`;
+    travelOverlay.classList.add("is-active");
+    travelOverlay.setAttribute("aria-hidden", "false");
+
+    flight.frameId = window.requestAnimationFrame(() => {
+      if (activeFlight !== flight) return;
+      flight.frameId = null;
+      animateFlight(fromSlide.point, toSlide.point, flight, () => {
+        activeFlight = null;
+        slideIndex = toIndex;
+        lastFlightOriginIndex = fromIndex;
+        isTransitioning = false;
+        isWaitingForPhotos = true;
+        travelKickerElement.textContent = "ANKOMMET";
+        travelCaptionElement.textContent =
+          `${toSlide.song} · Trykk høyre pil eller mellomrom for å vise bildene.`;
+      });
+    });
+  }
+
+  function cancelFlightAndShowSlide(index) {
+    if (!activeFlight) return;
+
+    if (activeFlight.frameId !== null) {
+      window.cancelAnimationFrame(activeFlight.frameId);
+    }
+
+    activeFlight = null;
+    isTransitioning = false;
+    lastFlightOriginIndex = null;
+    slideIndex = index;
+    renderSlide();
+  }
+
+  function cancelFlightToNextCountry() {
+    if (!activeFlight) return;
+
+    const nextIndex = Math.max(activeFlight.fromIndex, activeFlight.toIndex);
+    cancelFlightAndShowSlide(nextIndex);
+  }
+
+  function cancelFlightToPreviousCountry() {
+    if (!activeFlight) return;
+
+    const previousIndex = Math.min(activeFlight.fromIndex, activeFlight.toIndex);
+    cancelFlightAndShowSlide(previousIndex);
   }
 
   function moveSlide(direction) {
-    if (isTransitioning) return;
+    if (isTransitioning) {
+      if (direction > 0) cancelFlightToNextCountry();
+      else cancelFlightToPreviousCountry();
+      return;
+    }
+
+    if (isWaitingForPhotos) {
+      if (direction > 0) {
+        renderSlide();
+      } else if (lastFlightOriginIndex !== null) {
+        startFlight(slideIndex, lastFlightOriginIndex);
+      }
+      return;
+    }
 
     const nextIndex = slideIndex + direction;
     if (nextIndex < 0 || nextIndex >= config.slides.length) return;
 
     const currentSlide = config.slides[slideIndex];
     const nextSlide = config.slides[nextIndex];
-    if (!currentSlide.point || !nextSlide.point) {
-      console.error("A slide is missing its map point; showing it without a route.");
-      slideIndex = nextIndex;
-      renderSlide();
+
+    if (
+      currentSlide.type === "interstitial" &&
+      currentSlide.id === "pause" &&
+      nextSlide.type !== "interstitial"
+    ) {
+      const originIndex = findSongIndex(slideIndex - direction, -direction);
+      if (originIndex !== -1) {
+        startFlight(originIndex, nextIndex);
+        return;
+      }
+    } else if (
+      currentSlide.type !== "interstitial" &&
+      nextSlide.type !== "interstitial"
+    ) {
+      startFlight(slideIndex, nextIndex);
       return;
     }
 
-    window.clearInterval(photoTimer);
-    isTransitioning = true;
-    travelRouteLabel.textContent =
-      `${currentSlide.place}  \u2192  ${nextSlide.place}`;
-    travelOverlay.classList.add("is-active");
-    travelOverlay.setAttribute("aria-hidden", "false");
-
-    window.requestAnimationFrame(() => {
-      animateFlight(currentSlide.point, nextSlide.point, () => {
-        window.setTimeout(() => {
-          slideIndex = nextIndex;
-          renderSlide();
-          travelOverlay.classList.remove("is-active");
-          travelOverlay.setAttribute("aria-hidden", "true");
-          window.setTimeout(() => {
-            isTransitioning = false;
-          }, 500);
-        }, 200);
-      });
-    });
+    slideIndex = nextIndex;
+    renderSlide();
   }
 
   async function toggleFullscreen() {
@@ -253,7 +364,7 @@
   window.addEventListener("keydown", (event) => {
     if (event.key === "ArrowRight" || event.code === "Space") {
       event.preventDefault();
-      moveSlide(1);
+      if (!event.repeat) moveSlide(1);
     } else if (event.key === "ArrowLeft") {
       event.preventDefault();
       moveSlide(-1);

@@ -1,6 +1,13 @@
 window.CONCERT_CONFIG = {
   photoIntervalMs: 60_000,
+  flightDurationMs: 60_000,
   slides: [
+    {
+      id: "start",
+      type: "interstitial",
+      title: "Velkommen",
+      photos: [],
+    },
     {
       id: "african-symphony",
       song: "African Symphony",
@@ -162,6 +169,12 @@ window.CONCERT_CONFIG = {
       ],
     },
     {
+      id: "pause",
+      type: "interstitial",
+      title: "Pause",
+      photos: [],
+    },
+    {
       id: "copenhagen-steam-railway-galop",
       song: "Copenhagen Steam Railway Galop",
       place: "Danmark",
@@ -288,6 +301,12 @@ window.CONCERT_CONFIG = {
             "https://commons.wikimedia.org/wiki/File:Leonard_Bernstein_and_Benny_Goodman_in_rehearsal.jpg",
         },
       ],
+    },
+    {
+      id: "finish",
+      type: "interstitial",
+      title: "Takk for musikken",
+      photos: [],
     },
   ],
 };

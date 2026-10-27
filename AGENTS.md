@@ -3,10 +3,11 @@
 ## Project goals
 
 Concert Journey is a calm, projector-friendly visual backdrop for a live concert.
-The current show has nine song-and-place stops, each with three photographs. Photos
-rotate about once a minute, while the operator advances between songs manually
-because performance timings are not predictable. A short animated plane route
-connects adjacent stops.
+The current show has nine song-and-place stops, each with three photographs,
+framed by welcome, pause, and closing cards. Photos rotate about once a minute.
+The operator advances manually because performance timings are not predictable;
+plane routes between song stops take 60 seconds and wait for confirmation before
+the destination photos start.
 
 Keep the presentation simple and readable from a distance. Song changes must
 remain manual; only photos rotate automatically. The song order and number of
@@ -28,11 +29,14 @@ documentation in English.
   `app.js` with `defer`; preserve that order because the app reads the config
   during initialization.
 - `slides.js` defines `window.CONCERT_CONFIG`, the source of truth for photo
-  timing and the ordered slide data. Each slide has an `id`, `song`, `place`,
-  geographic `point`, and `photos`.
+  timing, flight duration, and ordered slide data. Song slides have an `id`,
+  `song`, `place`, geographic `point`, and `photos`. Interstitial slides use
+  `type: "interstitial"`, an `id`, a Norwegian `title`, and an empty `photos`
+  array.
 - `app.js` renders the configured slides, crossfades photos between two image
-  layers, handles keyboard and button controls, toggles fullscreen, and animates
-  the route between neighboring slide coordinates.
+  layers, handles keyboard and button controls, toggles fullscreen, animates
+  routes between song stops, and waits for a manual keypress after arrival
+  before starting the destination photo loop.
 - `style.css` contains the presentation layout, typography, and visual
   transitions. Keep text and controls legible on a large screen.
 - `assets/photos/` contains the locally bundled photographs.
@@ -43,6 +47,8 @@ documentation in English.
 
 - Reorder the complete slide objects in `slides.js`. The route is calculated
   from the current array order; do not maintain a separate route sequence.
+  Interstitial cards remain part of the show order. A pause card between two
+  songs does not split their geographic route.
 - Keep each `id` unique. Coordinates use decimal-degree `latitude` and
   `longitude`; they determine the map position and route.
 - Store slideshow images locally and use relative paths. For each photo, keep
@@ -53,14 +59,21 @@ documentation in English.
   exact license, and a link to its source. Keep that credit visible when `H`
   hides controls.
 - `photoIntervalMs` is measured in milliseconds; the current value is 60 seconds.
-  Do not add automatic song advancement.
+  `flightDurationMs` is measured in milliseconds; the current value is 60
+  seconds. Do not add automatic song or photo-start advancement.
 - Keep asset URLs relative so the slideshow works both when opened locally and
   when hosted under a GitHub Pages project path.
 
 ## Controls and behavior to preserve
 
-- `Space` or `Right Arrow`, and the on-screen right arrow, advance one song.
-- `Left Arrow` and the on-screen left arrow go back one song.
+- `Space` or `Right Arrow`, and the on-screen right arrow, advance to the next
+  card or song. A song-to-song change starts the route; pressing again during
+  the flight cancels it and shows the next country's photos, while waiting for
+  arrival requires a separate press to start them. The welcome card starts the
+  first song directly, and the pause card starts the route to the next song.
+- `Left Arrow` and the on-screen left arrow go back one card or song. During a
+  flight, Left cancels it and shows the previous country's photos. Song routes
+  otherwise animate in reverse, and arrival waits for a press before photos.
 - `F` and the Fullscreen button toggle fullscreen.
 - `H` hides or shows the slide number, fullscreen button, navigation arrows, and
   keyboard hints. Keep the project mark, current song, and place visible. The

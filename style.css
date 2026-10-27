@@ -321,11 +321,10 @@ button {
 
 .travel-caption {
   margin: 0;
-  color: rgb(244 240 231 / 52%);
-  font-size: 0.66rem;
-  letter-spacing: 0.14em;
-  text-align: right;
-  text-transform: uppercase;
+  color: rgb(244 240 231 / 72%);
+  font-size: clamp(0.72rem, 0.9vw, 0.9rem);
+  letter-spacing: 0.02em;
+  text-align: center;
 }
 
 .controls {
@@ -423,10 +422,13 @@ kbd {
     width: 86vw;
   }
 
-  .travel-kicker,
-  .travel-caption {
+  .travel-kicker {
     font-size: 0.5rem;
     letter-spacing: 0.1em;
+  }
+
+  .travel-caption {
+    font-size: 0.7rem;
   }
 
   .song {
