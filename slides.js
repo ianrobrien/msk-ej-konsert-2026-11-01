@@ -1,3 +1,8 @@
+const norwayLocation = {
+  place: "Norge",
+  point: { latitude: 61.5, longitude: 8.5 },
+};
+
 window.CONCERT_CONFIG = {
   photoIntervalMs: 60_000,
   flightDurationMs: 60_000,
@@ -6,6 +11,8 @@ window.CONCERT_CONFIG = {
       id: "start",
       type: "interstitial",
       title: "Velkommen",
+      routeToNextSong: true,
+      routeOrigin: norwayLocation,
       photos: [],
     },
     {
@@ -112,7 +119,7 @@ window.CONCERT_CONFIG = {
       id: "bruremarsj",
       song: "Bruremarsj",
       place: "Norge",
-      point: { latitude: 61.5, longitude: 8.5 },
+      point: norwayLocation.point,
       photos: [
         {
           src: "assets/photos/04-norge-1.jpg",

@@ -374,9 +374,11 @@
   function startFlight(fromIndex, toIndex) {
     const fromSlide = config.slides[fromIndex];
     const toSlide = config.slides[toIndex];
-    if (!fromSlide.point || !toSlide.point) {
+    const fromLocation = fromSlide.routeOrigin ?? fromSlide;
+    const toLocation = toSlide.routeOrigin ?? toSlide;
+    if (!fromLocation.point || !toLocation.point) {
       console.error(
-        "A song is missing its map point; showing it without a route.",
+        "A route endpoint is missing its map point; showing the destination without a route.",
       );
       slideIndex = toIndex;
       renderSlide();
@@ -397,22 +399,24 @@
     travelCaptionElement.textContent =
       "Trykk høyre pil eller mellomrom for neste land, eller venstre pil for forrige.";
     travelRouteLabel.textContent =
-      `${fromSlide.place}  \u2192  ${toSlide.place}`;
+      `${fromLocation.place}  \u2192  ${toLocation.place}`;
     travelOverlay.classList.add("is-active");
     travelOverlay.setAttribute("aria-hidden", "false");
 
     flight.frameId = window.requestAnimationFrame(() => {
       if (activeFlight !== flight) return;
       flight.frameId = null;
-      animateFlight(fromSlide.point, toSlide.point, flight, () => {
+      animateFlight(fromLocation.point, toLocation.point, flight, () => {
         activeFlight = null;
         slideIndex = toIndex;
         lastFlightOriginIndex = fromIndex;
         isTransitioning = false;
         isWaitingForPhotos = true;
         travelKickerElement.textContent = "ANKOMMET";
+        const destinationName = toSlide.song ?? toSlide.title ??
+          toLocation.place;
         travelCaptionElement.textContent =
-          `${toSlide.song} · Trykk høyre pil eller mellomrom for å vise bildene.`;
+          `${destinationName} · Trykk høyre pil eller mellomrom for å vise bildene.`;
       });
     });
   }
@@ -473,10 +477,17 @@
       nextSlide.type !== "interstitial"
     ) {
       const originIndex = findSongIndex(slideIndex - direction, -direction);
-      if (originIndex !== -1) {
-        startFlight(originIndex, nextIndex);
+      if (originIndex !== -1 || currentSlide.routeOrigin) {
+        startFlight(originIndex !== -1 ? originIndex : slideIndex, nextIndex);
         return;
       }
+    } else if (
+      currentSlide.type !== "interstitial" &&
+      nextSlide.type === "interstitial" &&
+      nextSlide.routeOrigin
+    ) {
+      startFlight(slideIndex, nextIndex);
+      return;
     } else if (
       currentSlide.type !== "interstitial" &&
       nextSlide.type !== "interstitial"

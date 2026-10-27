@@ -5,9 +5,10 @@
 Concert Journey is a calm, projector-friendly visual backdrop for a live concert.
 The current show has nine song-and-place stops, each with three photographs,
 framed by welcome, pause, and closing cards. Photos rotate about once a minute.
-The operator advances manually because performance timings are not predictable;
-plane routes between song stops take 60 seconds and wait for confirmation before
-the destination photos start.
+The operator advances manually because performance timings are not predictable.
+The show begins with a 60-second flight from Norway to the first song; route
+animations between song stops also take 60 seconds and wait for confirmation
+before the destination photos start.
 
 Keep the presentation simple and readable from a distance. Song changes must
 remain manual; only photos rotate automatically. The song order and number of
@@ -32,7 +33,8 @@ documentation in English.
   timing, flight duration, and ordered slide data. Song slides have an `id`,
   `song`, `place`, geographic `point`, and `photos`. Interstitial slides use
   `type: "interstitial"`, an `id`, a Norwegian `title`, and an empty `photos`
-  array.
+  array. The welcome slide can define `routeOrigin`; interstitials can set
+  `routeToNextSong` to connect the previous and next song stops.
 - `app.js` renders the configured slides, crossfades photos between two image
   layers, handles keyboard and button controls, toggles fullscreen, animates
   routes between song stops, and waits for a manual keypress after arrival
@@ -71,8 +73,9 @@ documentation in English.
 - `Space` or `Right Arrow`, and the on-screen right arrow, advance to the next
   card or song. A song-to-song change starts the route; pressing again during
   the flight cancels it and shows the next country's photos, while waiting for
-  arrival requires a separate press to start them. The welcome card starts the
-  first song directly, and the pause card starts the route to the next song.
+  arrival requires a separate press to start them. The welcome card starts a
+  route from Norway to the first song; interstitials with `routeToNextSong`
+  start the route between the surrounding song stops.
 - `Left Arrow` and the on-screen left arrow go back one card or song. During a
   flight, Left cancels it and shows the previous country's photos. Song routes
   otherwise animate in reverse, and arrival waits for a press before photos.

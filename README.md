@@ -26,16 +26,18 @@ Open `index.html` in a browser and use the Fullscreen button.
   keyboard hints; the project title and current song/place stay visible
 - The on-screen arrows are also clickable
 
-The show starts with `Velkommen`, has a `Pause` card between Brazil and Denmark,
-and ends with `Takk for musikken`. The first song starts directly from the
-welcome card; photos do not start automatically after a flight.
+The show starts with `Velkommen`, followed by a flight from Norway to the first
+song. A `Pause` and `Innslag med rekrutter/aspiranter` card sit between Brazil
+and Denmark, and the show ends with `Takk for musikken`. Photos wait for a
+keypress after each flight.
 
 ## Songs, order, and photos
 
 `slides.js` is the single source of truth for the show. Move a whole slide object
 to change the order. Interstitial cards use `type: "interstitial"` and a
-Norwegian `title`; song slides keep their geographic point and photos. The plane
-route is recalculated from the ordered song slides automatically.
+Norwegian `title`; song slides keep their geographic point and photos. Routes
+between songs follow their order, and the welcome card's configured
+Norwegian origin determines the opening flight.
 
 Each song slide has three local photographs in `assets/photos`; replace a file
 or edit its `photos` array to change an image. Photo credits and source links are
