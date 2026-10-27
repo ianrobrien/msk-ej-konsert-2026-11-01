@@ -89,6 +89,41 @@ button {
     linear-gradient(0deg, rgb(9 15 14 / 78%) 0%, transparent 26%, transparent 72%, rgb(9 15 14 / 35%) 100%);
 }
 
+.photo-credit {
+  position: absolute;
+  z-index: 1;
+  bottom: clamp(26px, 5vh, 54px);
+  left: clamp(28px, 6vw, 88px);
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.4em;
+  max-width: min(70vw, 900px);
+  margin: 0;
+  padding: 7px 10px;
+  border: 1px solid rgb(244 240 231 / 14%);
+  border-radius: 2px;
+  background: rgb(16 24 23 / 72%);
+  color: rgb(244 240 231 / 86%);
+  font-size: clamp(0.58rem, 0.72vw, 0.74rem);
+  line-height: 1.4;
+  letter-spacing: 0.03em;
+}
+
+.photo-credit[hidden] {
+  display: none;
+}
+
+.photo-credit a {
+  color: #e8c982;
+  text-underline-offset: 0.18em;
+}
+
+.photo-credit a:focus-visible {
+  outline: 2px solid #e8c982;
+  outline-offset: 3px;
+}
+
 .stage.has-photos::before,
 .stage.has-photos::after {
   opacity: 0;
@@ -412,6 +447,13 @@ kbd {
     justify-content: flex-end;
     font-size: 0.5rem;
     letter-spacing: 0.04em;
+  }
+
+  .photo-credit {
+    bottom: 86px;
+    left: 7vw;
+    max-width: 60vw;
+    font-size: 0.54rem;
   }
 }
 

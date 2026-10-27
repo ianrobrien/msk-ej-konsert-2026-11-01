@@ -18,7 +18,7 @@ window.CONCERT_CONFIG = {
         {
           src: "assets/photos/01-africa-2.jpg",
           alt: "Akasiatre på Serengeti-gresslettene",
-          credit: "Bjoern Christian Toerrissen",
+          credit: "Bjørn Christian Tørrissen",
           license: "CC BY-SA 3.0",
           source:
             "https://commons.wikimedia.org/wiki/File:Serengeti-Landscape-2012.JPG",
@@ -106,7 +106,7 @@ window.CONCERT_CONFIG = {
         {
           src: "assets/photos/04-norge-1.jpg",
           alt: "Lyngenfjorden under fjellene",
-          credit: "Ximonic (Simo Rasanen)",
+          credit: "Ximonic (Simo Räsänen)",
           license: "CC BY-SA 3.0",
           source:
             "https://commons.wikimedia.org/wiki/File:At_Lyngen_fjord,_Sp%C3%A5kenes_in_2012_June.jpg",
@@ -114,7 +114,7 @@ window.CONCERT_CONFIG = {
         {
           src: "assets/photos/04-norge-2.jpg",
           alt: "Fiskeværet Reine i Lofoten",
-          credit: "Ximonic (Simo Rasanen)",
+          credit: "Ximonic (Simo Räsänen)",
           license: "CC BY-SA 3.0",
           source:
             "https://commons.wikimedia.org/wiki/File:Reine_in_Lofoten,_Norway,_2012_October.jpg",
@@ -122,7 +122,7 @@ window.CONCERT_CONFIG = {
         {
           src: "assets/photos/04-norge-3.jpg",
           alt: "Utsikt over Geirangerfjorden fra Ørnesvingen",
-          credit: "Ximonic (Simo Rasanen)",
+          credit: "Ximonic (Simo Räsänen)",
           license: "CC BY-SA 3.0",
           source:
             "https://commons.wikimedia.org/wiki/File:Geirangerfjord_from_%C3%98rnesvingen,_2013_June.jpg",
@@ -178,7 +178,7 @@ window.CONCERT_CONFIG = {
         {
           src: "assets/photos/06-denmark-2.jpg",
           alt: "Dansk veterandamplokomotiv ved Græsted",
-          credit: "Leif Jorgensen",
+          credit: "Leif Jørgensen",
           license: "CC BY-SA 4.0",
           source:
             "https://commons.wikimedia.org/wiki/File:Steam_train_at_Gr%C3%A6sted_Veterantr%C3%A6f_2017.jpg",
@@ -202,7 +202,7 @@ window.CONCERT_CONFIG = {
         {
           src: "assets/photos/07-italy-1.jpg",
           alt: "San Giuseppe-kirken i Monterosi i Lazio",
-          credit: "Bjoern Christian Toerrissen",
+          credit: "Bjørn Christian Tørrissen",
           license: "CC BY-SA 3.0",
           source:
             "https://commons.wikimedia.org/wiki/File:Monterosi-Chiesa-San-Giuseppe-2012.JPG",

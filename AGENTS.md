@@ -49,6 +49,9 @@ documentation in English.
   useful `alt` text and its `credit`, `license`, and `source` in the slide data.
   Update `PHOTO_CREDITS.md` whenever photos change. The optional `position` field
   can set the image's CSS `object-position`.
+- Show a small credit for the currently visible photo with the photographer,
+  exact license, and a link to its source. Keep that credit visible when `H`
+  hides controls.
 - `photoIntervalMs` is measured in milliseconds; the current value is 60 seconds.
   Do not add automatic song advancement.
 - Keep asset URLs relative so the slideshow works both when opened locally and
@@ -70,4 +73,5 @@ documentation in English.
 Open `index.html` directly in a browser; no server or installation is required.
 There is currently no automated test runner. For changes to the presentation,
 manually check photo loading and rotation, previous/next controls, the map
-transition, fullscreen, and browser-console errors. Keep the site usable offline.
+transition, fullscreen, photo-credit updates, and browser-console errors. Verify
+credits remain visible when `H` hides controls. Keep the site usable offline.

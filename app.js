@@ -5,6 +5,9 @@
   const songElement = document.getElementById("song");
   const slideCountElement = document.getElementById("slide-count");
   const photoStatusElement = document.getElementById("photo-status");
+  const photoCreditElement = document.getElementById("photo-credit");
+  const photoCreditLabelElement = document.getElementById("photo-credit-label");
+  const photoCreditSourceElement = document.getElementById("photo-credit-source");
   const travelOverlay = document.getElementById("travel-overlay");
   const travelRouteLabel = document.getElementById("travel-route-label");
   const routeDots = document.getElementById("route-dots");
@@ -31,6 +34,24 @@
   let photoTimer;
   let isTransitioning = false;
 
+  function renderPhotoCredit(photo) {
+    photoCreditElement.hidden = false;
+    photoCreditSourceElement.hidden = true;
+
+    if (!photo.credit || !photo.license || !photo.source) {
+      photoCreditLabelElement.textContent = "Fotokreditt mangler";
+      console.error(`Incomplete photo attribution: ${photo.src}`);
+      return;
+    }
+
+    const license =
+      photo.license === "Public domain" ? "Verk i det fri" : photo.license;
+    photoCreditLabelElement.textContent =
+      `Foto: ${photo.credit} · ${license}`;
+    photoCreditSourceElement.href = photo.source;
+    photoCreditSourceElement.hidden = false;
+  }
+
   function showPhoto(index) {
     const slide = config.slides[slideIndex];
     const photo = slide.photos[index];
@@ -46,6 +67,7 @@
       visibleLayerIndex = nextLayerIndex;
       photoStatusElement.hidden = true;
       photoIndex = index;
+      renderPhotoCredit(photo);
     };
 
     nextLayer.onerror = () => {
@@ -64,6 +86,7 @@
   function renderSlide() {
     window.clearInterval(photoTimer);
     imageLoadToken += 1;
+    photoCreditElement.hidden = true;
 
     const slide = config.slides[slideIndex];
     const slideNumber = String(slideIndex + 1).padStart(2, "0");

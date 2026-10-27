@@ -24,7 +24,8 @@ route is recalculated from the new order automatically.
 
 Each slide has three local photographs in `assets/photos`; replace a file or
 edit its `photos` array to change an image. Photo credits and source links are in
-`PHOTO_CREDITS.md`. Photos cycle every 60 seconds by default; change
+`PHOTO_CREDITS.md`; the current photo's credit and source link also appear on
+screen. Photos cycle every 60 seconds by default; change
 `photoIntervalMs` in `slides.js` to adjust the interval.
 
 The route map uses the public-domain [Natural Earth 1:110m land dataset](https://www.naturalearthdata.com/).
