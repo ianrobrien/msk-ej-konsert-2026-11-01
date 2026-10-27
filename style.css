@@ -291,6 +291,11 @@ button {
   overflow: visible;
 }
 
+.route-tracks,
+.travel-train {
+  display: none;
+}
+
 .route-dots {
   stroke: rgb(112 88 60 / 62%);
   stroke-dasharray: 2 10;
@@ -301,6 +306,30 @@ button {
   stroke: #a3442e;
   stroke-width: 3;
   filter: drop-shadow(0 0 5px rgb(163 68 46 / 42%));
+}
+
+.route-track-sleepers {
+  stroke: #503a2a;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+}
+
+.route-track-rails {
+  stroke: #a3442e;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 3px rgb(244 225 190 / 75%));
+}
+
+.travel-overlay.is-train .route-active,
+.travel-overlay.is-train .flight-plane {
+  display: none;
+}
+
+.travel-overlay.is-train .route-tracks,
+.travel-overlay.is-train .travel-train {
+  display: block;
 }
 
 .route-origin {
@@ -318,6 +347,50 @@ button {
 .flight-plane {
   fill: #503a2a;
   filter: drop-shadow(0 2px 4px rgb(255 246 225 / 72%));
+}
+
+.train-smoke {
+  fill: #f4e3bf;
+  stroke: #503a2a;
+  stroke-width: 1;
+}
+
+.train-wheels circle {
+  fill: #503a2a;
+  stroke: #f5e9cf;
+  stroke-width: 1.5;
+}
+
+.train-wheels path {
+  fill: none;
+  stroke: #f5e9cf;
+  stroke-width: 1.4;
+}
+
+.train-frame,
+.train-chimney,
+.train-chimney-cap {
+  fill: #503a2a;
+}
+
+.train-cab,
+.train-boiler,
+.train-cowcatcher {
+  fill: #a3442e;
+  stroke: #503a2a;
+  stroke-width: 1.5;
+}
+
+.train-window {
+  fill: #f4e3bf;
+  stroke: #503a2a;
+  stroke-width: 1;
+}
+
+.train-lamp {
+  fill: #f4e3bf;
+  stroke: #503a2a;
+  stroke-width: 1;
 }
 
 .travel-caption {

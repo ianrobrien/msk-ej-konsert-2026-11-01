@@ -17,7 +17,10 @@
   const routeActive = document.getElementById("route-active");
   const routeOrigin = document.getElementById("route-origin");
   const routeDestination = document.getElementById("route-destination");
+  const routeTrackSleepers = document.getElementById("route-track-sleepers");
+  const routeTrackRails = document.getElementById("route-track-rails");
   const flightPlane = document.getElementById("flight-plane");
+  const travelTrain = document.getElementById("travel-train");
   const photoLayers = [
     document.getElementById("photo-a"),
     document.getElementById("photo-b"),
@@ -196,6 +199,88 @@
     };
   }
 
+  function drawRailway(pathLength, completedLength) {
+    const progressLength = Math.min(completedLength, pathLength);
+
+    function getFrame(distance) {
+      const point = routeActive.getPointAtLength(distance);
+      const before = routeActive.getPointAtLength(Math.max(0, distance - 1));
+      const after = routeActive.getPointAtLength(
+        Math.min(pathLength, distance + 1),
+      );
+      const directionX = after.x - before.x;
+      const directionY = after.y - before.y;
+      const directionLength = Math.hypot(directionX, directionY) || 1;
+
+      return {
+        point,
+        normal: {
+          x: -directionY / directionLength,
+          y: directionX / directionLength,
+        },
+      };
+    }
+
+    function formatPoint(point) {
+      return `${point.x.toFixed(1)} ${point.y.toFixed(1)}`;
+    }
+
+    const sampleCount = Math.max(1, Math.ceil(progressLength / 4));
+    const rails = progressLength > 0
+      ? [-3.5, 3.5].map((offset) => {
+        const points = Array.from({ length: sampleCount + 1 }, (_, index) => {
+          const distance = progressLength * index / sampleCount;
+          const { point, normal } = getFrame(distance);
+
+          return formatPoint({
+            x: point.x + normal.x * offset,
+            y: point.y + normal.y * offset,
+          });
+        });
+
+        return `M ${points.join(" L ")}`;
+      })
+      : [];
+    routeTrackRails.setAttribute("d", rails.join(" "));
+
+    const sleeperDistances = [];
+    for (let distance = 0; distance <= progressLength; distance += 12) {
+      sleeperDistances.push(distance);
+    }
+
+    const sleepers = sleeperDistances.map((distance) => {
+      const { point, normal } = getFrame(distance);
+      const start = {
+        x: point.x - normal.x * 8,
+        y: point.y - normal.y * 8,
+      };
+      const end = {
+        x: point.x + normal.x * 8,
+        y: point.y + normal.y * 8,
+      };
+
+      return `M ${formatPoint(start)} L ${formatPoint(end)}`;
+    });
+    routeTrackSleepers.setAttribute("d", sleepers.join(" "));
+
+    const remainingLength = pathLength - progressLength;
+    if (remainingLength <= 0) {
+      routeDots.setAttribute("d", "");
+      return;
+    }
+
+    const futureSampleCount = Math.max(1, Math.ceil(remainingLength / 4));
+    const futurePoints = Array.from(
+      { length: futureSampleCount + 1 },
+      (_, index) => {
+        const distance = progressLength +
+          remainingLength * index / futureSampleCount;
+        return formatPoint(routeActive.getPointAtLength(distance));
+      },
+    );
+    routeDots.setAttribute("d", `M ${futurePoints.join(" L ")}`);
+  }
+
   function animateFlight(fromPoint, toPoint, flight, onComplete) {
     const start = project(fromPoint);
     const end = project(toPoint);
@@ -212,7 +297,6 @@
     routeOrigin.setAttribute("cy", String(start.y));
     routeDestination.setAttribute("cx", String(end.x));
     routeDestination.setAttribute("cy", String(end.y));
-
     const pathLength = routeActive.getTotalLength();
     routeActive.style.strokeDasharray = String(pathLength);
     routeActive.style.strokeDashoffset = String(pathLength);
@@ -231,17 +315,30 @@
       const eased = 1 - (1 - progress) ** 3;
       const length = pathLength * eased;
       const point = routeActive.getPointAtLength(length);
+      const beforePoint = routeActive.getPointAtLength(
+        Math.max(0, length - 1),
+      );
       const nextPoint = routeActive.getPointAtLength(
         Math.min(length + 1, pathLength),
       );
       const angle =
-        Math.atan2(nextPoint.y - point.y, nextPoint.x - point.x) * (180 / Math.PI) +
-        90;
+        Math.atan2(
+          nextPoint.y - beforePoint.y,
+          nextPoint.x - beforePoint.x,
+        ) * (180 / Math.PI);
 
+      if (flight.vehicle === "steam-train") {
+        drawRailway(pathLength, length);
+      }
       routeActive.style.strokeDashoffset = String(pathLength - length);
-      flightPlane.setAttribute(
+      const vehicle = flight.vehicle === "steam-train"
+        ? travelTrain
+        : flightPlane;
+      const rotationOffset = flight.vehicle === "steam-train" ? 0 : 90;
+      const scale = flight.vehicle === "steam-train" ? " scale(0.65)" : "";
+      vehicle.setAttribute(
         "transform",
-        `translate(${point.x} ${point.y}) rotate(${angle})`,
+        `translate(${point.x} ${point.y}) rotate(${angle + rotationOffset})${scale}`,
       );
 
       if (progress < 1) {
@@ -280,10 +377,14 @@
     }
 
     window.clearInterval(photoTimer);
-    const flight = { fromIndex, toIndex, frameId: null };
+    const vehicle = toSlide.incomingRoute?.from === fromSlide.id
+      ? toSlide.incomingRoute.vehicle
+      : "plane";
+    const flight = { fromIndex, toIndex, frameId: null, vehicle };
     activeFlight = flight;
     isWaitingForPhotos = false;
     isTransitioning = true;
+    travelOverlay.classList.toggle("is-train", vehicle === "steam-train");
     travelKickerElement.textContent = "PÅ REISE";
     travelCaptionElement.textContent =
       "Trykk høyre pil eller mellomrom for neste land, eller venstre pil for forrige.";

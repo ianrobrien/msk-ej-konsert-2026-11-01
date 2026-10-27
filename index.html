@@ -54,10 +54,59 @@
               fill="none"
               stroke-linecap="round"
             ></path>
+            <g class="route-tracks">
+              <path
+                class="route-track-sleepers"
+                id="route-track-sleepers"
+                fill="none"
+              ></path>
+              <path
+                class="route-track-rails"
+                id="route-track-rails"
+                fill="none"
+              ></path>
+            </g>
             <circle class="route-origin" id="route-origin" r="6"></circle>
             <circle class="route-destination" id="route-destination" r="8"></circle>
             <g class="flight-plane" id="flight-plane">
               <path d="M0-22 4-3 19 5 19 10 4 6 3 20 8 24 7 27 0 25-7 27-8 24-3 20-4 6-19 10-19 5-4-3Z"></path>
+            </g>
+            <g class="travel-train" id="travel-train">
+              <path
+                class="train-smoke"
+                d="M5-14c-4-4 0-8 4-6 2-5 9-3 8 1 5 2 3 7-1 8Z"
+              ></path>
+              <g class="train-wheels">
+                <circle cx="-16" cy="8" r="4.2"></circle>
+                <circle cx="-4" cy="8" r="4.2"></circle>
+                <circle cx="9" cy="8" r="4.2"></circle>
+                <path d="M-16 8H9"></path>
+              </g>
+              <path class="train-frame" d="M-24 3H17V6H-24Z"></path>
+              <path class="train-cab" d="M-23-12H-10V4H-23Z"></path>
+              <rect
+                class="train-window"
+                x="-20"
+                y="-9"
+                width="7"
+                height="6"
+                rx="1"
+              ></rect>
+              <path
+                class="train-boiler"
+                d="M-11-7H7A7 7 0 0 1 14 0V4H-11Z"
+              ></path>
+              <rect
+                class="train-chimney"
+                x="6"
+                y="-14"
+                width="5"
+                height="8"
+                rx="1"
+              ></rect>
+              <path class="train-chimney-cap" d="M4-15H13V-13H4Z"></path>
+              <path class="train-cowcatcher" d="M14 1H20L25 7H14Z"></path>
+              <circle class="train-lamp" cx="17" cy="-1" r="2"></circle>
             </g>
           </svg>
         </div>

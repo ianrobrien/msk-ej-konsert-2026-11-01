@@ -211,6 +211,10 @@ window.CONCERT_CONFIG = {
       song: "Monterosi",
       place: "Italia",
       point: { latitude: 42.8, longitude: 12.5 },
+      incomingRoute: {
+        from: "copenhagen-steam-railway-galop",
+        vehicle: "steam-train",
+      },
       photos: [
         {
           src: "assets/photos/07-italy-1.jpg",
