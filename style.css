@@ -266,10 +266,9 @@ button {
 .map-frame {
   position: relative;
   width: min(88vw, 1280px);
-  aspect-ratio: 2 / 1;
+  aspect-ratio: 12 / 5;
   overflow: hidden;
-  border: 1px solid rgb(232 201 130 / 25%);
-  background: #14211f;
+  background: #dfcfaa;
   box-shadow: 0 24px 80px rgb(0 0 0 / 32%);
 }
 
@@ -291,32 +290,32 @@ button {
 }
 
 .route-dots {
-  stroke: rgb(244 240 231 / 72%);
+  stroke: rgb(112 88 60 / 62%);
   stroke-dasharray: 2 10;
   stroke-width: 2.5;
 }
 
 .route-active {
-  stroke: #e8c982;
-  stroke-width: 2.6;
-  filter: drop-shadow(0 0 5px rgb(232 201 130 / 55%));
+  stroke: #a3442e;
+  stroke-width: 3;
+  filter: drop-shadow(0 0 5px rgb(163 68 46 / 42%));
 }
 
 .route-origin {
-  fill: #f4f0e7;
-  stroke: #101817;
+  fill: #f5e9cf;
+  stroke: #5c4531;
   stroke-width: 3;
 }
 
 .route-destination {
-  fill: #e8c982;
-  stroke: #101817;
+  fill: #a3442e;
+  stroke: #f5e9cf;
   stroke-width: 3;
 }
 
 .flight-plane {
-  fill: #f4f0e7;
-  filter: drop-shadow(0 2px 6px rgb(0 0 0 / 65%));
+  fill: #503a2a;
+  filter: drop-shadow(0 2px 4px rgb(255 246 225 / 72%));
 }
 
 .travel-caption {
@@ -366,6 +365,10 @@ button {
   letter-spacing: 0.11em;
 }
 
+.key-hint[hidden] {
+  display: none;
+}
+
 kbd {
   padding: 2px 5px;
   border: 1px solid rgb(244 240 231 / 28%);
@@ -377,7 +380,8 @@ kbd {
 .stage.is-ui-hidden .slide-count,
 .stage.is-ui-hidden .fullscreen-button,
 .stage.is-ui-hidden .controls,
-.stage.is-ui-hidden .key-hint {
+.stage.is-ui-hidden .key-hint,
+.stage.is-ui-hidden .travel-caption {
   display: none;
 }
 

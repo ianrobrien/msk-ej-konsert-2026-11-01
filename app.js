@@ -1,6 +1,7 @@
 (() => {
   const config = window.CONCERT_CONFIG;
   const stage = document.getElementById("stage");
+  const keyHintElement = document.getElementById("key-hint");
   const placeElement = document.getElementById("place");
   const songElement = document.getElementById("song");
   const slideCountElement = document.getElementById("slide-count");
@@ -21,6 +22,12 @@
     document.getElementById("photo-a"),
     document.getElementById("photo-b"),
   ];
+  const mapProjection = {
+    width: 1200,
+    height: 500,
+    northLatitude: 90,
+    southLatitude: -60,
+  };
 
   if (!config || !Array.isArray(config.slides) || config.slides.length === 0) {
     photoStatusElement.hidden = false;
@@ -142,8 +149,11 @@
 
   function project(point) {
     return {
-      x: ((point.longitude + 180) / 360) * 1200,
-      y: ((90 - point.latitude) / 180) * 600,
+      x: ((point.longitude + 180) / 360) * mapProjection.width,
+      y: (
+        (mapProjection.northLatitude - point.latitude) /
+        (mapProjection.northLatitude - mapProjection.southLatitude)
+      ) * mapProjection.height,
     };
   }
 
@@ -152,7 +162,7 @@
     const longitudeDelta =
       ((toPoint.longitude - fromPoint.longitude + 540) % 360) - 180;
     const end = {
-      x: start.x + (longitudeDelta / 360) * 1200,
+      x: start.x + (longitudeDelta / 360) * mapProjection.width,
       y: project(toPoint).y,
     };
     const distance = Math.hypot(end.x - start.x, end.y - start.y);
@@ -373,7 +383,10 @@
       toggleFullscreen();
     } else if (event.key.toLowerCase() === "h") {
       event.preventDefault();
-      if (!event.repeat) stage.classList.toggle("is-ui-hidden");
+      if (!event.repeat) {
+        const isUiHidden = stage.classList.toggle("is-ui-hidden");
+        keyHintElement.hidden = isUiHidden;
+      }
     }
   });
 
