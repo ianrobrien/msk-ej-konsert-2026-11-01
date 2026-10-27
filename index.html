@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#101817">
+    <title>Concert Journey</title>
+    <link rel="stylesheet" href="style.css">
+    <script defer src="slides.js"></script>
+    <script defer src="app.js"></script>
+  </head>
+  <body>
+    <main class="stage" id="stage">
+      <img class="photo-layer" id="photo-a" alt="" aria-hidden="true">
+      <img class="photo-layer" id="photo-b" alt="" aria-hidden="true">
+      <div class="scrim" aria-hidden="true"></div>
+
+      <section class="travel-overlay" id="travel-overlay" aria-hidden="true">
+        <div class="travel-header">
+          <p class="travel-kicker">IN TRANSIT</p>
+          <p class="travel-route-label" id="travel-route-label"></p>
+        </div>
+        <div class="map-frame">
+          <img
+            class="map-art"
+            src="assets/world-map.svg"
+            alt=""
+            aria-hidden="true"
+          >
+          <svg
+            class="route-layer"
+            viewBox="0 0 1200 600"
+            aria-hidden="true"
+          >
+            <path
+              class="route-dots"
+              id="route-dots"
+              fill="none"
+              stroke-linecap="round"
+            ></path>
+            <path
+              class="route-active"
+              id="route-active"
+              fill="none"
+              stroke-linecap="round"
+            ></path>
+            <circle class="route-origin" id="route-origin" r="6"></circle>
+            <circle class="route-destination" id="route-destination" r="8"></circle>
+            <g class="flight-plane" id="flight-plane">
+              <path d="M0-22 4-3 19 5 19 10 4 6 3 20 8 24 7 27 0 25-7 27-8 24-3 20-4 6-19 10-19 5-4-3Z"></path>
+            </g>
+          </svg>
+        </div>
+        <p class="travel-caption">The route follows the current show order.</p>
+      </section>
+
+      <header class="topbar">
+        <p class="project-mark">CONCERT JOURNEY</p>
+        <div class="topbar-right">
+          <p class="slide-count" id="slide-count" aria-live="polite"></p>
+          <button class="fullscreen-button" id="fullscreen-button" type="button">
+            Fullscreen
+          </button>
+        </div>
+      </header>
+
+      <section class="caption" aria-live="polite">
+        <p class="place" id="place"></p>
+        <h1 class="song" id="song"></h1>
+        <p class="photo-status" id="photo-status" hidden></p>
+      </section>
+
+      <nav class="controls" aria-label="Slideshow controls">
+        <button id="previous-button" type="button" aria-label="Previous song">
+          <span aria-hidden="true">&larr;</span>
+        </button>
+        <button id="next-button" type="button" aria-label="Next song">
+          <span aria-hidden="true">&rarr;</span>
+        </button>
+      </nav>
+
+      <footer class="key-hint">
+        <span><kbd>&larr;</kbd> Previous</span>
+        <span><kbd>Space</kbd> or <kbd>&rarr;</kbd> Next</span>
+        <span><kbd>F</kbd> Fullscreen</span>
+      </footer>
+    </main>
+  </body>
+</html>

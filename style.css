@@ -1,0 +1,415 @@
+:root {
+  color-scheme: dark;
+  font-family: "Avenir Next", Avenir, "Segoe UI", sans-serif;
+  background: #101817;
+  color: #f4f0e7;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  min-width: 320px;
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+button {
+  color: inherit;
+  font: inherit;
+}
+
+.stage {
+  position: relative;
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+  align-items: center;
+  background:
+    radial-gradient(ellipse at 68% 32%, rgb(68 91 77 / 36%), transparent 48%),
+    linear-gradient(125deg, #101817 0%, #172522 58%, #101817 100%);
+  isolation: isolate;
+}
+
+.stage::before,
+.stage::after {
+  position: absolute;
+  z-index: -1;
+  content: "";
+  pointer-events: none;
+}
+
+.stage::before {
+  inset: 9% 7%;
+  border: 1px solid rgb(231 215 174 / 13%);
+}
+
+.stage::after {
+  inset: 10% 8%;
+  background:
+    linear-gradient(90deg, transparent 49.9%, rgb(231 215 174 / 8%) 50%, transparent 50.1%),
+    linear-gradient(transparent 49.9%, rgb(231 215 174 / 8%) 50%, transparent 50.1%);
+  opacity: 0.35;
+}
+
+.photo-layer,
+.scrim {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.photo-layer {
+  z-index: -2;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 1.8s ease;
+}
+
+.photo-layer.is-visible {
+  opacity: 1;
+}
+
+.scrim {
+  z-index: -1;
+  background:
+    linear-gradient(90deg, rgb(9 15 14 / 82%) 0%, rgb(9 15 14 / 43%) 52%, rgb(9 15 14 / 12%) 100%),
+    linear-gradient(0deg, rgb(9 15 14 / 78%) 0%, transparent 26%, transparent 72%, rgb(9 15 14 / 35%) 100%);
+}
+
+.stage.has-photos::before,
+.stage.has-photos::after {
+  opacity: 0;
+}
+
+.topbar {
+  position: absolute;
+  top: clamp(24px, 5vh, 58px);
+  right: clamp(28px, 6vw, 88px);
+  left: clamp(28px, 6vw, 88px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.project-mark,
+.slide-count,
+.place,
+.key-hint {
+  margin: 0;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.19em;
+  text-transform: uppercase;
+}
+
+.project-mark {
+  color: rgb(244 240 231 / 70%);
+}
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.slide-count {
+  color: rgb(244 240 231 / 70%);
+  font-variant-numeric: tabular-nums;
+}
+
+.fullscreen-button {
+  padding: 9px 14px;
+  border: 1px solid rgb(244 240 231 / 35%);
+  border-radius: 2px;
+  background: rgb(16 24 23 / 35%);
+  cursor: pointer;
+  font-size: 0.78rem;
+  transition: background-color 160ms ease, border-color 160ms ease;
+}
+
+.fullscreen-button:hover,
+.fullscreen-button:focus-visible {
+  border-color: #e8c982;
+  background: rgb(16 24 23 / 78%);
+}
+
+.caption {
+  width: min(78vw, 1000px);
+  margin-left: clamp(56px, 12vw, 180px);
+  padding: 12vh 0;
+  text-shadow: 0 2px 24px rgb(0 0 0 / 32%);
+}
+
+.place {
+  margin-bottom: 20px;
+  color: #e8c982;
+}
+
+.song {
+  max-width: 980px;
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(3rem, 7vw, 7.3rem);
+  font-weight: 400;
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+.photo-status {
+  margin: 24px 0 0;
+  color: rgb(244 240 231 / 66%);
+  font-size: 0.9rem;
+  letter-spacing: 0.03em;
+}
+
+.travel-overlay {
+  position: absolute;
+  z-index: 4;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(14px, 3vh, 30px);
+  padding: clamp(24px, 5vh, 54px) 6vw;
+  background:
+    radial-gradient(ellipse at 50% 45%, rgb(47 63 55 / 42%), transparent 57%),
+    #101817;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 450ms ease, visibility 450ms ease;
+}
+
+.travel-overlay.is-active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.travel-header,
+.travel-caption {
+  width: min(88vw, 1280px);
+}
+
+.travel-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.travel-kicker {
+  margin: 0;
+  color: #e8c982;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.travel-route-label {
+  margin: 0;
+  color: #f4f0e7;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.25rem, 3vw, 2.3rem);
+  letter-spacing: -0.02em;
+}
+
+.map-frame {
+  position: relative;
+  width: min(88vw, 1280px);
+  aspect-ratio: 2 / 1;
+  overflow: hidden;
+  border: 1px solid rgb(232 201 130 / 25%);
+  background: #14211f;
+  box-shadow: 0 24px 80px rgb(0 0 0 / 32%);
+}
+
+.map-art,
+.route-layer {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.map-art {
+  object-fit: cover;
+}
+
+.route-layer {
+  overflow: visible;
+}
+
+.route-dots {
+  stroke: rgb(244 240 231 / 72%);
+  stroke-dasharray: 2 10;
+  stroke-width: 2.5;
+}
+
+.route-active {
+  stroke: #e8c982;
+  stroke-width: 2.6;
+  filter: drop-shadow(0 0 5px rgb(232 201 130 / 55%));
+}
+
+.route-origin {
+  fill: #f4f0e7;
+  stroke: #101817;
+  stroke-width: 3;
+}
+
+.route-destination {
+  fill: #e8c982;
+  stroke: #101817;
+  stroke-width: 3;
+}
+
+.flight-plane {
+  fill: #f4f0e7;
+  filter: drop-shadow(0 2px 6px rgb(0 0 0 / 65%));
+}
+
+.travel-caption {
+  margin: 0;
+  color: rgb(244 240 231 / 52%);
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+  text-align: right;
+  text-transform: uppercase;
+}
+
+.controls {
+  position: absolute;
+  right: clamp(28px, 6vw, 88px);
+  bottom: clamp(76px, 11vh, 116px);
+  display: flex;
+  gap: 10px;
+}
+
+.controls button {
+  display: grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  border: 1px solid rgb(244 240 231 / 40%);
+  border-radius: 50%;
+  background: rgb(16 24 23 / 35%);
+  cursor: pointer;
+  font-size: 1.25rem;
+  line-height: 1;
+  transition: background-color 160ms ease, border-color 160ms ease;
+}
+
+.controls button:hover,
+.controls button:focus-visible {
+  border-color: #e8c982;
+  background: rgb(16 24 23 / 84%);
+}
+
+.key-hint {
+  position: absolute;
+  right: clamp(28px, 6vw, 88px);
+  bottom: clamp(26px, 5vh, 54px);
+  display: flex;
+  gap: 20px;
+  color: rgb(244 240 231 / 60%);
+  font-size: 0.62rem;
+  letter-spacing: 0.11em;
+}
+
+kbd {
+  padding: 2px 5px;
+  border: 1px solid rgb(244 240 231 / 28%);
+  border-radius: 2px;
+  color: rgb(244 240 231 / 86%);
+  font: inherit;
+}
+
+@media (max-width: 640px) {
+  .stage::before {
+    inset: 8% 5%;
+  }
+
+  .stage::after {
+    inset: 9% 6%;
+  }
+
+  .topbar {
+    right: 7vw;
+    left: 7vw;
+  }
+
+  .project-mark {
+    font-size: 0.56rem;
+  }
+
+  .topbar-right {
+    gap: 12px;
+  }
+
+  .fullscreen-button {
+    padding: 8px 10px;
+    font-size: 0.7rem;
+  }
+
+  .caption {
+    width: 84vw;
+    margin-left: 9vw;
+  }
+
+  .travel-header,
+  .travel-caption {
+    width: 86vw;
+  }
+
+  .map-frame {
+    width: 86vw;
+  }
+
+  .travel-kicker,
+  .travel-caption {
+    font-size: 0.5rem;
+    letter-spacing: 0.1em;
+  }
+
+  .song {
+    font-size: clamp(2.8rem, 12vw, 5rem);
+  }
+
+  .controls {
+    right: 7vw;
+    bottom: 86px;
+  }
+
+  .key-hint {
+    right: 7vw;
+    bottom: 28px;
+    gap: 10px;
+    font-size: 0.5rem;
+    letter-spacing: 0.04em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
