@@ -42,17 +42,11 @@ button {
   isolation: isolate;
 }
 
-.stage::before,
 .stage::after {
   position: absolute;
   z-index: -1;
   content: "";
   pointer-events: none;
-}
-
-.stage::before {
-  inset: 9% 7%;
-  border: 1px solid rgb(231 215 174 / 13%);
 }
 
 .stage::after {
@@ -126,7 +120,6 @@ button {
   outline-offset: 3px;
 }
 
-.stage.has-photos::before,
 .stage.has-photos::after {
   opacity: 0;
 }
@@ -461,10 +454,6 @@ kbd {
 }
 
 @media (max-width: 640px) {
-  .stage::before {
-    inset: 8% 5%;
-  }
-
   .stage::after {
     inset: 9% 6%;
   }
