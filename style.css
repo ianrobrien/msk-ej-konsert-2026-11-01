@@ -57,9 +57,11 @@ button {
 
 .stage::after {
   inset: 10% 8%;
-  background:
-    linear-gradient(90deg, transparent 49.9%, rgb(231 215 174 / 8%) 50%, transparent 50.1%),
-    linear-gradient(transparent 49.9%, rgb(231 215 174 / 8%) 50%, transparent 50.1%);
+  background: linear-gradient(
+    transparent 49.9%,
+    rgb(231 215 174 / 8%) 50%,
+    transparent 50.1%
+  );
   opacity: 0.35;
 }
 
