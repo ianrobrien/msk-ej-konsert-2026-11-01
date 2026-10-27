@@ -285,7 +285,8 @@ button {
 }
 
 .route-tracks,
-.travel-train {
+.travel-train,
+.travel-boat {
   display: none;
 }
 
@@ -322,6 +323,14 @@ button {
 
 .travel-overlay.is-train .route-tracks,
 .travel-overlay.is-train .travel-train {
+  display: block;
+}
+
+.travel-overlay.is-boat .flight-plane {
+  display: none;
+}
+
+.travel-overlay.is-boat .travel-boat {
   display: block;
 }
 
@@ -382,6 +391,37 @@ button {
 
 .train-lamp {
   fill: #f4e3bf;
+  stroke: #503a2a;
+  stroke-width: 1;
+}
+
+.boat-mast {
+  fill: none;
+  stroke: #503a2a;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.boat-sail {
+  fill: #f4e3bf;
+  stroke: #503a2a;
+  stroke-width: 1.2;
+  stroke-linejoin: round;
+}
+
+.boat-hull {
+  fill: #a3442e;
+  stroke: #503a2a;
+  stroke-width: 1.5;
+  stroke-linejoin: round;
+}
+
+.boat-deck {
+  fill: #503a2a;
+}
+
+.boat-flag {
+  fill: #a3442e;
   stroke: #503a2a;
   stroke-width: 1;
 }

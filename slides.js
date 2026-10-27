@@ -77,6 +77,10 @@ window.CONCERT_CONFIG = {
       song: "Portias slottsorkester",
       place: "Irland",
       point: { latitude: 53.4, longitude: -8.2 },
+      incomingRoute: {
+        from: "banana-boat-song",
+        vehicle: "boat",
+      },
       photos: [
         {
           src: "assets/photos/03-ireland-1.jpg",

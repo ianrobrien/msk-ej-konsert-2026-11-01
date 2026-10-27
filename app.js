@@ -21,6 +21,7 @@
   const routeTrackRails = document.getElementById("route-track-rails");
   const flightPlane = document.getElementById("flight-plane");
   const travelTrain = document.getElementById("travel-train");
+  const travelBoat = document.getElementById("travel-boat");
   const photoLayers = [
     document.getElementById("photo-a"),
     document.getElementById("photo-b"),
@@ -333,9 +334,15 @@
       routeActive.style.strokeDashoffset = String(pathLength - length);
       const vehicle = flight.vehicle === "steam-train"
         ? travelTrain
+        : flight.vehicle === "boat"
+        ? travelBoat
         : flightPlane;
-      const rotationOffset = flight.vehicle === "steam-train" ? 0 : 90;
-      const scale = flight.vehicle === "steam-train" ? " scale(0.65)" : "";
+      const rotationOffset = flight.vehicle === "plane" ? 90 : 0;
+      const scale = flight.vehicle === "steam-train"
+        ? " scale(0.65)"
+        : flight.vehicle === "boat"
+        ? " scale(0.8)"
+        : "";
       vehicle.setAttribute(
         "transform",
         `translate(${point.x} ${point.y}) rotate(${angle + rotationOffset})${scale}`,
@@ -385,6 +392,7 @@
     isWaitingForPhotos = false;
     isTransitioning = true;
     travelOverlay.classList.toggle("is-train", vehicle === "steam-train");
+    travelOverlay.classList.toggle("is-boat", vehicle === "boat");
     travelKickerElement.textContent = "PÅ REISE";
     travelCaptionElement.textContent =
       "Trykk høyre pil eller mellomrom for neste land, eller venstre pil for forrige.";
