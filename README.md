@@ -3,6 +3,13 @@
 A lightweight, offline-friendly slideshow for the concert. It uses plain HTML,
 CSS, and JavaScript; there are no packages or network dependencies.
 
+## View the show
+
+[Open the live presentation](https://www.ianrobrien.dev/msk-ej-konsert-2026-11-01/).
+
+GitHub Pages publishes from the `main` branch root; no custom CI or build
+workflow is required.
+
 ## Run it
 
 Open `index.html` in a browser and use the Fullscreen button.
