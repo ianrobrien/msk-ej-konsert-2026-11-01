@@ -23,7 +23,6 @@ window.CONCERT_CONFIG = {
       photos: [
         {
           src: "assets/photos/01-africa-1.jpg",
-          alt: "Solnedgang på Serengeti",
           credit: "Hu Chen",
           license: "Unsplash License",
           source:
@@ -31,7 +30,6 @@ window.CONCERT_CONFIG = {
         },
         {
           src: "assets/photos/01-africa-2.jpg",
-          alt: "Sjiraff i dagslys i Sør-Afrika",
           credit: "Kelly Arnold",
           license: "Unsplash License",
           source:
@@ -39,7 +37,6 @@ window.CONCERT_CONFIG = {
         },
         {
           src: "assets/photos/01-africa-3.jpg",
-          alt: "Ville elefanter på en stormfull ettermiddag på safari i Sør-Afrika",
           credit: "Deon De Villiers",
           license: "Unsplash License",
           source:
@@ -47,7 +44,6 @@ window.CONCERT_CONFIG = {
         },
         {
           src: "assets/photos/01-africa-4.jpg",
-          alt: "Sebras drikker ved en rolig dam i Kruger nasjonalpark i Sør-Afrika",
           credit: "David Tomaseti",
           license: "Unsplash License",
           source:
@@ -55,7 +51,6 @@ window.CONCERT_CONFIG = {
         },
         {
           src: "assets/photos/01-africa-5.jpg",
-          alt: "Utvalg av krydder i en butikk i Marrakech i Marokko",
           credit: "Evgeny Matveev",
           license: "Unsplash License",
           source:
@@ -71,27 +66,38 @@ window.CONCERT_CONFIG = {
       photos: [
         {
           src: "assets/photos/02-caribbean-1.jpg",
-          alt: "Luftfoto av Santa Barbara-stranden på Curaçao",
-          credit: "dronepicr",
-          license: "CC BY 2.0",
+          credit: "Rock Staar",
+          license: "Unsplash License",
           source:
-            "https://commons.wikimedia.org/wiki/File:Curacao_Santa_Barbara_beach_(36699632905).jpg",
+            "https://unsplash.com/photos/white-and-blue-bus-near-palm-tree-under-blue-sky-during-daytime-wGyHvtLcW_U",
         },
         {
           src: "assets/photos/02-caribbean-2.jpg",
-          alt: "Maho-stranden på den karibiske øya Saint Martin",
-          credit: "alljengi",
-          license: "CC BY-SA 2.0",
+          credit: "Tom Jur",
+          license: "Unsplash License",
           source:
-            "https://commons.wikimedia.org/wiki/File:Maho_Beach,_near_Princess_Juliana_Airport,_Caribbean_island_of_Saint_Martin-8Feb2008_(4).jpg",
+            "https://unsplash.com/photos/a-street-lined-with-palm-trees-and-parked-cars-FCsYf14C_6M",
         },
         {
           src: "assets/photos/02-caribbean-3.jpg",
-          alt: "Dunn's River Falls på Jamaica",
-          credit: "Dr. Thomas Liptak",
-          license: "CC BY-SA 4.0",
+          credit: "Hugh Whyte",
+          license: "Unsplash License",
           source:
-            "https://commons.wikimedia.org/wiki/File:Jamaica_Ocho_Rios_Dunn%27s_River_Falls_1.jpg",
+            "https://unsplash.com/photos/aerial-view-of-beach-during-daytime-SBOHLtENzEY",
+        },
+        {
+          src: "assets/photos/02-caribbean-4.jpg",
+          credit: "Fernando Jorge",
+          license: "Unsplash License",
+          source:
+            "https://unsplash.com/photos/birds-eye-photography-of-structures-EoQzRoLFkrw",
+        },
+        {
+          src: "assets/photos/02-caribbean-5.jpg",
+          credit: "Aiva Apsite",
+          license: "Unsplash License",
+          source:
+            "https://unsplash.com/photos/a-bunch-of-green-bananas-hanging-from-a-tree-3QVpFwWvCgc",
         },
       ],
     },
@@ -106,28 +112,39 @@ window.CONCERT_CONFIG = {
       },
       photos: [
         {
-          src: "assets/photos/03-ireland-1.jpg",
-          alt: "Cliffs of Moher og O'Brien's Tower",
-          credit: "Berthold Werner",
-          license: "CC BY-SA 4.0",
+          src: "assets/photos/03-ireland-5.jpg",
+          credit: "Wallace Bentt",
+          license: "Unsplash License",
           source:
-            "https://commons.wikimedia.org/wiki/File:Ireland_Cliffs_of_Moher_BW_2025-09-11_14-27-51.jpg",
+            "https://unsplash.com/photos/view-photography-of-gray-castle-on-island-KViyTyPUsl8",
         },
         {
           src: "assets/photos/03-ireland-2.jpg",
-          alt: "Dingle fyr over kysten",
-          credit: "Superbass",
-          license: "CC BY-SA 4.0",
+          credit: "Henrique Craveiro",
+          license: "Unsplash License",
           source:
-            "https://commons.wikimedia.org/wiki/File:2019-07-20-Dingle_Lighthouse-0673.jpg",
+            "https://unsplash.com/photos/rock-formation-beside-sea-under-white-sky-ezJhm4xrHAM",
         },
         {
           src: "assets/photos/03-ireland-3.jpg",
-          alt: "Steinete kystlinje på nordkysten av Valentia Island",
-          credit: "Rauenstein",
-          license: "CC BY-SA 3.0",
+          credit: "Ainars Djatlevskis",
+          license: "Unsplash License",
           source:
-            "https://commons.wikimedia.org/wiki/File:Valentia_Island,_North_coast_3.jpg",
+            "https://unsplash.com/photos/stone-castle-on-green-coastal-cliff-gJQLVTyQfgQ",
+        },
+        {
+          src: "assets/photos/03-ireland-4.jpg",
+          credit: "Saad Chaudhry",
+          license: "Unsplash License",
+          source:
+            "https://unsplash.com/photos/sea-and-cliff-during-daytime-Xm5jDcBv_oE",
+        },
+        {
+          src: "assets/photos/03-ireland-1.jpg",
+          credit: "Jason Murphy",
+          license: "Unsplash License",
+          source:
+            "https://unsplash.com/photos/white-and-black-concrete-building-under-blue-sky-during-daytime-rTG1TR6Ygb0",
         },
       ],
     },
@@ -139,27 +156,31 @@ window.CONCERT_CONFIG = {
       photos: [
         {
           src: "assets/photos/04-norge-1.jpg",
-          alt: "Lyngenfjorden under fjellene",
-          credit: "Ximonic (Simo Räsänen)",
-          license: "CC BY-SA 3.0",
+          credit: "Lightscape",
+          license: "Unsplash License",
           source:
-            "https://commons.wikimedia.org/wiki/File:At_Lyngen_fjord,_Sp%C3%A5kenes_in_2012_June.jpg",
+            "https://unsplash.com/photos/aurora-borealis-on-body-of-water-during-daytime-ist1RQOfkcE",
         },
         {
           src: "assets/photos/04-norge-2.jpg",
-          alt: "Fiskeværet Reine i Lofoten",
-          credit: "Ximonic (Simo Räsänen)",
-          license: "CC BY-SA 3.0",
+          credit: "Sébastien Goldberg",
+          license: "Unsplash License",
           source:
-            "https://commons.wikimedia.org/wiki/File:Reine_in_Lofoten,_Norway,_2012_October.jpg",
+            "https://unsplash.com/photos/brown-moose-on-gray-field-1r6rwX1FUdc",
         },
         {
           src: "assets/photos/04-norge-3.jpg",
-          alt: "Utsikt over Geirangerfjorden fra Ørnesvingen",
-          credit: "Ximonic (Simo Räsänen)",
-          license: "CC BY-SA 3.0",
+          credit: "Joshua Kettle",
+          license: "Unsplash License",
           source:
-            "https://commons.wikimedia.org/wiki/File:Geirangerfjord_from_%C3%98rnesvingen,_2013_June.jpg",
+            "https://unsplash.com/photos/an-aerial-view-of-a-river-running-through-a-city-SNVuKxmg0qY",
+        },
+        {
+          src: "assets/photos/04-norge-5.jpg",
+          credit: "Joshua Kettle",
+          license: "Unsplash License",
+          source:
+            "https://unsplash.com/photos/an-aerial-view-of-a-small-town-on-an-island-CfbAP2h8xzk",
         },
       ],
     },
@@ -171,27 +192,38 @@ window.CONCERT_CONFIG = {
       photos: [
         {
           src: "assets/photos/05-brazil-1.jpg",
-          alt: "Rio de Janeiro og Sukkertoppen ved solnedgang",
-          credit: "Wilfredor",
-          license: "CC0",
+          credit: "Raphael Nogueira",
+          license: "Unsplash License",
           source:
-            "https://commons.wikimedia.org/wiki/File:Rio_de_Janeiro_skyline_and_Sugarloaf_Mountain_at_sunset,_Brazil_3.jpg",
+            "https://unsplash.com/photos/christ-redeemer-statue-brazil-CErddu-JwKw",
         },
         {
           src: "assets/photos/05-brazil-2.jpg",
-          alt: "Soloppgang over Rio de Janeiro og Sukkertoppen",
-          credit: "Donatas Dabravolskas",
-          license: "CC BY-SA 4.0",
+          credit: "Sébastien Goldberg",
+          license: "Unsplash License",
           source:
-            "https://commons.wikimedia.org/wiki/File:Sugarloaf_Sunrise_2.jpg",
+            "https://unsplash.com/photos/high-angle-photography-of-cable-car-Q8KGwGdDsW8",
         },
         {
           src: "assets/photos/05-brazil-3.jpg",
-          alt: "Fjelltopper i Serra dos Órgãos nasjonalpark",
-          credit: "Carlos Perez Couto",
-          license: "CC BY-SA 3.0",
+          credit: "Juliana e Mariana Amorim",
+          license: "Unsplash License",
           source:
-            "https://commons.wikimedia.org/wiki/File:Amanhecer_no_Hercules_--.jpg",
+            "https://unsplash.com/photos/two-teal-and-yellow-parrots-on-cable-AmLssHPF58k",
+        },
+        {
+          src: "assets/photos/05-brazil-4.jpg",
+          credit: "Davi Costa",
+          license: "Unsplash License",
+          source:
+            "https://unsplash.com/photos/aerial-photography-of-mountains-surrounded-by-sea-4lWIQ43CCmM",
+        },
+        {
+          src: "assets/photos/05-brazil-5.jpg",
+          credit: "Cassio Nunes",
+          license: "Unsplash License",
+          source:
+            "https://unsplash.com/photos/yellow-and-black-bird-on-green-fruit-LtkNnk5gsO8",
         },
       ],
     },
@@ -218,15 +250,13 @@ window.CONCERT_CONFIG = {
       photos: [
         {
           src: "assets/photos/06-denmark-1.jpg",
-          alt: "Nyhavn i København ved solnedgang",
-          credit: "Moahim",
-          license: "CC BY-SA 4.0",
+          credit: "Nick Karvounis",
+          license: "Unsplash License",
           source:
-            "https://commons.wikimedia.org/wiki/File:2018_-_Nyhavn_on_sunset.jpg",
+            "https://unsplash.com/photos/red-boat-in-nyhavn-canal-copenhagen-cj9_lderSUk",
         },
         {
           src: "assets/photos/06-denmark-2.jpg",
-          alt: "Dansk veterandamplokomotiv ved Græsted",
           credit: "Leif Jørgensen",
           license: "CC BY-SA 4.0",
           source:
@@ -234,7 +264,6 @@ window.CONCERT_CONFIG = {
         },
         {
           src: "assets/photos/06-denmark-3.jpg",
-          alt: "Peblingesjøen i København",
           credit: "Dietmar Rabich",
           license: "CC BY-SA 4.0",
           source:
@@ -254,7 +283,6 @@ window.CONCERT_CONFIG = {
       photos: [
         {
           src: "assets/photos/07-italy-1.jpg",
-          alt: "San Giuseppe-kirken i Monterosi i Lazio",
           credit: "Bjørn Christian Tørrissen",
           license: "CC BY-SA 3.0",
           source:
@@ -262,7 +290,6 @@ window.CONCERT_CONFIG = {
         },
         {
           src: "assets/photos/07-italy-2.jpg",
-          alt: "Høstede åkre på landsbygda nær Monterosi",
           credit: "Albarubescens",
           license: "CC BY-SA 4.0",
           source:
@@ -270,7 +297,6 @@ window.CONCERT_CONFIG = {
         },
         {
           src: "assets/photos/07-italy-3.jpg",
-          alt: "Åser med sypresser i Toscana ved solnedgang",
           credit: "Eric Kilby",
           license: "CC BY-SA 2.0",
           source:
@@ -286,7 +312,6 @@ window.CONCERT_CONFIG = {
       photos: [
         {
           src: "assets/photos/08-scotland-1.jpg",
-          alt: "Tidlig morgenutsikt over Det skotske høylandet fra Ben Lawers",
           credit: "Michal Klajban",
           license: "CC BY-SA 4.0",
           source:
@@ -294,7 +319,6 @@ window.CONCERT_CONFIG = {
         },
         {
           src: "assets/photos/08-scotland-2.jpg",
-          alt: "En liten innsjø mellom Beinn an Dothaidh og Beinn Dorain",
           credit: "Michal Klajban",
           license: "CC BY-SA 4.0",
           source:
@@ -302,7 +326,6 @@ window.CONCERT_CONFIG = {
         },
         {
           src: "assets/photos/08-scotland-3.jpg",
-          alt: "Eilean Donan-slottet ved soloppgang",
           credit: "Diliff",
           license: "CC BY-SA 3.0",
           source:
@@ -318,7 +341,6 @@ window.CONCERT_CONFIG = {
       photos: [
         {
           src: "assets/photos/09-usa-1.jpg",
-          alt: "Benny Goodman med jazzorkesteret sitt",
           credit: "Hans Gerber",
           license: "CC BY-SA 4.0",
           source:
@@ -326,7 +348,6 @@ window.CONCERT_CONFIG = {
         },
         {
           src: "assets/photos/09-usa-2.jpg",
-          alt: "Billie Holiday på klubben Downbeat i New York",
           credit: "William P. Gottlieb",
           license: "Public domain",
           source:
@@ -334,7 +355,6 @@ window.CONCERT_CONFIG = {
         },
         {
           src: "assets/photos/09-usa-3.jpg",
-          alt: "Leonard Bernstein og Benny Goodman under en prøve",
           credit: "William P. Gottlieb",
           license: "Public domain",
           source:

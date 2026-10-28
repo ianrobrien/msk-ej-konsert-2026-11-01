@@ -13,31 +13,38 @@ outside the projected image area and can be updated when photos are replaced.
 
 ## Caribbean — The Banana Boat Song
 
-- `02-caribbean-1.jpg` — dronepicr, CC BY 2.0. [Source](https://commons.wikimedia.org/wiki/File:Curacao_Santa_Barbara_beach_(36699632905).jpg)
-- `02-caribbean-2.jpg` — alljengi, CC BY-SA 2.0. [Source](https://commons.wikimedia.org/wiki/File:Maho_Beach,_near_Princess_Juliana_Airport,_Caribbean_island_of_Saint_Martin-8Feb2008_(4).jpg)
-- `02-caribbean-3.jpg` — Dr. Thomas Liptak, CC BY-SA 4.0. [Source](https://commons.wikimedia.org/wiki/File:Jamaica_Ocho_Rios_Dunn%27s_River_Falls_1.jpg)
+- `02-caribbean-1.jpg` — Rock Staar, Unsplash License. [Source](https://unsplash.com/photos/white-and-blue-bus-near-palm-tree-under-blue-sky-during-daytime-wGyHvtLcW_U)
+- `02-caribbean-2.jpg` — Tom Jur, Unsplash License. [Source](https://unsplash.com/photos/a-street-lined-with-palm-trees-and-parked-cars-FCsYf14C_6M)
+- `02-caribbean-3.jpg` — Hugh Whyte, Unsplash License. [Source](https://unsplash.com/photos/aerial-view-of-beach-during-daytime-SBOHLtENzEY)
+- `02-caribbean-4.jpg` — Fernando Jorge, Unsplash License. [Source](https://unsplash.com/photos/birds-eye-photography-of-structures-EoQzRoLFkrw)
+- `02-caribbean-5.jpg` — Aiva Apsite, Unsplash License. [Source](https://unsplash.com/photos/a-bunch-of-green-bananas-hanging-from-a-tree-3QVpFwWvCgc)
 
 ## Ireland — Portias slottsorkester
 
-- `03-ireland-1.jpg` — Berthold Werner, CC BY-SA 4.0. [Source](https://commons.wikimedia.org/wiki/File:Ireland_Cliffs_of_Moher_BW_2025-09-11_14-27-51.jpg)
-- `03-ireland-2.jpg` — Superbass, CC BY-SA 4.0. [Source](https://commons.wikimedia.org/wiki/File:2019-07-20-Dingle_Lighthouse-0673.jpg)
-- `03-ireland-3.jpg` — Rauenstein, CC BY-SA 3.0. [Source](https://commons.wikimedia.org/wiki/File:Valentia_Island,_North_coast_3.jpg)
+- `03-ireland-1.jpg` — Jason Murphy, Unsplash License. [Source](https://unsplash.com/photos/white-and-black-concrete-building-under-blue-sky-during-daytime-rTG1TR6Ygb0)
+- `03-ireland-2.jpg` — Henrique Craveiro, Unsplash License. [Source](https://unsplash.com/photos/rock-formation-beside-sea-under-white-sky-ezJhm4xrHAM)
+- `03-ireland-3.jpg` — Ainars Djatlevskis, Unsplash License. [Source](https://unsplash.com/photos/stone-castle-on-green-coastal-cliff-gJQLVTyQfgQ)
+- `03-ireland-4.jpg` — Saad Chaudhry, Unsplash License. [Source](https://unsplash.com/photos/sea-and-cliff-during-daytime-Xm5jDcBv_oE)
+- `03-ireland-5.jpg` — Wallace Bentt, Unsplash License. [Source](https://unsplash.com/photos/view-photography-of-gray-castle-on-island-KViyTyPUsl8)
 
 ## Norge — Bruremarsj
 
-- `04-norge-1.jpg` — Ximonic (Simo Räsänen), CC BY-SA 3.0. [Source](https://commons.wikimedia.org/wiki/File:At_Lyngen_fjord,_Sp%C3%A5kenes_in_2012_June.jpg)
-- `04-norge-2.jpg` — Ximonic (Simo Räsänen), CC BY-SA 3.0. [Source](https://commons.wikimedia.org/wiki/File:Reine_in_Lofoten,_Norway,_2012_October.jpg)
-- `04-norge-3.jpg` — Ximonic (Simo Räsänen), CC BY-SA 3.0. [Source](https://commons.wikimedia.org/wiki/File:Geirangerfjord_from_%C3%98rnesvingen,_2013_June.jpg)
+- `04-norge-1.jpg` — Lightscape, Unsplash License. [Source](https://unsplash.com/photos/aurora-borealis-on-body-of-water-during-daytime-ist1RQOfkcE)
+- `04-norge-2.jpg` — Sébastien Goldberg, Unsplash License. [Source](https://unsplash.com/photos/brown-moose-on-gray-field-1r6rwX1FUdc)
+- `04-norge-3.jpg` — Joshua Kettle, Unsplash License. [Source](https://unsplash.com/photos/an-aerial-view-of-a-river-running-through-a-city-SNVuKxmg0qY)
+- `04-norge-5.jpg` — Joshua Kettle, Unsplash License. [Source](https://unsplash.com/photos/an-aerial-view-of-a-small-town-on-an-island-CfbAP2h8xzk)
 
 ## Brazil — Copacabana
 
-- `05-brazil-1.jpg` — Wilfredor, CC0. [Source](https://commons.wikimedia.org/wiki/File:Rio_de_Janeiro_skyline_and_Sugarloaf_Mountain_at_sunset,_Brazil_3.jpg)
-- `05-brazil-2.jpg` — Donatas Dabravolskas, CC BY-SA 4.0. [Source](https://commons.wikimedia.org/wiki/File:Sugarloaf_Sunrise_2.jpg)
-- `05-brazil-3.jpg` — Carlos Perez Couto, CC BY-SA 3.0. [Source](https://commons.wikimedia.org/wiki/File:Amanhecer_no_Hercules_--.jpg)
+- `05-brazil-1.jpg` — Raphael Nogueira, Unsplash License. [Source](https://unsplash.com/photos/christ-redeemer-statue-brazil-CErddu-JwKw)
+- `05-brazil-2.jpg` — Sébastien Goldberg, Unsplash License. [Source](https://unsplash.com/photos/high-angle-photography-of-cable-car-Q8KGwGdDsW8)
+- `05-brazil-3.jpg` — Juliana e Mariana Amorim, Unsplash License. [Source](https://unsplash.com/photos/two-teal-and-yellow-parrots-on-cable-AmLssHPF58k)
+- `05-brazil-4.jpg` — Davi Costa, Unsplash License. [Source](https://unsplash.com/photos/aerial-photography-of-mountains-surrounded-by-sea-4lWIQ43CCmM)
+- `05-brazil-5.jpg` — Cassio Nunes, Unsplash License. [Source](https://unsplash.com/photos/yellow-and-black-bird-on-green-fruit-LtkNnk5gsO8)
 
 ## Denmark — Copenhagen Steam Railway Galop
 
-- `06-denmark-1.jpg` — Moahim, CC BY-SA 4.0. [Source](https://commons.wikimedia.org/wiki/File:2018_-_Nyhavn_on_sunset.jpg)
+- `06-denmark-1.jpg` — Nick Karvounis, Unsplash License. [Source](https://unsplash.com/photos/red-boat-in-nyhavn-canal-copenhagen-cj9_lderSUk)
 - `06-denmark-2.jpg` — Leif Jørgensen, CC BY-SA 4.0. [Source](https://commons.wikimedia.org/wiki/File:Steam_train_at_Gr%C3%A6sted_Veterantr%C3%A6f_2017.jpg)
 - `06-denmark-3.jpg` — Dietmar Rabich, CC BY-SA 4.0. [Source](https://commons.wikimedia.org/wiki/File:Kopenhagen_(DK),_Peblinge-See,_S%C3%B8pavillonen_--_2017_--_1453.jpg)
 

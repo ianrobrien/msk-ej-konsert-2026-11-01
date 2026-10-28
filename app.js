@@ -131,7 +131,6 @@
       console.error(`Could not load concert photo: ${photo.src}`);
     };
 
-    nextLayer.alt = photo.alt || `${slide.place} — ${slide.song}`;
     nextLayer.style.objectPosition = photo.position || "center";
     nextLayer.src = photo.src;
   }
