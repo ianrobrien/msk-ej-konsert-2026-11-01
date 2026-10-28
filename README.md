@@ -5,7 +5,7 @@ CSS, and JavaScript; there are no packages or network dependencies.
 
 ## View the show
 
-[Open the live presentation](https://www.ianrobrien.dev/msk-ej-konsert-2026-11-01/).
+[Open the live presentation](https://www.ianrobrien.dev/mssk-ej-konsert-2026-11-01/).
 
 GitHub Pages publishes from the `main` branch root; no custom CI or build
 workflow is required.
