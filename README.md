@@ -50,7 +50,8 @@ screen. Photos cycle every 60 seconds by default; change `photoIntervalMs` in
 `slides.js` to adjust the interval. Change `flightDurationMs` there to adjust
 the route animation duration.
 
-The vintage-style route map uses the public-domain
-[Natural Earth 1:110m land dataset](https://www.naturalearthdata.com/). Its
-1200x600 Robinson-projection viewBox is cropped at 60 degrees south and matches
-the flight-route coordinates.
+The vintage-style route map uses public-domain
+[Natural Earth 1:50m Admin-0 country data](https://www.naturalearthdata.com/)
+for coastlines and country borders. Its graticule uses the same Robinson
+projection as the flight routes. The 1200x600 viewBox is cropped at 60 degrees
+south, and the map data is bundled locally for offline use.
