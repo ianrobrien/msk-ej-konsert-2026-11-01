@@ -123,6 +123,7 @@
     nextLayer.onerror = () => {
       if (token !== imageLoadToken) return;
 
+      photoIndex = index;
       photoStatusElement.hidden = false;
       photoStatusElement.textContent = `Kunne ikke laste inn bildet: ${photo.src}`;
       console.error(`Could not load concert photo: ${photo.src}`);
@@ -407,9 +408,12 @@
     }
 
     window.clearInterval(photoTimer);
-    const vehicle = toSlide.incomingRoute?.from === fromSlide.id
-      ? toSlide.incomingRoute.vehicle
-      : "plane";
+    let vehicle = "plane";
+    if (toSlide.incomingRoute?.from === fromSlide.id) {
+      vehicle = toSlide.incomingRoute.vehicle;
+    } else if (fromSlide.incomingRoute?.from === toSlide.id) {
+      vehicle = fromSlide.incomingRoute.vehicle;
+    }
     const flight = { fromIndex, toIndex, frameId: null, vehicle };
     activeFlight = flight;
     isWaitingForPhotos = false;
@@ -436,8 +440,11 @@
         travelKickerElement.textContent = "ANKOMMET";
         const destinationName = toSlide.song ?? toSlide.title ??
           toLocation.place;
+        const nextAction = toSlide.photos.length > 0
+          ? "vise bildene"
+          : "fortsette";
         travelCaptionElement.textContent =
-          `${destinationName} · Trykk høyre pil eller mellomrom for å vise bildene.`;
+          `${destinationName} · Trykk høyre pil eller mellomrom for å ${nextAction}.`;
       });
     });
   }
@@ -608,7 +615,7 @@
       if (!event.repeat) moveSlide(1);
     } else if (event.key === "ArrowLeft") {
       event.preventDefault();
-      moveSlide(-1);
+      if (!event.repeat) moveSlide(-1);
     } else if (event.key.toLowerCase() === "j") {
       event.preventDefault();
       if (!event.repeat) movePhoto(-1);
