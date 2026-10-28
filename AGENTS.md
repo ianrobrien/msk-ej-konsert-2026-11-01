@@ -59,6 +59,10 @@ documentation in English.
   it fits the stop. Do not use individual photo coordinates. Verify each point
   lies on land in the intended country in `assets/world-map.svg`; for coastal
   cities, use a nearby in-city point if the mapped city center falls in water.
+- Use one canonical coordinate for each country, city, or capital across all
+  slides and routes that refer to it. Define a shared location in `slides.js`
+  and reuse it instead of duplicating or varying coordinates for the same
+  place.
 - Keep each `id` unique. Coordinates use decimal-degree `latitude` and
   `longitude`; they determine the map position and route.
 - Store slideshow images locally and use relative paths. For each photo, keep
