@@ -46,7 +46,9 @@ outside the projected image area and can be updated when photos are replaced.
 
 - `06-denmark-1.jpg` — Nick Karvounis, Unsplash License. [Source](https://unsplash.com/photos/red-boat-in-nyhavn-canal-copenhagen-cj9_lderSUk)
 - `06-denmark-2.jpg` — Leif Jørgensen, CC BY-SA 4.0. [Source](https://commons.wikimedia.org/wiki/File:Steam_train_at_Gr%C3%A6sted_Veterantr%C3%A6f_2017.jpg)
-- `06-denmark-3.jpg` — Dietmar Rabich, CC BY-SA 4.0. [Source](https://commons.wikimedia.org/wiki/File:Kopenhagen_(DK),_Peblinge-See,_S%C3%B8pavillonen_--_2017_--_1453.jpg)
+- `06-denmark-3.jpg` — Tomas Eidsvold, Unsplash License. [Source](https://unsplash.com/photos/green-grass-near-body-of-water-during-daytime-NQvGi9VAf4U)
+- `06-denmark-4.jpg` — Marina Šurniene, Unsplash License. [Source](https://unsplash.com/photos/brown-concrete-building-near-body-of-water-during-daytime-uW7GWyHsizI)
+- `06-denmark-5.jpg` — Christoffer Mouritsen, Unsplash License. [Source](https://unsplash.com/photos/aerial-photography-of-yellow-train-seiUizmGpv8)
 
 ## Italy — Monterosi
 

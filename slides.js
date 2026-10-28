@@ -264,10 +264,24 @@ window.CONCERT_CONFIG = {
         },
         {
           src: "assets/photos/06-denmark-3.jpg",
-          credit: "Dietmar Rabich",
-          license: "CC BY-SA 4.0",
+          credit: "Tomas Eidsvold",
+          license: "Unsplash License",
           source:
-            "https://commons.wikimedia.org/wiki/File:Kopenhagen_(DK),_Peblinge-See,_S%C3%B8pavillonen_--_2017_--_1453.jpg",
+            "https://unsplash.com/photos/green-grass-near-body-of-water-during-daytime-NQvGi9VAf4U",
+        },
+        {
+          src: "assets/photos/06-denmark-4.jpg",
+          credit: "Marina Šurniene",
+          license: "Unsplash License",
+          source:
+            "https://unsplash.com/photos/brown-concrete-building-near-body-of-water-during-daytime-uW7GWyHsizI",
+        },
+        {
+          src: "assets/photos/06-denmark-5.jpg",
+          credit: "Christoffer Mouritsen",
+          license: "Unsplash License",
+          source:
+            "https://unsplash.com/photos/aerial-photography-of-yellow-train-seiUizmGpv8",
         },
       ],
     },
