@@ -347,8 +347,40 @@ button {
 }
 
 .flight-plane {
-  fill: #503a2a;
   filter: drop-shadow(0 2px 4px rgb(255 246 225 / 72%));
+}
+
+.plane-wing,
+.plane-tail,
+.plane-fuselage {
+  fill: #a3442e;
+  stroke: #503a2a;
+  stroke-width: 1.5;
+  stroke-linejoin: round;
+}
+
+.plane-cockpit,
+.plane-window,
+.plane-propeller-hub {
+  fill: #f4e3bf;
+  stroke: #503a2a;
+  stroke-width: 1;
+}
+
+.plane-wing-stripe,
+.plane-propeller {
+  fill: none;
+  stroke: #f4e3bf;
+  stroke-linecap: round;
+}
+
+.plane-wing-stripe {
+  stroke-width: 1.5;
+}
+
+.plane-propeller {
+  stroke: #503a2a;
+  stroke-width: 2;
 }
 
 .train-smoke {

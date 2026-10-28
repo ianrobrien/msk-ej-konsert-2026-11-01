@@ -361,6 +361,13 @@
         : flight.vehicle === "boat"
         ? travelBoat
         : flightPlane;
+      const needsReverseFacing =
+        (flight.vehicle === "steam-train" || flight.vehicle === "boat") &&
+        Math.abs(angle) > 90;
+      const vehicleAngle = needsReverseFacing
+        ? angle - Math.sign(angle) * 180
+        : angle;
+      const facingScale = needsReverseFacing ? " scale(-1 1)" : "";
       const rotationOffset = flight.vehicle === "plane" ? 90 : 0;
       const scale = flight.vehicle === "steam-train"
         ? " scale(0.65)"
@@ -369,7 +376,7 @@
         : "";
       vehicle.setAttribute(
         "transform",
-        `translate(${point.x} ${point.y}) rotate(${angle + rotationOffset})${scale}`,
+        `translate(${point.x} ${point.y}) rotate(${vehicleAngle + rotationOffset})${facingScale}${scale}`,
       );
 
       if (progress < 1) {
