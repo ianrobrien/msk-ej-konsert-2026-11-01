@@ -11,7 +11,13 @@ window.CONCERT_CONFIG = {
       id: "start",
       type: "interstitial",
       title: "Velkommen",
-      photos: [],
+      photos: [
+        { src: "assets/photos/00-welcome-1.jpg" },
+        { src: "assets/photos/00-welcome-2.jpg" },
+        { src: "assets/photos/00-welcome-3.jpg" },
+        { src: "assets/photos/00-welcome-4.jpg" },
+        { src: "assets/photos/00-welcome-5.jpg" },
+      ],
     },
     {
       id: "opening-video",
