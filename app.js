@@ -17,6 +17,7 @@
   const travelKickerElement = document.getElementById("travel-kicker");
   const travelRouteLabel = document.getElementById("travel-route-label");
   const travelCaptionElement = document.getElementById("travel-caption");
+  const mapCameraElement = document.getElementById("map-camera");
   const routeDots = document.getElementById("route-dots");
   const routeActive = document.getElementById("route-active");
   const routeOrigin = document.getElementById("route-origin");
@@ -257,6 +258,37 @@
     };
   }
 
+  function zoomMapToRoute(start, control, end) {
+    const minX = Math.min(start.x, control.x, end.x);
+    const maxX = Math.max(start.x, control.x, end.x);
+    const minY = Math.min(start.y, control.y, end.y);
+    const maxY = Math.max(start.y, control.y, end.y);
+    const padding = 72;
+    const scale = Math.max(
+      1,
+      Math.min(
+        2.5,
+        (mapProjection.width - padding * 2) / Math.max(maxX - minX, 1),
+        (mapProjection.height - padding * 2) / Math.max(maxY - minY, 1),
+      ),
+    );
+
+    if (scale === 1) {
+      mapCameraElement.style.transform = "";
+      return;
+    }
+
+    const centerX = (minX + maxX) / 2;
+    const centerY = (minY + maxY) / 2;
+    const translateX = 50 -
+      (centerX / mapProjection.width) * scale * 100;
+    const translateY = 50 -
+      (centerY / mapProjection.height) * scale * 100;
+
+    mapCameraElement.style.transform =
+      `translate(${translateX}%, ${translateY}%) scale(${scale})`;
+  }
+
   function drawRailway(pathLength, completedLength) {
     const progressLength = Math.min(completedLength, pathLength);
 
@@ -334,6 +366,7 @@
       x: (start.x + end.x) / 2,
       y: Math.max(24, (start.y + end.y) / 2 - Math.min(120, distance * 0.18)),
     };
+    zoomMapToRoute(start, control, end);
     const pathData = `M ${start.x} ${start.y} Q ${control.x} ${control.y} ${end.x} ${end.y}`;
 
     routeDots.setAttribute("d", pathData);

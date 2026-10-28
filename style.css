@@ -335,6 +335,13 @@ button {
   box-shadow: 0 24px 80px rgb(0 0 0 / 32%);
 }
 
+.map-camera {
+  position: absolute;
+  inset: 0;
+  transform-origin: top left;
+  transition: transform 750ms ease-in-out;
+}
+
 .map-art,
 .route-layer {
   position: absolute;
