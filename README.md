@@ -23,6 +23,7 @@ Open `index.html` in a browser and use the Fullscreen button.
   an interstitial precedes the destination, otherwise show the previous
   country's photos.
 - `F`: toggle fullscreen
+- `P`: switch between the flat equirectangular map and the globe-style map
 - `H`: hide or show the slide number, fullscreen button, navigation arrows, and
   keyboard hints; the project title and current song/place stay visible
 - Debugging only: `J` shows the previous photo and `K` the next; either resets

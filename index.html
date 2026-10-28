@@ -31,12 +31,13 @@
           <p class="travel-route-label" id="travel-route-label"></p>
         </div>
         <div class="map-frame">
-          <img
+          <canvas
             class="map-art"
-            src="assets/world-map.svg"
-            alt=""
+            id="map-art"
+            width="1200"
+            height="600"
             aria-hidden="true"
-          >
+          ></canvas>
           <svg
             class="route-layer"
             viewBox="0 0 1200 600"
@@ -152,6 +153,7 @@
         <span>Trykk høyre pil eller mellomrom for neste land, eller venstre pil for forrige.</span>
         <span><kbd>F</kbd> Fullskjerm</span>
         <span><kbd>H</kbd> Skjul/vis kontroller</span>
+        <span><kbd>P</kbd> Bytt kartvisning</span>
       </footer>
     </main>
   </body>
