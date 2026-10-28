@@ -1,13 +1,15 @@
 # Photo sources
 
-The slideshow uses locally stored high-resolution Commons thumbnails. This source list is kept
+The slideshow uses locally stored high-resolution photographs. This source list is kept
 outside the projected image area and can be updated when photos are replaced.
 
 ## Africa — African Symphony
 
-- `01-africa-1.jpg` — Giles Laurent, CC BY-SA 4.0. [Source](https://commons.wikimedia.org/wiki/File:004_Sunrise_at_Serengeti_National_Park_Photo_by_Giles_Laurent.jpg)
-- `01-africa-2.jpg` — Bjørn Christian Tørrissen, CC BY-SA 3.0. [Source](https://commons.wikimedia.org/wiki/File:Serengeti-Landscape-2012.JPG)
-- `01-africa-3.jpg` — Charles J. Sharp, CC BY-SA 4.0. [Source](https://commons.wikimedia.org/wiki/File:African_bush_elephant_(Loxodonta_africana)_with_calf_Serengeti_2.jpg)
+- `01-africa-1.jpg` — Hu Chen, Unsplash License. [Source](https://unsplash.com/photos/brown-tree-on-surrounded-by-brown-grass-during-golden-hour-60XLoOgwkfA)
+- `01-africa-2.jpg` — Kelly Arnold, Unsplash License. [Source](https://unsplash.com/photos/giraffe-during-daytime-ASKewSMebm0)
+- `01-africa-3.jpg` — Deon De Villiers, Unsplash License. [Source](https://unsplash.com/photos/brown-elephant-on-brown-field-under-gray-clouds-7HRHhcueqZ8)
+- `01-africa-4.jpg` — David Tomaseti, Unsplash License. [Source](https://unsplash.com/photos/zebras-drinking-from-calm-pond-Vw2HZQ1FGjU)
+- `01-africa-5.jpg` — Evgeny Matveev, Unsplash License. [Source](https://unsplash.com/photos/a-variety-of-spices-are-on-display-in-a-store-eEpEs1CUaS4)
 
 ## Caribbean — The Banana Boat Song
 

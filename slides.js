@@ -23,27 +23,43 @@ window.CONCERT_CONFIG = {
       photos: [
         {
           src: "assets/photos/01-africa-1.jpg",
-          alt: "Soloppgang over Serengeti-slettene",
-          credit: "Giles Laurent",
-          license: "CC BY-SA 4.0",
+          alt: "Solnedgang på Serengeti",
+          credit: "Hu Chen",
+          license: "Unsplash License",
           source:
-            "https://commons.wikimedia.org/wiki/File:004_Sunrise_at_Serengeti_National_Park_Photo_by_Giles_Laurent.jpg",
+            "https://unsplash.com/photos/brown-tree-on-surrounded-by-brown-grass-during-golden-hour-60XLoOgwkfA",
         },
         {
           src: "assets/photos/01-africa-2.jpg",
-          alt: "Akasiatre på Serengeti-gresslettene",
-          credit: "Bjørn Christian Tørrissen",
-          license: "CC BY-SA 3.0",
+          alt: "Sjiraff i dagslys i Sør-Afrika",
+          credit: "Kelly Arnold",
+          license: "Unsplash License",
           source:
-            "https://commons.wikimedia.org/wiki/File:Serengeti-Landscape-2012.JPG",
+            "https://unsplash.com/photos/giraffe-during-daytime-ASKewSMebm0",
         },
         {
           src: "assets/photos/01-africa-3.jpg",
-          alt: "Afrikansk elefant med kalv i Serengeti",
-          credit: "Charles J. Sharp",
-          license: "CC BY-SA 4.0",
+          alt: "Ville elefanter på en stormfull ettermiddag på safari i Sør-Afrika",
+          credit: "Deon De Villiers",
+          license: "Unsplash License",
           source:
-            "https://commons.wikimedia.org/wiki/File:African_bush_elephant_(Loxodonta_africana)_with_calf_Serengeti_2.jpg",
+            "https://unsplash.com/photos/brown-elephant-on-brown-field-under-gray-clouds-7HRHhcueqZ8",
+        },
+        {
+          src: "assets/photos/01-africa-4.jpg",
+          alt: "Sebras drikker ved en rolig dam i Kruger nasjonalpark i Sør-Afrika",
+          credit: "David Tomaseti",
+          license: "Unsplash License",
+          source:
+            "https://unsplash.com/photos/zebras-drinking-from-calm-pond-Vw2HZQ1FGjU",
+        },
+        {
+          src: "assets/photos/01-africa-5.jpg",
+          alt: "Utvalg av krydder i en butikk i Marrakech i Marokko",
+          credit: "Evgeny Matveev",
+          license: "Unsplash License",
+          source:
+            "https://unsplash.com/photos/a-variety-of-spices-are-on-display-in-a-store-eEpEs1CUaS4",
         },
       ],
     },
