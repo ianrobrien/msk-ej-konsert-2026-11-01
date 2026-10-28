@@ -52,18 +52,23 @@ outside the projected image area and can be updated when photos are replaced.
 
 ## Italy — Monterosi
 
-- `07-italy-1.jpg` — Bjørn Christian Tørrissen, CC BY-SA 3.0. [Source](https://commons.wikimedia.org/wiki/File:Monterosi-Chiesa-San-Giuseppe-2012.JPG)
-- `07-italy-2.jpg` — Albarubescens, CC BY-SA 4.0. [Source](https://commons.wikimedia.org/wiki/File:Fields_of_harvested_hay,_Monterosi_countryside_in_Latium.jpg)
-- `07-italy-3.jpg` — Eric Kilby, CC BY-SA 2.0. [Source](https://commons.wikimedia.org/wiki/File:Cypress_tree_alley_at_sunset_in_Asciano,_Tuscany.jpg)
+- `07-italy-1.jpg` — Giuseppe Mondì, Unsplash License. [Source](https://unsplash.com/photos/florence-cathedral-skyline-with-trees-Qq1fwSLM0N0)
+- `07-italy-2.jpg` — Cristina Gottardi, Unsplash License. [Source](https://unsplash.com/photos/trevi-fountain-in-rome-italy-I1Lv2yX67GI)
+- `07-italy-3.jpg` — Clay Banks, Unsplash License. [Source](https://unsplash.com/photos/brown-concrete-building-under-gray-sky-during-daytime-hi_52O-h5G8)
+- `07-italy-4.jpg` — La So, Unsplash License. [Source](https://unsplash.com/photos/white-motor-scooter-near-building-vk4vjTNVrTg)
+- `07-italy-5.jpg` — Josh Hild, Unsplash License. [Source](https://unsplash.com/photos/vernazza-village-on-cinque-terre-coast-K4WXehq5Alc)
 
 ## Scotland — How to Train Your Dragon
 
-- `08-scotland-1.jpg` — Michal Klajban, CC BY-SA 4.0. [Source](https://commons.wikimedia.org/wiki/File:View_southwest_from_Ben_Lawers,_Scottish_Highlands,_Scotland.jpg)
-- `08-scotland-2.jpg` — Michal Klajban, CC BY-SA 4.0. [Source](https://commons.wikimedia.org/wiki/File:A_small_loch_in_the_saddle_between_Beinn_an_Dothaidh_and_Beinn_Dorain,_Scotland_01.jpg)
-- `08-scotland-3.jpg` — Diliff, CC BY-SA 3.0. [Source](https://commons.wikimedia.org/wiki/File:Eilean_Donan_Castle,_Scotland_-_Jan_2011.jpg)
+- `08-scotland-1.jpg` — Bjorn Snelders, Unsplash License. [Source](https://unsplash.com/photos/green-grass-on-mountain-under-white-cloudy-sky-Cd3Ek7rNXSk)
+- `08-scotland-2.jpg` — Zikang Zhou, Unsplash License. [Source](https://unsplash.com/photos/a-grassy-hill-with-a-road-going-through-it-7ZbnCzxw4-o)
+- `08-scotland-3.jpg` — Connor Mollison, Unsplash License. [Source](https://unsplash.com/photos/kilchurn-castle-ruins-on-loch-awe-3rkosR_Dgfg)
+- `08-scotland-4.jpg` — Zikang Zhou, Unsplash License. [Source](https://unsplash.com/photos/a-castle-sitting-on-top-of-a-rocky-shore-wKcdpwBY53I)
 
 ## USA — Sing Sing Sing
 
-- `09-usa-1.jpg` — Hans Gerber, CC BY-SA 4.0. [Source](https://commons.wikimedia.org/wiki/File:ETH-Bibliothek_Z%C3%BCrich,_Bildarchiv_-_Com_C08-143-002_-_Benny_Goodman,_USA,_Jazz_Orchestra.jpg)
-- `09-usa-2.jpg` — William P. Gottlieb, public domain. [Source](https://commons.wikimedia.org/wiki/File:Billie_Holiday,_Downbeat,_New_York,_N.Y.,_ca._Feb._1947_(William_P._Gottlieb_04251).jpg)
-- `09-usa-3.jpg` — William P. Gottlieb, public domain. [Source](https://commons.wikimedia.org/wiki/File:Leonard_Bernstein_and_Benny_Goodman_in_rehearsal.jpg)
+- `09-usa-1.jpg` — Patrick Tomasso, Unsplash License. [Source](https://unsplash.com/photos/manhattan-skyline-and-brooklyn-bridge-SVVTZtTGyaU)
+- `09-usa-2.jpg` — Stella He, Unsplash License. [Source](https://unsplash.com/photos/a-tall-building-with-a-balcony-and-flowers-on-the-balconies-cyZuN_AViJQ)
+- `09-usa-3.jpg` — Matt Collamer, Unsplash License. [Source](https://unsplash.com/photos/brown-brick-building-near-green-trees-during-daytime-UpYF6ibFud0)
+- `09-usa-4.jpg` — Thom Milkovic, Unsplash License. [Source](https://unsplash.com/photos/space-needle-and-seattle-skyline-skUTVJi8-jc)
+- `09-usa-5.jpg` — Maarten van den Heuvel, Unsplash License. [Source](https://unsplash.com/photos/golden-gate-bridge-during-daytime-gZXx8lKAb7Y)

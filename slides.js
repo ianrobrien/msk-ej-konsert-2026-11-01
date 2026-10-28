@@ -297,24 +297,38 @@ window.CONCERT_CONFIG = {
       photos: [
         {
           src: "assets/photos/07-italy-1.jpg",
-          credit: "Bjørn Christian Tørrissen",
-          license: "CC BY-SA 3.0",
+          credit: "Giuseppe Mondì",
+          license: "Unsplash License",
           source:
-            "https://commons.wikimedia.org/wiki/File:Monterosi-Chiesa-San-Giuseppe-2012.JPG",
+            "https://unsplash.com/photos/florence-cathedral-skyline-with-trees-Qq1fwSLM0N0",
         },
         {
           src: "assets/photos/07-italy-2.jpg",
-          credit: "Albarubescens",
-          license: "CC BY-SA 4.0",
+          credit: "Cristina Gottardi",
+          license: "Unsplash License",
           source:
-            "https://commons.wikimedia.org/wiki/File:Fields_of_harvested_hay,_Monterosi_countryside_in_Latium.jpg",
+            "https://unsplash.com/photos/trevi-fountain-in-rome-italy-I1Lv2yX67GI",
         },
         {
           src: "assets/photos/07-italy-3.jpg",
-          credit: "Eric Kilby",
-          license: "CC BY-SA 2.0",
+          credit: "Clay Banks",
+          license: "Unsplash License",
           source:
-            "https://commons.wikimedia.org/wiki/File:Cypress_tree_alley_at_sunset_in_Asciano,_Tuscany.jpg",
+            "https://unsplash.com/photos/brown-concrete-building-under-gray-sky-during-daytime-hi_52O-h5G8",
+        },
+        {
+          src: "assets/photos/07-italy-4.jpg",
+          credit: "La So",
+          license: "Unsplash License",
+          source:
+            "https://unsplash.com/photos/white-motor-scooter-near-building-vk4vjTNVrTg",
+        },
+        {
+          src: "assets/photos/07-italy-5.jpg",
+          credit: "Josh Hild",
+          license: "Unsplash License",
+          source:
+            "https://unsplash.com/photos/vernazza-village-on-cinque-terre-coast-K4WXehq5Alc",
         },
       ],
     },
@@ -326,24 +340,31 @@ window.CONCERT_CONFIG = {
       photos: [
         {
           src: "assets/photos/08-scotland-1.jpg",
-          credit: "Michal Klajban",
-          license: "CC BY-SA 4.0",
+          credit: "Bjorn Snelders",
+          license: "Unsplash License",
           source:
-            "https://commons.wikimedia.org/wiki/File:View_southwest_from_Ben_Lawers,_Scottish_Highlands,_Scotland.jpg",
+            "https://unsplash.com/photos/green-grass-on-mountain-under-white-cloudy-sky-Cd3Ek7rNXSk",
         },
         {
           src: "assets/photos/08-scotland-2.jpg",
-          credit: "Michal Klajban",
-          license: "CC BY-SA 4.0",
+          credit: "Zikang Zhou",
+          license: "Unsplash License",
           source:
-            "https://commons.wikimedia.org/wiki/File:A_small_loch_in_the_saddle_between_Beinn_an_Dothaidh_and_Beinn_Dorain,_Scotland_01.jpg",
+            "https://unsplash.com/photos/a-grassy-hill-with-a-road-going-through-it-7ZbnCzxw4-o",
         },
         {
           src: "assets/photos/08-scotland-3.jpg",
-          credit: "Diliff",
-          license: "CC BY-SA 3.0",
+          credit: "Connor Mollison",
+          license: "Unsplash License",
           source:
-            "https://commons.wikimedia.org/wiki/File:Eilean_Donan_Castle,_Scotland_-_Jan_2011.jpg",
+            "https://unsplash.com/photos/kilchurn-castle-ruins-on-loch-awe-3rkosR_Dgfg",
+        },
+        {
+          src: "assets/photos/08-scotland-4.jpg",
+          credit: "Zikang Zhou",
+          license: "Unsplash License",
+          source:
+            "https://unsplash.com/photos/a-castle-sitting-on-top-of-a-rocky-shore-wKcdpwBY53I",
         },
       ],
     },
@@ -355,24 +376,38 @@ window.CONCERT_CONFIG = {
       photos: [
         {
           src: "assets/photos/09-usa-1.jpg",
-          credit: "Hans Gerber",
-          license: "CC BY-SA 4.0",
+          credit: "Patrick Tomasso",
+          license: "Unsplash License",
           source:
-            "https://commons.wikimedia.org/wiki/File:ETH-Bibliothek_Z%C3%BCrich,_Bildarchiv_-_Com_C08-143-002_-_Benny_Goodman,_USA,_Jazz_Orchestra.jpg",
+            "https://unsplash.com/photos/manhattan-skyline-and-brooklyn-bridge-SVVTZtTGyaU",
         },
         {
           src: "assets/photos/09-usa-2.jpg",
-          credit: "William P. Gottlieb",
-          license: "Public domain",
+          credit: "Stella He",
+          license: "Unsplash License",
           source:
-            "https://commons.wikimedia.org/wiki/File:Billie_Holiday,_Downbeat,_New_York,_N.Y.,_ca._Feb._1947_(William_P._Gottlieb_04251).jpg",
+            "https://unsplash.com/photos/a-tall-building-with-a-balcony-and-flowers-on-the-balconies-cyZuN_AViJQ",
         },
         {
           src: "assets/photos/09-usa-3.jpg",
-          credit: "William P. Gottlieb",
-          license: "Public domain",
+          credit: "Matt Collamer",
+          license: "Unsplash License",
           source:
-            "https://commons.wikimedia.org/wiki/File:Leonard_Bernstein_and_Benny_Goodman_in_rehearsal.jpg",
+            "https://unsplash.com/photos/brown-brick-building-near-green-trees-during-daytime-UpYF6ibFud0",
+        },
+        {
+          src: "assets/photos/09-usa-4.jpg",
+          credit: "Thom Milkovic",
+          license: "Unsplash License",
+          source:
+            "https://unsplash.com/photos/space-needle-and-seattle-skyline-skUTVJi8-jc",
+        },
+        {
+          src: "assets/photos/09-usa-5.jpg",
+          credit: "Maarten van den Heuvel",
+          license: "Unsplash License",
+          source:
+            "https://unsplash.com/photos/golden-gate-bridge-during-daytime-gZXx8lKAb7Y",
         },
       ],
     },
