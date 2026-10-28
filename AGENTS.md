@@ -33,8 +33,9 @@ documentation in English.
   timing, flight duration, and ordered slide data. Song slides have an `id`,
   `song`, `place`, geographic `point`, and `photos`. Interstitial slides use
   `type: "interstitial"`, an `id`, a Norwegian `title`, and an empty `photos`
-  array. The welcome slide can define `routeOrigin`; interstitials can set
-  `routeToNextSong` to connect the previous and next song stops.
+  array. The welcome or another interstitial can define `routeOrigin`;
+  `routeFromPreviousSong` and `routeToNextSong` configure incoming and outgoing
+  journey legs.
 - `app.js` renders the configured slides, crossfades photos between two image
   layers, handles keyboard and button controls, toggles fullscreen, animates
   routes between song stops, and waits for a manual keypress after arrival
@@ -51,8 +52,9 @@ documentation in English.
 
 - Reorder the complete slide objects in `slides.js`. The route is calculated
   from the current array order; do not maintain a separate route sequence.
-  Interstitial cards remain part of the show order. A pause card between two
-  songs does not split their geographic route.
+  Interstitial cards remain part of the show order. Use route metadata on an
+  interstitial when a journey needs to arrive at or depart from that card's
+  location.
 - Keep each `id` unique. Coordinates use decimal-degree `latitude` and
   `longitude`; they determine the map position and route.
 - Store slideshow images locally and use relative paths. For each photo, keep
@@ -74,13 +76,14 @@ documentation in English.
   card or song. A song-to-song change starts the route; pressing again during
   the flight cancels it and shows the next country's photos, while waiting for
   arrival requires a separate press to start them. The welcome card starts a
-  route from Norway to the first song; interstitials with `routeToNextSong`
-  start the route between the surrounding song stops.
+  route from Norway to the first song; `routeFromPreviousSong` and
+  `routeToNextSong` start their configured incoming and outgoing legs.
 - `Left Arrow` and the on-screen left arrow go back one card or song. During a
   flight, Left cancels it to an interstitial immediately before the destination,
   or shows the previous country's photos when there is no such card. At
-  arrival, interstitials are visited in order before returning farther back;
-  direct song routes otherwise animate in reverse and wait for confirmation.
+  arrival, `routeFromPreviousSong` reverses that leg; other interstitials are
+  visited in order before returning farther back. Direct song routes otherwise
+  animate in reverse and wait for confirmation.
 - `F` and the Fullscreen button toggle fullscreen.
 - `H` hides or shows the slide number, fullscreen button, navigation arrows, and
   keyboard hints. Keep the project mark, current song, and place visible. The

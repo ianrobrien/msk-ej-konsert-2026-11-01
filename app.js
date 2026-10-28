@@ -486,16 +486,30 @@
       if (direction > 0) {
         renderSlide();
       } else {
-        const previousIndex = slideIndex + direction;
-        const previousSlide = config.slides[previousIndex];
+        const currentSlide = config.slides[slideIndex];
         if (
-          previousSlide?.type === "interstitial" &&
-          !previousSlide.routeOrigin
+          currentSlide.type === "interstitial" &&
+          currentSlide.routeFromPreviousSong
         ) {
-          slideIndex = previousIndex;
-          renderSlide();
-        } else if (lastFlightOriginIndex !== null) {
-          startFlight(slideIndex, lastFlightOriginIndex);
+          const previousSongIndex = findSongIndex(
+            slideIndex + direction,
+            direction,
+          );
+          if (previousSongIndex !== -1) {
+            startFlight(slideIndex, previousSongIndex);
+          }
+        } else {
+          const previousIndex = slideIndex + direction;
+          const previousSlide = config.slides[previousIndex];
+          if (
+            previousSlide?.type === "interstitial" &&
+            !previousSlide.routeOrigin
+          ) {
+            slideIndex = previousIndex;
+            renderSlide();
+          } else if (lastFlightOriginIndex !== null) {
+            startFlight(slideIndex, lastFlightOriginIndex);
+          }
         }
       }
       return;
@@ -509,13 +523,39 @@
 
     if (
       currentSlide.type === "interstitial" &&
+      direction < 0 &&
+      currentSlide.routeFromPreviousSong
+    ) {
+      const previousSongIndex = findSongIndex(
+        slideIndex + direction,
+        direction,
+      );
+      if (previousSongIndex !== -1) {
+        startFlight(slideIndex, previousSongIndex);
+        return;
+      }
+    } else if (
+      currentSlide.type === "interstitial" &&
+      direction > 0 &&
+      nextSlide.type === "interstitial" &&
+      nextSlide.routeFromPreviousSong
+    ) {
+      const originIndex = findSongIndex(slideIndex - direction, -direction);
+      if (originIndex !== -1) {
+        startFlight(originIndex, nextIndex);
+        return;
+      }
+    } else if (
+      currentSlide.type === "interstitial" &&
       direction > 0 &&
       currentSlide.routeToNextSong &&
       nextSlide.type !== "interstitial"
     ) {
-      const originIndex = findSongIndex(slideIndex - direction, -direction);
-      if (originIndex !== -1 || currentSlide.routeOrigin) {
-        startFlight(originIndex !== -1 ? originIndex : slideIndex, nextIndex);
+      const originIndex = currentSlide.routeOrigin
+        ? slideIndex
+        : findSongIndex(slideIndex - direction, -direction);
+      if (originIndex !== -1) {
+        startFlight(originIndex, nextIndex);
         return;
       }
     } else if (
