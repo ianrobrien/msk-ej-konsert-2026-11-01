@@ -22,6 +22,16 @@
   const routeActive = document.getElementById("route-active");
   const routeOrigin = document.getElementById("route-origin");
   const routeDestination = document.getElementById("route-destination");
+  routeOrigin.removeAttribute("transform");
+  routeDestination.removeAttribute("transform");
+  const routeOriginRadius = Number(routeOrigin.getAttribute("r"));
+  const routeDestinationRadius = Number(routeDestination.getAttribute("r"));
+  const routeOriginStrokeWidth = Number.parseFloat(
+    window.getComputedStyle(routeOrigin).strokeWidth,
+  );
+  const routeDestinationStrokeWidth = Number.parseFloat(
+    window.getComputedStyle(routeDestination).strokeWidth,
+  );
   const routeTrackSleepers = document.getElementById("route-track-sleepers");
   const routeTrackRails = document.getElementById("route-track-rails");
   const flightPlane = document.getElementById("flight-plane");
@@ -258,6 +268,18 @@
     };
   }
 
+  function getMapCameraScale() {
+    const transform = window.getComputedStyle(mapCameraElement).transform;
+    return transform === "none"
+      ? 1
+      : new DOMMatrixReadOnly(transform).a;
+  }
+
+  function scaleMarker(marker, radius, strokeWidth, scale) {
+    marker.setAttribute("r", String(radius * scale));
+    marker.style.strokeWidth = `${strokeWidth * scale}px`;
+  }
+
   function zoomMapToRoute(start, control, end) {
     const minX = Math.min(start.x, control.x, end.x);
     const maxX = Math.max(start.x, control.x, end.x);
@@ -267,7 +289,7 @@
     const scale = Math.max(
       1,
       Math.min(
-        2.5,
+        8,
         (mapProjection.width - padding * 2) / Math.max(maxX - minX, 1),
         (mapProjection.height - padding * 2) / Math.max(maxY - minY, 1),
       ),
@@ -275,7 +297,7 @@
 
     if (scale === 1) {
       mapCameraElement.style.transform = "";
-      return;
+      return scale;
     }
 
     const centerX = (minX + maxX) / 2;
@@ -287,6 +309,7 @@
 
     mapCameraElement.style.transform =
       `translate(${translateX}%, ${translateY}%) scale(${scale})`;
+    return scale;
   }
 
   function drawRailway(pathLength, completedLength) {
@@ -366,7 +389,9 @@
       x: (start.x + end.x) / 2,
       y: Math.max(24, (start.y + end.y) / 2 - Math.min(120, distance * 0.18)),
     };
-    zoomMapToRoute(start, control, end);
+    const mapScale = zoomMapToRoute(start, control, end);
+    let activeMapScale = mapScale;
+    let isMapZooming = true;
     const pathData = `M ${start.x} ${start.y} Q ${control.x} ${control.y} ${end.x} ${end.y}`;
 
     routeDots.setAttribute("d", pathData);
@@ -392,6 +417,13 @@
       const progress = Math.min((timestamp - startTime) / duration, 1);
       const eased = 1 - (1 - progress) ** 3;
       const length = pathLength * eased;
+      if (isMapZooming) {
+        activeMapScale = getMapCameraScale();
+        if (Math.abs(activeMapScale - mapScale) < 0.001) {
+          activeMapScale = mapScale;
+          isMapZooming = false;
+        }
+      }
       const point = routeActive.getPointAtLength(length);
       const beforePoint = routeActive.getPointAtLength(
         Math.max(0, length - 1),
@@ -422,14 +454,28 @@
         : angle;
       const facingScale = needsReverseFacing ? " scale(-1 1)" : "";
       const rotationOffset = flight.vehicle === "plane" ? 90 : 0;
-      const scale = flight.vehicle === "steam-train"
-        ? " scale(0.65)"
+      const baseScale = flight.vehicle === "steam-train"
+        ? 0.65
         : flight.vehicle === "boat"
-        ? " scale(0.8)"
-        : "";
+        ? 0.8
+        : 1;
+      const scale = baseScale / Math.sqrt(activeMapScale);
+      const markerScale = 1 / Math.sqrt(activeMapScale);
+      scaleMarker(
+        routeOrigin,
+        routeOriginRadius,
+        routeOriginStrokeWidth,
+        markerScale,
+      );
+      scaleMarker(
+        routeDestination,
+        routeDestinationRadius,
+        routeDestinationStrokeWidth,
+        markerScale,
+      );
       vehicle.setAttribute(
         "transform",
-        `translate(${point.x} ${point.y}) rotate(${vehicleAngle + rotationOffset})${facingScale}${scale}`,
+        `translate(${point.x} ${point.y}) rotate(${vehicleAngle + rotationOffset})${facingScale} scale(${scale})`,
       );
 
       if (progress < 1) {
