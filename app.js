@@ -617,6 +617,13 @@
     .getElementById("fullscreen-button")
     .addEventListener("click", toggleFullscreen);
 
+  stage.addEventListener("click", (event) => {
+    if (event.target.closest("button, a")) return;
+
+    const stageBounds = stage.getBoundingClientRect();
+    moveSlide(event.clientX < stageBounds.left + stageBounds.width / 2 ? -1 : 1);
+  });
+
   window.addEventListener("keydown", (event) => {
     if (event.key === "ArrowRight" || event.code === "Space") {
       event.preventDefault();
