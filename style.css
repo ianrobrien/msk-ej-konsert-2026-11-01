@@ -339,7 +339,6 @@ button {
   position: absolute;
   inset: 0;
   transform-origin: top left;
-  transition: transform 750ms ease-in-out;
   will-change: transform;
 }
 

@@ -100,6 +100,7 @@
   let isWaitingForPhotos = false;
   let lastFlightOriginIndex = null;
   let activeFlight = null;
+  let mapCamera = { x: 0, y: 0, scale: 1 };
 
   function renderPhotoCredit(photo) {
     photoCreditElement.hidden = false;
@@ -268,19 +269,12 @@
     };
   }
 
-  function getMapCameraScale() {
-    const transform = window.getComputedStyle(mapCameraElement).transform;
-    return transform === "none"
-      ? 1
-      : new DOMMatrixReadOnly(transform).a;
-  }
-
   function scaleMarker(marker, radius, strokeWidth, scale) {
     marker.setAttribute("r", String(radius * scale));
     marker.style.strokeWidth = `${strokeWidth * scale}px`;
   }
 
-  function zoomMapToRoute(start, control, end) {
+  function getRouteCamera(start, control, end) {
     const minX = Math.min(start.x, control.x, end.x);
     const maxX = Math.max(start.x, control.x, end.x);
     const minY = Math.min(start.y, control.y, end.y);
@@ -296,8 +290,7 @@
     );
 
     if (scale === 1) {
-      mapCameraElement.style.transform = "";
-      return scale;
+      return { x: 0, y: 0, scale };
     }
 
     const centerX = (minX + maxX) / 2;
@@ -307,9 +300,7 @@
     const translateY = 50 -
       (centerY / mapProjection.height) * scale * 100;
 
-    mapCameraElement.style.transform =
-      `translate(${translateX}%, ${translateY}%) scale(${scale})`;
-    return scale;
+    return { x: translateX, y: translateY, scale };
   }
 
   function drawRailway(pathLength, completedLength) {
@@ -389,8 +380,8 @@
       x: (start.x + end.x) / 2,
       y: Math.max(24, (start.y + end.y) / 2 - Math.min(120, distance * 0.18)),
     };
-    const mapScale = zoomMapToRoute(start, control, end);
-    let activeMapScale = mapScale;
+    const cameraStart = mapCamera;
+    const cameraEnd = getRouteCamera(start, control, end);
     let isMapZooming = true;
     const pathData = `M ${start.x} ${start.y} Q ${control.x} ${control.y} ${end.x} ${end.y}`;
 
@@ -418,11 +409,32 @@
       const eased = 1 - (1 - progress) ** 3;
       const length = pathLength * eased;
       if (isMapZooming) {
-        activeMapScale = getMapCameraScale();
-        if (Math.abs(activeMapScale - mapScale) < 0.001) {
-          activeMapScale = mapScale;
-          isMapZooming = false;
-        }
+        const zoomProgress = reducedMotion
+          ? 1
+          : Math.min((timestamp - startTime) / Math.min(1500, duration), 1);
+        const zoomEased = zoomProgress * zoomProgress * (3 - 2 * zoomProgress);
+        mapCamera = {
+          x: cameraStart.x + (cameraEnd.x - cameraStart.x) * zoomEased,
+          y: cameraStart.y + (cameraEnd.y - cameraStart.y) * zoomEased,
+          scale: cameraStart.scale +
+            (cameraEnd.scale - cameraStart.scale) * zoomEased,
+        };
+        mapCameraElement.style.transform =
+          `translate(${mapCamera.x}%, ${mapCamera.y}%) scale(${mapCamera.scale})`;
+        const markerScale = 1 / Math.sqrt(mapCamera.scale);
+        scaleMarker(
+          routeOrigin,
+          routeOriginRadius,
+          routeOriginStrokeWidth,
+          markerScale,
+        );
+        scaleMarker(
+          routeDestination,
+          routeDestinationRadius,
+          routeDestinationStrokeWidth,
+          markerScale,
+        );
+        isMapZooming = zoomProgress < 1;
       }
       const point = routeActive.getPointAtLength(length);
       const beforePoint = routeActive.getPointAtLength(
@@ -459,20 +471,7 @@
         : flight.vehicle === "boat"
         ? 0.8
         : 1;
-      const scale = baseScale / Math.sqrt(activeMapScale);
-      const markerScale = 1 / Math.sqrt(activeMapScale);
-      scaleMarker(
-        routeOrigin,
-        routeOriginRadius,
-        routeOriginStrokeWidth,
-        markerScale,
-      );
-      scaleMarker(
-        routeDestination,
-        routeDestinationRadius,
-        routeDestinationStrokeWidth,
-        markerScale,
-      );
+      const scale = baseScale / Math.sqrt(mapCamera.scale);
       vehicle.setAttribute(
         "transform",
         `translate(${point.x} ${point.y}) rotate(${vehicleAngle + rotationOffset})${facingScale} scale(${scale})`,
