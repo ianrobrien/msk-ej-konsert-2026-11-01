@@ -40,7 +40,7 @@
     width: 1200,
     height: 600,
     northLatitude: 90,
-    southLatitude: -60,
+    southLatitude: -90,
     xFactor: 0.8487,
     yFactor: 1.3523,
   };
@@ -54,14 +54,16 @@
     return values[lower] + (values[upper] - values[lower]) * fraction;
   }
 
-  const projectionScale = mapProjection.width /
-    (2 * mapProjection.xFactor * Math.PI);
   const projectionTop = mapProjection.yFactor *
     interpolateRobinson(robinsonY, mapProjection.northLatitude);
   const projectionBottom =
     Math.sign(mapProjection.southLatitude) *
     mapProjection.yFactor *
     interpolateRobinson(robinsonY, mapProjection.southLatitude);
+  const projectionScale = Math.min(
+    mapProjection.width / (2 * mapProjection.xFactor * Math.PI),
+    mapProjection.height / (projectionTop - projectionBottom),
+  );
   const projectionTopMargin =
     (mapProjection.height -
       (projectionTop - projectionBottom) * projectionScale) /
