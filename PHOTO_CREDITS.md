@@ -32,6 +32,7 @@ outside the projected image area and can be updated when photos are replaced.
 - `04-norge-1.jpg` — Lightscape, Unsplash License. [Source](https://unsplash.com/photos/aurora-borealis-on-body-of-water-during-daytime-ist1RQOfkcE)
 - `04-norge-2.jpg` — Sébastien Goldberg, Unsplash License. [Source](https://unsplash.com/photos/brown-moose-on-gray-field-1r6rwX1FUdc)
 - `04-norge-3.jpg` — Joshua Kettle, Unsplash License. [Source](https://unsplash.com/photos/an-aerial-view-of-a-river-running-through-a-city-SNVuKxmg0qY)
+- `04-norge-4.jpg` — Joshua Kettle, Unsplash License. [Source](https://unsplash.com/photos/an-aerial-view-of-a-river-running-through-a-city-SNVuKxmg0qY)
 - `04-norge-5.jpg` — Joshua Kettle, Unsplash License. [Source](https://unsplash.com/photos/an-aerial-view-of-a-small-town-on-an-island-CfbAP2h8xzk)
 
 ## Brazil — Copacabana
@@ -64,6 +65,7 @@ outside the projected image area and can be updated when photos are replaced.
 - `08-scotland-2.jpg` — Zikang Zhou, Unsplash License. [Source](https://unsplash.com/photos/a-grassy-hill-with-a-road-going-through-it-7ZbnCzxw4-o)
 - `08-scotland-3.jpg` — Connor Mollison, Unsplash License. [Source](https://unsplash.com/photos/kilchurn-castle-ruins-on-loch-awe-3rkosR_Dgfg)
 - `08-scotland-4.jpg` — Zikang Zhou, Unsplash License. [Source](https://unsplash.com/photos/a-castle-sitting-on-top-of-a-rocky-shore-wKcdpwBY53I)
+- `08-scotland-5.jpg` — Zikang Zhou, Unsplash License. [Source](https://unsplash.com/photos/a-castle-sitting-on-top-of-a-rocky-shore-wKcdpwBY53I)
 
 ## USA — Sing Sing Sing
 

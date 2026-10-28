@@ -176,6 +176,13 @@ window.CONCERT_CONFIG = {
             "https://unsplash.com/photos/an-aerial-view-of-a-river-running-through-a-city-SNVuKxmg0qY",
         },
         {
+          src: "assets/photos/04-norge-4.jpg",
+          credit: "Joshua Kettle",
+          license: "Unsplash License",
+          source:
+            "https://unsplash.com/photos/an-aerial-view-of-a-river-running-through-a-city-SNVuKxmg0qY",
+        },
+        {
           src: "assets/photos/04-norge-5.jpg",
           credit: "Joshua Kettle",
           license: "Unsplash License",
@@ -361,6 +368,13 @@ window.CONCERT_CONFIG = {
         },
         {
           src: "assets/photos/08-scotland-4.jpg",
+          credit: "Zikang Zhou",
+          license: "Unsplash License",
+          source:
+            "https://unsplash.com/photos/a-castle-sitting-on-top-of-a-rocky-shore-wKcdpwBY53I",
+        },
+        {
+          src: "assets/photos/08-scotland-5.jpg",
           credit: "Zikang Zhou",
           license: "Unsplash License",
           source:
