@@ -1,6 +1,6 @@
 const norwayLocation = {
   place: "Norge",
-  point: { latitude: 61.357092, longitude: 9.679975 },
+  point: { latitude: 59.918636, longitude: 10.748033 }, // Oslo
 };
 
 window.CONCERT_CONFIG = {
@@ -19,7 +19,7 @@ window.CONCERT_CONFIG = {
       id: "african-symphony",
       song: "African Symphony",
       place: "Afrika",
-      point: { latitude: -6.051866, longitude: 34.959183 },
+      point: { latitude: -3.360016, longitude: 36.669999 }, // Arusha
       photos: [
         {
           src: "assets/photos/01-africa-1.jpg",
@@ -51,7 +51,7 @@ window.CONCERT_CONFIG = {
       id: "banana-boat-song",
       song: "The Banana Boat Song",
       place: "Karibia",
-      point: { latitude: 18.137124, longitude: -77.318767 },
+      point: { latitude: 17.977077, longitude: -76.767434 }, // Kingston
       photos: [
         {
           src: "assets/photos/02-caribbean-1.jpg",
@@ -83,7 +83,7 @@ window.CONCERT_CONFIG = {
       id: "portias-slottsorkester",
       song: "Portias slottsorkester",
       place: "Irland",
-      point: { latitude: 53.078726, longitude: -7.798588 },
+      point: { latitude: 53.346731, longitude: -6.25698 }, // Dublin
       incomingRoute: {
         from: "banana-boat-song",
         vehicle: "boat",
@@ -151,7 +151,7 @@ window.CONCERT_CONFIG = {
       id: "copacabana",
       song: "Copacabana",
       place: "Brasil",
-      point: { latitude: -12.098687, longitude: -49.55945 },
+      point: { latitude: -22.907308, longitude: -43.212117 }, // Rio de Janeiro
       photos: [
         {
           src: "assets/photos/05-brazil-1.jpg",
@@ -198,7 +198,7 @@ window.CONCERT_CONFIG = {
       id: "copenhagen-steam-railway-galop",
       song: "Copenhagen Steam Railway Galop",
       place: "Danmark",
-      point: { latitude: 55.966965, longitude: 9.018163 },
+      point: { latitude: 55.68051, longitude: 12.56154 }, // Copenhagen
       photos: [
         {
           src: "assets/photos/06-denmark-1.jpg",
@@ -230,7 +230,7 @@ window.CONCERT_CONFIG = {
       id: "monterosi",
       song: "Monterosi",
       place: "Italia",
-      point: { latitude: 44.732482, longitude: 11.076907 },
+      point: { latitude: 41.897902, longitude: 12.481313 }, // Rome
       incomingRoute: {
         from: "copenhagen-steam-railway-galop",
         vehicle: "steam-train",
@@ -266,7 +266,7 @@ window.CONCERT_CONFIG = {
       id: "how-to-train-your-dragon",
       song: "How to Train Your Dragon",
       place: "Skottland",
-      point: { latitude: 56.5442, longitude: -4.2204 },
+      point: { latitude: 55.948328, longitude: -3.219091 }, // Edinburgh
       photos: [
         {
           src: "assets/photos/08-scotland-1.jpg",
@@ -298,7 +298,7 @@ window.CONCERT_CONFIG = {
       id: "sing-sing-sing",
       song: "Sing Sing Sing",
       place: "USA",
-      point: { latitude: 39.538479, longitude: -97.482602 },
+      point: { latitude: 40.7831, longitude: -73.9712 }, // New York City, inland anchor
       photos: [
         {
           src: "assets/photos/09-usa-1.jpg",

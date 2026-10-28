@@ -55,10 +55,10 @@ documentation in English.
   Interstitial cards remain part of the show order. Use route metadata on an
   interstitial when a journey needs to arrive at or depart from that card's
   location.
-- Use an interior representative coordinate for each route stop, based on the
-  corresponding country geometry in `assets/world-map.svg`; avoid coastal or
-  border locations that make the large route markers appear in neighboring
-  countries.
+- Use a relevant major city as each route anchor, preferring the capital when
+  it fits the stop. Do not use individual photo coordinates. Verify each point
+  lies on land in the intended country in `assets/world-map.svg`; for coastal
+  cities, use a nearby in-city point if the mapped city center falls in water.
 - Keep each `id` unique. Coordinates use decimal-degree `latitude` and
   `longitude`; they determine the map position and route.
 - Store slideshow images locally and use relative paths. For each photo, keep
