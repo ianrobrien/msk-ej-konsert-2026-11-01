@@ -44,9 +44,9 @@ documentation in English.
   transitions. Keep text and controls legible on a large screen.
 - `assets/photos/` contains the locally bundled photographs.
   `assets/world-map.svg` is the map used by the flight animation, based on the
-  public-domain Natural Earth 1:110m land dataset. It uses the Robinson
-  projection in a 1200x600 viewBox, cropped at 60 degrees south. Keep it
-  aligned with the route projection in `app.js`.
+  public-domain Natural Earth 1:50m land dataset. It uses the Robinson
+  projection in a 1200x600 viewBox, covering 90 degrees north to 90 degrees
+  south. Keep it aligned with the route projection in `app.js`.
 
 ## Changing songs, places, or photos
 
@@ -55,6 +55,10 @@ documentation in English.
   Interstitial cards remain part of the show order. Use route metadata on an
   interstitial when a journey needs to arrive at or depart from that card's
   location.
+- Use an interior representative coordinate for each route stop, based on the
+  corresponding country geometry in `assets/world-map.svg`; avoid coastal or
+  border locations that make the large route markers appear in neighboring
+  countries.
 - Keep each `id` unique. Coordinates use decimal-degree `latitude` and
   `longitude`; they determine the map position and route.
 - Store slideshow images locally and use relative paths. For each photo, keep

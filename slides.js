@@ -1,6 +1,6 @@
 const norwayLocation = {
   place: "Norge",
-  point: { latitude: 61.5, longitude: 8.5 },
+  point: { latitude: 61.357092, longitude: 9.679975 },
 };
 
 window.CONCERT_CONFIG = {
@@ -19,7 +19,7 @@ window.CONCERT_CONFIG = {
       id: "african-symphony",
       song: "African Symphony",
       place: "Afrika",
-      point: { latitude: 0, longitude: 20 },
+      point: { latitude: -6.051866, longitude: 34.959183 },
       photos: [
         {
           src: "assets/photos/01-africa-1.jpg",
@@ -51,7 +51,7 @@ window.CONCERT_CONFIG = {
       id: "banana-boat-song",
       song: "The Banana Boat Song",
       place: "Karibia",
-      point: { latitude: 18.1, longitude: -77.3 },
+      point: { latitude: 18.137124, longitude: -77.318767 },
       photos: [
         {
           src: "assets/photos/02-caribbean-1.jpg",
@@ -83,7 +83,7 @@ window.CONCERT_CONFIG = {
       id: "portias-slottsorkester",
       song: "Portias slottsorkester",
       place: "Irland",
-      point: { latitude: 53.4, longitude: -8.2 },
+      point: { latitude: 53.078726, longitude: -7.798588 },
       incomingRoute: {
         from: "banana-boat-song",
         vehicle: "boat",
@@ -151,7 +151,7 @@ window.CONCERT_CONFIG = {
       id: "copacabana",
       song: "Copacabana",
       place: "Brasil",
-      point: { latitude: -10, longitude: -52 },
+      point: { latitude: -12.098687, longitude: -49.55945 },
       photos: [
         {
           src: "assets/photos/05-brazil-1.jpg",
@@ -198,7 +198,7 @@ window.CONCERT_CONFIG = {
       id: "copenhagen-steam-railway-galop",
       song: "Copenhagen Steam Railway Galop",
       place: "Danmark",
-      point: { latitude: 55.7, longitude: 9.5 },
+      point: { latitude: 55.966965, longitude: 9.018163 },
       photos: [
         {
           src: "assets/photos/06-denmark-1.jpg",
@@ -230,7 +230,7 @@ window.CONCERT_CONFIG = {
       id: "monterosi",
       song: "Monterosi",
       place: "Italia",
-      point: { latitude: 42.8, longitude: 12.5 },
+      point: { latitude: 44.732482, longitude: 11.076907 },
       incomingRoute: {
         from: "copenhagen-steam-railway-galop",
         vehicle: "steam-train",
@@ -266,7 +266,7 @@ window.CONCERT_CONFIG = {
       id: "how-to-train-your-dragon",
       song: "How to Train Your Dragon",
       place: "Skottland",
-      point: { latitude: 56.8, longitude: -4.2 },
+      point: { latitude: 56.5442, longitude: -4.2204 },
       photos: [
         {
           src: "assets/photos/08-scotland-1.jpg",
@@ -298,7 +298,7 @@ window.CONCERT_CONFIG = {
       id: "sing-sing-sing",
       song: "Sing Sing Sing",
       place: "USA",
-      point: { latitude: 39.8, longitude: -98.6 },
+      point: { latitude: 39.538479, longitude: -97.482602 },
       photos: [
         {
           src: "assets/photos/09-usa-1.jpg",
