@@ -16,7 +16,6 @@
   const mapFrame = document.querySelector(".map-frame");
   const mapCanvas = document.getElementById("map-art");
   const mapContext = mapCanvas.getContext("2d");
-  const mapImage = new Image();
   const routeDots = document.getElementById("route-dots");
   const routeActive = document.getElementById("route-active");
   const routeOrigin = document.getElementById("route-origin");
@@ -30,48 +29,13 @@
     document.getElementById("photo-a"),
     document.getElementById("photo-b"),
   ];
-  // Robinson projection scale factors at five-degree latitude intervals.
-  const robinsonX = [
-    1, 0.9986, 0.9954, 0.99, 0.9822, 0.973, 0.96, 0.9427, 0.9216,
-    0.8962, 0.8679, 0.835, 0.7986, 0.7597, 0.7186, 0.6732, 0.6213,
-    0.5722, 0.5322,
-  ];
-  const robinsonY = [
-    0, 0.062, 0.124, 0.186, 0.248, 0.31, 0.372, 0.434, 0.4958, 0.5571,
-    0.6176, 0.6769, 0.7346, 0.7903, 0.8435, 0.8936, 0.9394, 0.9761, 1,
-  ];
   const mapProjection = {
     width: 1200,
     height: 600,
     northLatitude: 90,
     southLatitude: -60,
-    xFactor: 0.8487,
-    yFactor: 1.3523,
   };
   const globeRadius = 270;
-  const mapGridStep = 10;
-
-  function interpolateRobinson(values, latitude) {
-    const position = Math.min(Math.abs(latitude) / 5, values.length - 1);
-    const lower = Math.floor(position);
-    const upper = Math.min(lower + 1, values.length - 1);
-    const fraction = position - lower;
-
-    return values[lower] + (values[upper] - values[lower]) * fraction;
-  }
-
-  const projectionScale = mapProjection.width /
-    (2 * mapProjection.xFactor * Math.PI);
-  const projectionTop = mapProjection.yFactor *
-    interpolateRobinson(robinsonY, mapProjection.northLatitude);
-  const projectionBottom =
-    Math.sign(mapProjection.southLatitude) *
-    mapProjection.yFactor *
-    interpolateRobinson(robinsonY, mapProjection.southLatitude);
-  const projectionTopMargin =
-    (mapProjection.height -
-      (projectionTop - projectionBottom) * projectionScale) /
-    2;
 
   if (!config || !Array.isArray(config.slides) || config.slides.length === 0) {
     photoStatusElement.hidden = false;
@@ -92,10 +56,7 @@
   let displayedRoute = null;
   let isFlatMap = false;
   let lastMapCenter = { latitude: 20, longitude: 0 };
-
-  mapImage.onload = () => drawMap(lastMapCenter);
-  mapImage.onerror = () => console.error("Could not load the local world map.");
-  mapImage.src = "assets/world-map.svg";
+  const worldMapGroups = decodeMapData(window.CONCERT_MAP_DATA);
 
   function renderPhotoCredit(photo) {
     photoCreditElement.hidden = false;
@@ -220,21 +181,6 @@
     startPhotoTimer(slide);
   }
 
-  function projectRobinson(point) {
-    const xScale = interpolateRobinson(robinsonX, point.latitude);
-    const yScale = interpolateRobinson(robinsonY, point.latitude);
-    const longitudeRadians = point.longitude * (Math.PI / 180);
-    const projectedNorthing = Math.sign(point.latitude) *
-      mapProjection.yFactor * yScale;
-
-    return {
-      x: mapProjection.width / 2 +
-        mapProjection.xFactor * longitudeRadians * xScale * projectionScale,
-      y: projectionTopMargin +
-        (projectionTop - projectedNorthing) * projectionScale,
-    };
-  }
-
   function projectEquirectangular(point) {
     return {
       x: (point.longitude + 180) * mapProjection.width / 360,
@@ -329,16 +275,6 @@
       : projectOrthographic(point, center);
   }
 
-  function createMapVertex(longitude, latitude) {
-    const point = { latitude, longitude };
-
-    return {
-      point,
-      vector: toVector(point),
-      source: projectRobinson(point),
-    };
-  }
-
   function visibilityOf(vector, centerVector) {
     return vector.x * centerVector.x +
       vector.y * centerVector.y +
@@ -346,23 +282,22 @@
   }
 
   function intersectHemisphere(start, end, startVisibility, endVisibility) {
-    const fraction = startVisibility /
-      (startVisibility - endVisibility);
+    const fraction = startVisibility / (startVisibility - endVisibility);
     const vector = normalizeVector({
       x: start.vector.x + (end.vector.x - start.vector.x) * fraction,
       y: start.vector.y + (end.vector.y - start.vector.y) * fraction,
       z: start.vector.z + (end.vector.z - start.vector.z) * fraction,
     });
-    const point = pointFromVector(vector);
 
     return {
-      point,
+      point: pointFromVector(vector),
       vector,
-      source: projectRobinson(point),
+      isHorizon: true,
+      entering: startVisibility < 0,
     };
   }
 
-  function clipTriangleToHemisphere(vertices, centerVector) {
+  function clipRingToHemisphere(vertices, centerVector) {
     const clipped = [];
 
     for (let index = 0; index < vertices.length; index += 1) {
@@ -389,68 +324,183 @@
     return clipped;
   }
 
-  function drawMapTriangle(vertices, center) {
-    const source = vertices.map((vertex) => vertex.source);
-    const target = vertices.map((vertex) => projectPoint(vertex.point, center));
-    const [sourceStart, sourceNext, sourceLast] = source;
-    const [targetStart, targetNext, targetLast] = target;
-    const sourceWidth = sourceNext.x - sourceStart.x;
-    const sourceHeight = sourceNext.y - sourceStart.y;
-    const sourceDepth = sourceLast.x - sourceStart.x;
-    const sourceLength = sourceLast.y - sourceStart.y;
-    const determinant = sourceWidth * sourceLength -
-      sourceDepth * sourceHeight;
-
-    if (!targetStart || !targetNext || !targetLast ||
-        Math.abs(determinant) < 1e-6) {
-      return;
+  function getRingWinding(ring) {
+    let area = 0;
+    for (let index = 0; index < ring.length; index += 1) {
+      const current = ring[index].point;
+      const next = ring[(index + 1) % ring.length].point;
+      let longitudeDifference = next.longitude - current.longitude;
+      if (longitudeDifference > 180) longitudeDifference -= 360;
+      if (longitudeDifference < -180) longitudeDifference += 360;
+      const nextLongitude = current.longitude + longitudeDifference;
+      area += current.longitude * -next.latitude -
+        nextLongitude * -current.latitude;
     }
 
-    const targetWidth = targetNext.x - targetStart.x;
-    const targetHeight = targetNext.y - targetStart.y;
-    const targetDepth = targetLast.x - targetStart.x;
-    const targetLength = targetLast.y - targetStart.y;
-    const a = (targetWidth * sourceLength - targetDepth * sourceHeight) /
-      determinant;
-    const c = (targetDepth * sourceWidth - targetWidth * sourceDepth) /
-      determinant;
-    const b = (targetHeight * sourceLength - targetLength * sourceHeight) /
-      determinant;
-    const d = (targetLength * sourceWidth - targetHeight * sourceDepth) /
-      determinant;
-    const e = targetStart.x - a * sourceStart.x - c * sourceStart.y;
-    const f = targetStart.y - b * sourceStart.x - d * sourceStart.y;
-    const sourceLeft = Math.min(...source.map((point) => point.x));
-    const sourceTop = Math.min(...source.map((point) => point.y));
-    const sourceRight = Math.max(...source.map((point) => point.x));
-    const sourceBottom = Math.max(...source.map((point) => point.y));
-    const cropX = Math.max(0, sourceLeft);
-    const cropY = Math.max(0, sourceTop);
-    const cropWidth = Math.min(mapProjection.width, sourceRight) - cropX;
-    const cropHeight = Math.min(mapProjection.height, sourceBottom) - cropY;
+    return Math.sign(area) || 1;
+  }
 
-    if (cropWidth <= 0 || cropHeight <= 0) return;
+  function drawHorizonArc(fromPoint, toPoint, direction) {
+    const centerX = mapProjection.width / 2;
+    const centerY = mapProjection.height / 2;
+    const startAngle = Math.atan2(fromPoint.y - centerY, fromPoint.x - centerX);
+    const endAngle = Math.atan2(toPoint.y - centerY, toPoint.x - centerX);
+    let angleDifference = endAngle - startAngle;
 
-    mapContext.save();
-    mapContext.beginPath();
-    mapContext.moveTo(targetStart.x, targetStart.y);
-    mapContext.lineTo(targetNext.x, targetNext.y);
-    mapContext.lineTo(targetLast.x, targetLast.y);
-    mapContext.closePath();
-    mapContext.clip();
-    mapContext.transform(a, b, c, d, e, f);
-    mapContext.drawImage(
-      mapImage,
-      cropX,
-      cropY,
-      cropWidth,
-      cropHeight,
-      cropX,
-      cropY,
-      cropWidth,
-      cropHeight,
+    if (direction > 0) {
+      while (angleDifference < 0) angleDifference += 2 * Math.PI;
+    } else {
+      while (angleDifference > 0) angleDifference -= 2 * Math.PI;
+    }
+
+    const stepCount = Math.max(1, Math.ceil(
+      Math.abs(angleDifference) * globeRadius / 8,
+    ));
+    for (let step = 1; step <= stepCount; step += 1) {
+      const angle = startAngle + angleDifference * step / stepCount;
+      mapContext.lineTo(
+        centerX + globeRadius * Math.cos(angle),
+        centerY + globeRadius * Math.sin(angle),
+      );
+    }
+  }
+
+  function readMapVarint(bytes, offset) {
+    let value = 0;
+    let shift = 0;
+    let byte;
+
+    do {
+      if (offset >= bytes.length || shift > 28) {
+        throw new Error("Invalid bundled map data.");
+      }
+      byte = bytes[offset];
+      offset += 1;
+      value |= (byte & 0x7f) << shift;
+      shift += 7;
+    } while (byte & 0x80);
+
+    return { value, offset };
+  }
+
+  function readMapSignedVarint(bytes, offset) {
+    const result = readMapVarint(bytes, offset);
+
+    return {
+      value: (result.value >>> 1) ^ -(result.value & 1),
+      offset: result.offset,
+    };
+  }
+
+  function decodeMapData(encoded) {
+    if (!encoded) return [];
+
+    const bytes = Uint8Array.from(
+      atob(encoded),
+      (character) => character.charCodeAt(0),
     );
-    mapContext.restore();
+    const groups = [];
+    let offset = 0;
+
+    while (offset < bytes.length) {
+      const groupResult = readMapVarint(bytes, offset);
+      const group = [];
+      offset = groupResult.offset;
+
+      for (let ringIndex = 0; ringIndex < groupResult.value; ringIndex += 1) {
+        const pointCountResult = readMapVarint(bytes, offset);
+        const ring = [];
+        let longitude = 0;
+        let latitude = 0;
+        offset = pointCountResult.offset;
+
+        for (
+          let pointIndex = 0;
+          pointIndex < pointCountResult.value;
+          pointIndex += 1
+        ) {
+          const longitudeResult = readMapSignedVarint(bytes, offset);
+          const latitudeResult = readMapSignedVarint(
+            bytes,
+            longitudeResult.offset,
+          );
+          longitude += longitudeResult.value;
+          latitude += latitudeResult.value;
+          offset = latitudeResult.offset;
+          const point = {
+            latitude: latitude / 10,
+            longitude: longitude / 10,
+          };
+          ring.push({ point, vector: toVector(point) });
+        }
+        group.push(ring);
+      }
+      groups.push(group);
+    }
+
+    return groups;
+  }
+
+  function drawLand(center) {
+    const centerVector = isFlatMap ? null : toVector(center);
+
+    mapContext.beginPath();
+    worldMapGroups.forEach((group) => {
+      group.forEach((ring) => {
+        const vertices = isFlatMap
+          ? ring
+          : clipRingToHemisphere(ring, centerVector);
+        if (vertices.length < 3) return;
+
+        const firstPoint = projectPoint(vertices[0].point, center);
+        if (!firstPoint) return;
+        const winding = getRingWinding(ring);
+        mapContext.moveTo(firstPoint.x, firstPoint.y);
+        for (let index = 1; index < vertices.length; index += 1) {
+          const previousVertex = vertices[index - 1];
+          const currentVertex = vertices[index];
+          const point = projectPoint(currentVertex.point, center);
+          if (!point) continue;
+
+          if (
+            previousVertex.isHorizon &&
+            !previousVertex.entering &&
+            currentVertex.isHorizon &&
+            currentVertex.entering
+          ) {
+            drawHorizonArc(
+              projectPoint(previousVertex.point, center),
+              point,
+              winding,
+            );
+          } else {
+            mapContext.lineTo(point.x, point.y);
+          }
+        }
+
+        const lastVertex = vertices[vertices.length - 1];
+        const firstVertex = vertices[0];
+        if (
+          lastVertex.isHorizon &&
+          !lastVertex.entering &&
+          firstVertex.isHorizon &&
+          firstVertex.entering
+        ) {
+          drawHorizonArc(
+            projectPoint(lastVertex.point, center),
+            firstPoint,
+            winding,
+          );
+        }
+        mapContext.closePath();
+      });
+    });
+    mapContext.fillStyle = "#c4b18a";
+    mapContext.fill("evenodd");
+    mapContext.strokeStyle = "rgba(117, 93, 63, 0.62)";
+    mapContext.lineWidth = 1.15;
+    mapContext.lineJoin = "round";
+    mapContext.stroke();
   }
 
   function traceProjectedLine(points, center) {
@@ -532,9 +582,6 @@
     if (mapCanvas.height !== canvasHeight) mapCanvas.height = canvasHeight;
     mapContext.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
     mapContext.clearRect(0, 0, mapProjection.width, mapProjection.height);
-    mapContext.imageSmoothingEnabled = true;
-    mapContext.imageSmoothingQuality = "high";
-
     if (isFlatMap) {
       mapContext.fillStyle = "#dfcfaa";
       mapContext.fillRect(0, 0, mapProjection.width, mapProjection.height);
@@ -553,63 +600,23 @@
       mapContext.fill();
     }
 
-    if (mapImage.complete && mapImage.naturalWidth > 0) {
-      const centerVector = isFlatMap ? null : toVector(lastMapCenter);
-      const latitudeStart = mapProjection.southLatitude;
-
-      if (!isFlatMap) {
-        mapContext.save();
-        mapContext.beginPath();
-        mapContext.arc(
-          mapProjection.width / 2,
-          mapProjection.height / 2,
-          globeRadius,
-          0,
-          Math.PI * 2,
-        );
-        mapContext.clip();
-      }
-
-      for (
-        let latitude = latitudeStart;
-        latitude < mapProjection.northLatitude;
-        latitude += mapGridStep
-      ) {
-        const nextLatitude = Math.min(
-          latitude + mapGridStep,
-          mapProjection.northLatitude,
-        );
-        for (let longitude = -180; longitude < 180; longitude += mapGridStep) {
-          const nextLongitude = longitude + mapGridStep;
-          const corners = [
-            createMapVertex(longitude, latitude),
-            createMapVertex(nextLongitude, latitude),
-            createMapVertex(nextLongitude, nextLatitude),
-            createMapVertex(longitude, nextLatitude),
-          ];
-          const triangles = [[0, 1, 2], [0, 2, 3]];
-
-          triangles.forEach((indices) => {
-            const triangle = indices.map((index) => corners[index]);
-            const visible = isFlatMap
-              ? triangle
-              : clipTriangleToHemisphere(triangle, centerVector);
-
-            for (let index = 1; index < visible.length - 1; index += 1) {
-              drawMapTriangle(
-                [visible[0], visible[index], visible[index + 1]],
-                lastMapCenter,
-              );
-            }
-          });
-        }
-      }
-
-      if (!isFlatMap) mapContext.restore();
+    if (!isFlatMap) {
+      mapContext.save();
+      mapContext.beginPath();
+      mapContext.arc(
+        mapProjection.width / 2,
+        mapProjection.height / 2,
+        globeRadius,
+        0,
+        Math.PI * 2,
+      );
+      mapContext.clip();
     }
 
+    drawLand(lastMapCenter);
     drawGraticule(lastMapCenter);
     if (!isFlatMap) {
+      mapContext.restore();
       mapContext.beginPath();
       mapContext.arc(
         mapProjection.width / 2,

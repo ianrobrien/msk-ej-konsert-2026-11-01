@@ -43,10 +43,10 @@ documentation in English.
 - `style.css` contains the presentation layout, typography, and visual
   transitions. Keep text and controls legible on a large screen.
 - `assets/photos/` contains the locally bundled photographs.
-  `assets/world-map.svg` is the map used by the flight animation, based on the
-  public-domain Natural Earth 1:110m land dataset. It uses the Robinson
-  projection in a 1200x600 viewBox, cropped at 60 degrees south. Keep it
-  aligned with the route projection in `app.js`.
+  `assets/world-map-data.js` contains geographic land outlines derived from the
+  public-domain Natural Earth 1:110m dataset; `app.js` projects them directly
+  into the selected map view alongside the route and vehicle. Keep both
+  projections aligned with the map geometry in `app.js`.
 
 ## Changing songs, places, or photos
 
