@@ -242,6 +242,10 @@ button {
   text-shadow: 0 2px 24px rgb(0 0 0 / 32%);
 }
 
+.stage.is-traveling .caption {
+  visibility: hidden;
+}
+
 .place {
   margin-bottom: 20px;
   color: #e8c982;

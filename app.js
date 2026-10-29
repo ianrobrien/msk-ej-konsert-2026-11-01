@@ -169,6 +169,7 @@
   }
 
   function renderSlide() {
+    stage.classList.remove("is-traveling");
     stopVideo();
     window.clearInterval(photoTimer);
     imageLoadToken += 1;
@@ -448,6 +449,7 @@
       return;
     }
 
+    stage.classList.add("is-traveling");
     stopVideo();
     photoStatusElement.hidden = true;
     window.clearInterval(photoTimer);
