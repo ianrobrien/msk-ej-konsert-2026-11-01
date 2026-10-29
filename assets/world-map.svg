@@ -5786,8 +5786,8 @@
       M 127.63 79.62 L 1072.37 79.62
       M 285.21 0 L 914.79 0"/>
   </defs>
-  <!-- Previous palette: water #dfcfaa, land #c4b18a, borders and graticule #755d3f. -->
-  <use href="#country-polygons" fill="#329b72" fill-opacity=".94" clip-path="url(#world-extent)"/>
-  <use href="#graticule" fill="none" stroke="#f2f6ff" stroke-opacity=".62" stroke-width="1" clip-path="url(#world-extent)"/>
-  <use href="#country-polygons" fill="none" stroke="#f2f6ff" stroke-opacity=".9" stroke-width="1.15" stroke-linejoin="round" clip-path="url(#world-extent)"/>
+  <!-- Vintage palette: water #dfcfaa, land #c4b18a, borders and graticule #755d3f. -->
+  <use href="#country-polygons" fill="#c4b18a" fill-opacity=".94" clip-path="url(#world-extent)"/>
+  <use href="#graticule" fill="none" stroke="#755d3f" stroke-opacity=".3" stroke-width="1" clip-path="url(#world-extent)"/>
+  <use href="#country-polygons" fill="none" stroke="#755d3f" stroke-opacity=".68" stroke-width="1.15" stroke-linejoin="round" clip-path="url(#world-extent)"/>
 </svg>

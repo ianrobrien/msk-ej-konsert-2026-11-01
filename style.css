@@ -3,9 +3,8 @@
   --night: #081223;
   --night-panel: #0c1a33;
   --night-mid: #14294f;
-  --map-water: #286bad;
+  --map-water: #dfcfaa;
   --ice-blue: #a9c1e8;
-  --travel-gold: #f1d06a;
   --text-primary: #eef3fb;
   font-family: "Avenir Next", Avenir, "Segoe UI", sans-serif;
   background: var(--night);
@@ -361,29 +360,29 @@ button {
 }
 
 .route-dots {
-  stroke: var(--travel-gold);
+  stroke: rgb(112 88 60 / 62%);
   stroke-dasharray: 2 10;
   stroke-width: 2.5;
 }
 
 .route-active {
-  stroke: var(--travel-gold);
+  stroke: #a3442e;
   stroke-width: 3;
-  filter: drop-shadow(0 0 5px rgb(241 208 106 / 42%));
+  filter: drop-shadow(0 0 5px rgb(163 68 46 / 42%));
 }
 
 .route-track-sleepers {
-  stroke: #536b94;
+  stroke: #503a2a;
   stroke-width: 2.5;
   stroke-linecap: round;
 }
 
 .route-track-rails {
-  stroke: var(--travel-gold);
+  stroke: #a3442e;
   stroke-width: 2.5;
   stroke-linecap: round;
   stroke-linejoin: round;
-  filter: drop-shadow(0 0 3px rgb(241 208 106 / 75%));
+  filter: drop-shadow(0 0 3px rgb(244 225 190 / 75%));
 }
 
 .travel-overlay.is-train .route-active,
@@ -404,97 +403,95 @@ button {
   display: block;
 }
 
-.route-origin,
-.route-destination {
-  fill: var(--text-primary);
-  stroke: var(--travel-gold);
+.route-origin {
+  fill: #f5e9cf;
+  stroke: #5c4531;
   stroke-width: 3;
-  filter: drop-shadow(0 0 4px rgb(241 208 106 / 58%));
+}
+
+.route-destination {
+  fill: #a3442e;
+  stroke: #f5e9cf;
+  stroke-width: 3;
 }
 
 .flight-plane {
-  filter: drop-shadow(0 2px 4px rgb(238 243 251 / 72%));
-}
-
-.plane-silhouette {
-  fill: var(--ice-blue);
-  stroke: #263e63;
-  stroke-width: 1.5;
-  stroke-linejoin: round;
+  fill: #503a2a;
+  filter: drop-shadow(0 2px 4px rgb(255 246 225 / 72%));
 }
 
 .train-smoke {
-  fill: #dce8f8;
-  stroke: #263e63;
+  fill: #f4e3bf;
+  stroke: #503a2a;
   stroke-width: 1;
 }
 
 .train-wheels circle {
-  fill: #263e63;
-  stroke: var(--text-primary);
+  fill: #503a2a;
+  stroke: #f5e9cf;
   stroke-width: 1.5;
 }
 
 .train-wheels path {
   fill: none;
-  stroke: var(--text-primary);
+  stroke: #f5e9cf;
   stroke-width: 1.4;
 }
 
 .train-frame,
 .train-chimney,
 .train-chimney-cap {
-  fill: #263e63;
+  fill: #503a2a;
 }
 
 .train-cab,
 .train-boiler,
 .train-cowcatcher {
-  fill: var(--ice-blue);
-  stroke: #263e63;
+  fill: #a3442e;
+  stroke: #503a2a;
   stroke-width: 1.5;
 }
 
 .train-window {
-  fill: #e5eeff;
-  stroke: #263e63;
+  fill: #f4e3bf;
+  stroke: #503a2a;
   stroke-width: 1;
 }
 
 .train-lamp {
-  fill: #e5eeff;
-  stroke: #263e63;
+  fill: #f4e3bf;
+  stroke: #503a2a;
   stroke-width: 1;
 }
 
 .boat-mast {
   fill: none;
-  stroke: #263e63;
+  stroke: #503a2a;
   stroke-width: 2;
   stroke-linecap: round;
 }
 
 .boat-sail {
-  fill: #e5eeff;
-  stroke: #263e63;
+  fill: #f4e3bf;
+  stroke: #503a2a;
   stroke-width: 1.2;
   stroke-linejoin: round;
 }
 
 .boat-hull {
-  fill: var(--ice-blue);
-  stroke: #263e63;
+  fill: #a3442e;
+  stroke: #503a2a;
   stroke-width: 1.5;
   stroke-linejoin: round;
 }
 
 .boat-deck {
-  fill: #263e63;
+  fill: #503a2a;
 }
 
 .boat-flag {
-  fill: var(--ice-blue);
-  stroke: #263e63;
+  fill: #a3442e;
+  stroke: #503a2a;
   stroke-width: 1;
 }
 
