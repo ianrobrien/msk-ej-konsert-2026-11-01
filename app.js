@@ -18,6 +18,7 @@
   const travelRouteLabel = document.getElementById("travel-route-label");
   const travelCaptionElement = document.getElementById("travel-caption");
   const mapCameraElement = document.getElementById("map-camera");
+  const mapFrameElement = travelOverlay.querySelector(".map-frame");
   const routeDots = document.getElementById("route-dots");
   const routeActive = document.getElementById("route-active");
   const routeOrigin = document.getElementById("route-origin");
@@ -33,7 +34,10 @@
     window.getComputedStyle(routeDestination).strokeWidth,
   );
   const routeTrackSleepers = document.getElementById("route-track-sleepers");
-  const routeTrackRails = document.getElementById("route-track-rails");
+  const routeTrackRails = [
+    document.getElementById("route-track-rail-left"),
+    document.getElementById("route-track-rail-right"),
+  ];
   const flightPlane = document.getElementById("flight-plane");
   const travelTrain = document.getElementById("travel-train");
   const travelBoat = document.getElementById("travel-boat");
@@ -59,6 +63,8 @@
     xFactor: 0.8487,
     yFactor: 1.3523,
   };
+  // Match zoom to the bundled map raster's 4096px width.
+  const maxMapRasterWidth = 4_096;
 
   function interpolateRobinson(values, latitude) {
     const position = Math.min(Math.abs(latitude) / 5, values.length - 1);
@@ -274,7 +280,28 @@
     marker.style.strokeWidth = `${strokeWidth * scale}px`;
   }
 
-  function getRouteCamera(start, control, end) {
+  function getMaxCameraScale() {
+    return Math.max(
+      1,
+      Math.min(
+        8,
+        maxMapRasterWidth / Math.max(mapFrameElement.clientWidth, 1),
+      ),
+    );
+  }
+
+  function constrainCameraScale(camera, maxScale) {
+    if (camera.scale <= maxScale) return camera;
+
+    const scale = maxScale;
+    return {
+      x: 50 - (50 - camera.x) * scale / camera.scale,
+      y: 50 - (50 - camera.y) * scale / camera.scale,
+      scale,
+    };
+  }
+
+  function getRouteCamera(start, control, end, maxScale) {
     const minX = Math.min(start.x, control.x, end.x);
     const maxX = Math.max(start.x, control.x, end.x);
     const minY = Math.min(start.y, control.y, end.y);
@@ -283,7 +310,7 @@
     const scale = Math.max(
       1,
       Math.min(
-        8,
+        maxScale,
         (mapProjection.width - padding * 2) / Math.max(maxX - minX, 1),
         (mapProjection.height - padding * 2) / Math.max(maxY - minY, 1),
       ),
@@ -303,9 +330,7 @@
     return { x: translateX, y: translateY, scale };
   }
 
-  function drawRailway(pathLength, completedLength) {
-    const progressLength = Math.min(completedLength, pathLength);
-
+  function createRailwayRenderer(pathLength, trailingLength) {
     function getFrame(distance) {
       const point = routeActive.getPointAtLength(distance);
       const before = routeActive.getPointAtLength(Math.max(0, distance - 1));
@@ -329,30 +354,31 @@
       return `${point.x.toFixed(1)} ${point.y.toFixed(1)}`;
     }
 
-    const sampleCount = Math.max(1, Math.ceil(progressLength / 4));
-    const rails = progressLength > 0
-      ? [-3.5, 3.5].map((offset) => {
-        const points = Array.from({ length: sampleCount + 1 }, (_, index) => {
-          const distance = progressLength * index / sampleCount;
-          const { point, normal } = getFrame(distance);
+    const sampleCount = Math.max(1, Math.ceil(pathLength / 4));
+    const rails = [-3.5, 3.5].map((offset) => {
+      const points = Array.from({ length: sampleCount + 1 }, (_, index) => {
+        const distance = pathLength * index / sampleCount;
+        const { point, normal } = getFrame(distance);
 
-          return formatPoint({
-            x: point.x + normal.x * offset,
-            y: point.y + normal.y * offset,
-          });
+        return formatPoint({
+          x: point.x + normal.x * offset,
+          y: point.y + normal.y * offset,
         });
+      });
 
-        return `M ${points.join(" L ")}`;
-      })
-      : [];
-    routeTrackRails.setAttribute("d", rails.join(" "));
+      return `M ${points.join(" L ")}`;
+    });
+    const railLengths = routeTrackRails.map((rail, index) => {
+      rail.setAttribute("d", rails[index]);
+      const length = rail.getTotalLength();
+      rail.style.strokeDasharray = String(length);
+      rail.style.strokeDashoffset = String(length);
+      return length;
+    });
 
-    const sleeperDistances = [];
-    for (let distance = 0; distance <= progressLength; distance += 12) {
-      sleeperDistances.push(distance);
-    }
-
-    const sleepers = sleeperDistances.map((distance) => {
+    routeTrackSleepers.replaceChildren();
+    const sleepers = [];
+    for (let distance = 0; distance <= pathLength; distance += 12) {
       const { point, normal } = getFrame(distance);
       const start = {
         x: point.x - normal.x * 8,
@@ -362,14 +388,46 @@
         x: point.x + normal.x * 8,
         y: point.y + normal.y * 8,
       };
-
-      return `M ${formatPoint(start)} L ${formatPoint(end)}`;
-    });
-    routeTrackSleepers.setAttribute("d", sleepers.join(" "));
-
-    if (progressLength >= pathLength) {
-      routeDots.setAttribute("d", "");
+      const sleeper = document.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "path",
+      );
+      sleeper.setAttribute(
+        "d",
+        `M ${formatPoint(start)} L ${formatPoint(end)}`,
+      );
+      sleeper.setAttribute("fill", "none");
+      sleeper.style.display = "none";
+      routeTrackSleepers.append(sleeper);
+      sleepers.push({ distance, element: sleeper });
     }
+
+    let nextSleeperIndex = 0;
+    return (completedLength) => {
+      const completedTrackLength = Math.max(
+        0,
+        completedLength - trailingLength,
+      );
+      const progress = pathLength === 0
+        ? 1
+        : Math.min(completedTrackLength / pathLength, 1);
+      routeTrackRails.forEach((rail, index) => {
+        rail.style.strokeDashoffset = String(railLengths[index] * (1 - progress));
+      });
+
+      while (
+        nextSleeperIndex < sleepers.length &&
+        completedLength >= trailingLength &&
+        sleepers[nextSleeperIndex].distance <= completedTrackLength
+      ) {
+        sleepers[nextSleeperIndex].element.style.display = "";
+        nextSleeperIndex += 1;
+      }
+
+      if (completedLength >= pathLength) {
+        routeDots.setAttribute("d", "");
+      }
+    };
   }
 
   function animateFlight(fromPoint, toPoint, flight, onComplete) {
@@ -380,9 +438,14 @@
       x: (start.x + end.x) / 2,
       y: Math.max(24, (start.y + end.y) / 2 - Math.min(120, distance * 0.18)),
     };
-    const cameraStart = mapCamera;
-    const cameraEnd = getRouteCamera(start, control, end);
-    let isMapZooming = true;
+    const maxScale = getMaxCameraScale();
+    const cameraStart = constrainCameraScale(mapCamera, maxScale);
+    if (cameraStart !== mapCamera) {
+      mapCamera = cameraStart;
+      mapCameraElement.style.transform =
+        `translate(${mapCamera.x}%, ${mapCamera.y}%) scale(${mapCamera.scale})`;
+    }
+    const cameraEnd = getRouteCamera(start, control, end, maxScale);
     const pathData = `M ${start.x} ${start.y} Q ${control.x} ${control.y} ${end.x} ${end.y}`;
 
     routeDots.setAttribute("d", pathData);
@@ -395,23 +458,88 @@
     routeActive.style.strokeDasharray = String(pathLength);
     routeActive.style.strokeDashoffset = String(pathLength);
 
+    const vehicle = flight.vehicle === "steam-train"
+      ? travelTrain
+      : flight.vehicle === "boat"
+      ? travelBoat
+      : flightPlane;
+    const baseScale = flight.vehicle === "steam-train"
+      ? 0.65
+      : flight.vehicle === "boat"
+      ? 0.8
+      : 1;
+    const rotationOffset = flight.vehicle === "plane" ? 90 : 0;
+    const initialPoint = routeActive.getPointAtLength(0);
+    const initialNextPoint = routeActive.getPointAtLength(
+      Math.min(1, pathLength),
+    );
+    const initialAngle = Math.atan2(
+      initialNextPoint.y - initialPoint.y,
+      initialNextPoint.x - initialPoint.x,
+    ) * (180 / Math.PI);
+
+    function positionVehicle(point, angle, cameraScale = mapCamera.scale) {
+      const needsReverseFacing =
+        (flight.vehicle === "steam-train" || flight.vehicle === "boat") &&
+        Math.abs(angle) > 90;
+      const vehicleAngle = needsReverseFacing
+        ? angle - Math.sign(angle) * 180
+        : angle;
+      const facingScale = needsReverseFacing ? " scale(-1 1)" : "";
+      const scale = baseScale / Math.sqrt(cameraScale);
+
+      vehicle.setAttribute(
+        "transform",
+        `translate(${point.x} ${point.y}) rotate(${vehicleAngle + rotationOffset})${facingScale} scale(${scale})`,
+      );
+    }
+
     const reducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
     const duration = reducedMotion ? 1 : (config.flightDurationMs ?? 60_000);
-    let startTime;
+    const cameraNeedsChange =
+      cameraStart.x !== cameraEnd.x ||
+      cameraStart.y !== cameraEnd.y ||
+      cameraStart.scale !== cameraEnd.scale;
+    const zoomDuration = reducedMotion || !cameraNeedsChange
+      ? 0
+      : Math.min(1500, duration);
+    const routeDuration = Math.max(1, duration - zoomDuration);
+    let zoomStartTime;
+    let routeStartTime;
+    let hasAppliedCamera = false;
+
+    const updateRailway = flight.vehicle === "steam-train"
+      ? createRailwayRenderer(
+        pathLength,
+        24 * baseScale / Math.sqrt(cameraEnd.scale),
+      )
+      : null;
+    updateRailway?.(0);
+    const markerScale = 1 / Math.sqrt(cameraEnd.scale);
+    scaleMarker(
+      routeOrigin,
+      routeOriginRadius,
+      routeOriginStrokeWidth,
+      markerScale,
+    );
+    scaleMarker(
+      routeDestination,
+      routeDestinationRadius,
+      routeDestinationStrokeWidth,
+      markerScale,
+    );
+    positionVehicle(initialPoint, initialAngle, cameraEnd.scale);
 
     function frame(timestamp) {
       if (activeFlight !== flight) return;
 
-      if (startTime === undefined) startTime = timestamp;
-      const progress = Math.min((timestamp - startTime) / duration, 1);
-      const eased = 1 - (1 - progress) ** 3;
-      const length = pathLength * eased;
-      if (isMapZooming) {
-        const zoomProgress = reducedMotion
+      if (!hasAppliedCamera) {
+        if (zoomStartTime === undefined) zoomStartTime = timestamp;
+        const zoomProgress = zoomDuration === 0
           ? 1
-          : Math.min((timestamp - startTime) / Math.min(1500, duration), 1);
+          : Math.min((timestamp - zoomStartTime) / zoomDuration, 1);
         const zoomEased = zoomProgress * zoomProgress * (3 - 2 * zoomProgress);
         mapCamera = {
           x: cameraStart.x + (cameraEnd.x - cameraStart.x) * zoomEased,
@@ -421,21 +549,22 @@
         };
         mapCameraElement.style.transform =
           `translate(${mapCamera.x}%, ${mapCamera.y}%) scale(${mapCamera.scale})`;
-        const markerScale = 1 / Math.sqrt(mapCamera.scale);
-        scaleMarker(
-          routeOrigin,
-          routeOriginRadius,
-          routeOriginStrokeWidth,
-          markerScale,
-        );
-        scaleMarker(
-          routeDestination,
-          routeDestinationRadius,
-          routeDestinationStrokeWidth,
-          markerScale,
-        );
-        isMapZooming = zoomProgress < 1;
+
+        if (zoomProgress < 1) {
+          flight.frameId = window.requestAnimationFrame(frame);
+          return;
+        }
+
+        hasAppliedCamera = true;
       }
+
+      if (routeStartTime === undefined) routeStartTime = timestamp;
+      const progress = Math.min(
+        (timestamp - routeStartTime) / routeDuration,
+        1,
+      );
+      const eased = 1 - (1 - progress) ** 3;
+      const length = pathLength * eased;
       const point = routeActive.getPointAtLength(length);
       const beforePoint = routeActive.getPointAtLength(
         Math.max(0, length - 1),
@@ -449,33 +578,9 @@
           nextPoint.x - beforePoint.x,
         ) * (180 / Math.PI);
 
-      if (flight.vehicle === "steam-train") {
-        drawRailway(pathLength, length);
-      }
+      updateRailway?.(length);
       routeActive.style.strokeDashoffset = String(pathLength - length);
-      const vehicle = flight.vehicle === "steam-train"
-        ? travelTrain
-        : flight.vehicle === "boat"
-        ? travelBoat
-        : flightPlane;
-      const needsReverseFacing =
-        (flight.vehicle === "steam-train" || flight.vehicle === "boat") &&
-        Math.abs(angle) > 90;
-      const vehicleAngle = needsReverseFacing
-        ? angle - Math.sign(angle) * 180
-        : angle;
-      const facingScale = needsReverseFacing ? " scale(-1 1)" : "";
-      const rotationOffset = flight.vehicle === "plane" ? 90 : 0;
-      const baseScale = flight.vehicle === "steam-train"
-        ? 0.65
-        : flight.vehicle === "boat"
-        ? 0.8
-        : 1;
-      const scale = baseScale / Math.sqrt(mapCamera.scale);
-      vehicle.setAttribute(
-        "transform",
-        `translate(${point.x} ${point.y}) rotate(${vehicleAngle + rotationOffset})${facingScale} scale(${scale})`,
-      );
+      positionVehicle(point, angle);
 
       if (progress < 1) {
         flight.frameId = window.requestAnimationFrame(frame);
