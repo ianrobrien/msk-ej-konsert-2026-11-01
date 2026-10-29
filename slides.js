@@ -11,6 +11,13 @@ window.CONCERT_CONFIG = {
       id: "start",
       type: "interstitial",
       title: "Velkommen",
+      photos: [],
+    },
+    {
+      id: "opening-video",
+      type: "interstitial",
+      title: "Introduksjonsvideo",
+      video: "assets/intro.mp4",
       routeToNextSong: true,
       routeOrigin: norwayLocation,
       photos: [],

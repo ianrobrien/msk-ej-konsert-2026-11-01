@@ -29,7 +29,8 @@ Open `index.html` in a browser and use the Fullscreen button.
   the automatic photo timer.
 - The on-screen arrows are also clickable
 
-The show starts with `Velkommen`, followed by a flight from Norway to the first
+The show starts with `Velkommen`, followed by a full-stage opening video, then
+a flight from Norway to the first
 song. After Brazil, the `Pause` card is followed by a flight back to Norway for
 `Innslag med rekrutter/aspiranter`, then a flight from Norway to Denmark. The
 show ends with `Takk for musikken`. Photos wait for a keypress after each flight.
@@ -41,7 +42,23 @@ to change the order. Interstitial cards use `type: "interstitial"` and a
 Norwegian `title`; song slides keep their geographic point and photos. Routes
 between songs follow their order. Interstitial route locations can define where
 a journey arrives or departs, and the welcome card's configured Norwegian
-origin determines the opening flight.
+origin on the video card determines the opening flight.
+
+## Opening video
+
+Upload the opening video as `assets/intro.mp4`, or change the video card's
+`video` path in `slides.js`. MP4 with H.264 video and AAC audio is recommended
+for browser compatibility; no conversion is needed if your MP4 already uses
+supported codecs. The file stays local and works offline.
+
+Entering the video card starts playback with sound, subject to browser autoplay
+permissions. If playback is blocked, click `Spill av`. Hover over the video
+(or focus its controls with Tab) to reveal play/pause and a scrubber. Left/Right
+and Space still navigate the show, including when the scrubber has focus.
+The video fits the full stage without cropping; `F` toggles stage fullscreen.
+Leaving the card stops playback; returning restarts it. Playback ending does
+not advance the show: press Right or Space to start the opening flight.
+Until the file is uploaded, a visible error allows the operator to skip it.
 
 Each song slide has three local photographs in `assets/photos`; replace a file
 or edit its `photos` array to change an image. Photo credits and source links are
