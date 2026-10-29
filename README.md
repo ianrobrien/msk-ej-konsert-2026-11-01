@@ -30,8 +30,8 @@ Open `index.html` in a browser and use the Fullscreen button.
 - The on-screen arrows are also clickable
 
 The show starts with `Velkommen`, followed by a full-stage opening video, then
-a flight from Norway to the first
-song. After Brazil, the `Pause` card is followed by a flight back to Norway for
+a flight from Norway to the first song. After Brazil, the `Pause` card is
+followed by a flight back to Norway for
 `Innslag med rekrutter/aspiranter`, then a flight from Norway to Denmark. The
 show ends with `Takk for musikken`. Photos wait for a keypress after each flight.
 
@@ -41,8 +41,22 @@ show ends with `Takk for musikken`. Photos wait for a keypress after each flight
 to change the order. Interstitial cards use `type: "interstitial"` and a
 Norwegian `title`; song slides keep their geographic point and photos. Routes
 between songs follow their order. Interstitial route locations can define where
-a journey arrives or departs, and the welcome card's configured Norwegian
-origin on the video card determines the opening flight.
+a journey arrives or departs, and the video card's configured Norwegian
+origin determines the opening flight.
+
+Each song slide has three local photographs in `assets/photos`; replace a file
+or edit its `photos` array to change an image. Photo credits and source links are
+in `PHOTO_CREDITS.md`; the current photo's credit and source link also appear on
+screen. Photos cycle every 60 seconds by default; change `photoIntervalMs` in
+`slides.js` to adjust the interval. Change `flightDurationMs` there to adjust
+the route animation duration.
+
+The vintage-style route map uses public-domain
+[Natural Earth 1:50m Admin-0 country data](https://www.naturalearthdata.com/)
+for coastlines and country borders. Its graticule uses the same Robinson
+projection as the flight routes. The 1200x600 viewBox covers 90 degrees north
+to 90 degrees south, including Antarctica. Map data is bundled locally for
+offline use.
 
 ## Opening video
 
@@ -59,17 +73,3 @@ The video fits the full stage without cropping; `F` toggles stage fullscreen.
 Leaving the card stops playback; returning restarts it. Playback ending does
 not advance the show: press Right or Space to start the opening flight.
 Until the file is uploaded, a visible error allows the operator to skip it.
-
-Each song slide has three local photographs in `assets/photos`; replace a file
-or edit its `photos` array to change an image. Photo credits and source links are
-in `PHOTO_CREDITS.md`; the current photo's credit and source link also appear on
-screen. Photos cycle every 60 seconds by default; change `photoIntervalMs` in
-`slides.js` to adjust the interval. Change `flightDurationMs` there to adjust
-the route animation duration.
-
-The vintage-style route map uses public-domain
-[Natural Earth 1:50m Admin-0 country data](https://www.naturalearthdata.com/)
-for coastlines and country borders. Its graticule uses the same Robinson
-projection as the flight routes. The 1200x600 viewBox covers 90 degrees north
-to 90 degrees south, including Antarctica. Map data is bundled locally for
-offline use.
