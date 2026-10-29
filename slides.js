@@ -11,7 +11,43 @@ window.CONCERT_CONFIG = {
       id: "start",
       type: "interstitial",
       title: "Velkommen",
-      photos: [],
+      photos: [
+        {
+          src: "assets/photos/00-welcome-1.jpg",
+          credit: "Ross Parmly",
+          license: "Unsplash License",
+          source:
+            "https://unsplash.com/photos/aerial-photography-of-airliner-rf6ywHVkrlY",
+        },
+        {
+          src: "assets/photos/00-welcome-2.jpg",
+          credit: "CHUTTERSNAP",
+          license: "Unsplash License",
+          source:
+            "https://unsplash.com/photos/gate-closing-signage-mytSmcgVHRE",
+        },
+        {
+          src: "assets/photos/00-welcome-3.jpg",
+          credit: "Mariya Oliynyk",
+          license: "Unsplash License",
+          source:
+            "https://unsplash.com/photos/white-printer-paper-on-glass-window-during-sunset-RgNwiRFw62A",
+        },
+        {
+          src: "assets/photos/00-welcome-4.jpg",
+          credit: "Niklas Jonasson",
+          license: "Unsplash License",
+          source:
+            "https://unsplash.com/photos/an-aerial-view-of-an-airport-runway-at-sunset-3p3HtGKvGLM",
+        },
+        {
+          src: "assets/photos/00-welcome-5.jpg",
+          credit: "Mika Baumeister",
+          license: "Unsplash License",
+          source:
+            "https://unsplash.com/photos/a-large-jetliner-sitting-on-top-of-an-airport-tarmac-DHlZenOMjJI",
+        },
+      ],
     },
     {
       id: "opening-video",

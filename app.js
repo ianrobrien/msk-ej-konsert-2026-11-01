@@ -208,7 +208,7 @@
       return;
     }
 
-    if (slide.type === "interstitial") {
+    if (slide.type === "interstitial" && slide.photos.length === 0) {
       photoStatusElement.hidden = true;
       return;
     }
@@ -229,7 +229,6 @@
     if (
       isTransitioning ||
       isWaitingForPhotos ||
-      slide.type === "interstitial" ||
       slide.photos.length < 2
     ) {
       return;

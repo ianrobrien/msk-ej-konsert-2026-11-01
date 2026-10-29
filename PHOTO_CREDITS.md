@@ -3,6 +3,14 @@
 The slideshow uses locally stored high-resolution photographs. This source list is kept
 outside the projected image area and can be updated when photos are replaced.
 
+## Welcome — Velkommen
+
+- `00-welcome-1.jpg` — Ross Parmly, Unsplash License. [Source](https://unsplash.com/photos/aerial-photography-of-airliner-rf6ywHVkrlY)
+- `00-welcome-2.jpg` — CHUTTERSNAP, Unsplash License. [Source](https://unsplash.com/photos/gate-closing-signage-mytSmcgVHRE)
+- `00-welcome-3.jpg` — Mariya Oliynyk, Unsplash License. [Source](https://unsplash.com/photos/white-printer-paper-on-glass-window-during-sunset-RgNwiRFw62A)
+- `00-welcome-4.jpg` — Niklas Jonasson, Unsplash License. [Source](https://unsplash.com/photos/an-aerial-view-of-an-airport-runway-at-sunset-3p3HtGKvGLM)
+- `00-welcome-5.jpg` — Mika Baumeister, Unsplash License. [Source](https://unsplash.com/photos/a-large-jetliner-sitting-on-top-of-an-airport-tarmac-DHlZenOMjJI)
+
 ## Africa — African Symphony
 
 - `01-africa-1.jpg` — Hu Chen, Unsplash License. [Source](https://unsplash.com/photos/brown-tree-on-surrounded-by-brown-grass-during-golden-hour-60XLoOgwkfA)
