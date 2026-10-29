@@ -321,22 +321,9 @@
     });
     routeTrackSleepers.setAttribute("d", sleepers.join(" "));
 
-    const remainingLength = pathLength - progressLength;
-    if (remainingLength <= 0) {
+    if (progressLength >= pathLength) {
       routeDots.setAttribute("d", "");
-      return;
     }
-
-    const futureSampleCount = Math.max(1, Math.ceil(remainingLength / 4));
-    const futurePoints = Array.from(
-      { length: futureSampleCount + 1 },
-      (_, index) => {
-        const distance = progressLength +
-          remainingLength * index / futureSampleCount;
-        return formatPoint(routeActive.getPointAtLength(distance));
-      },
-    );
-    routeDots.setAttribute("d", `M ${futurePoints.join(" L ")}`);
   }
 
   function animateFlight(fromPoint, toPoint, flight, onComplete) {
