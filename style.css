@@ -1,8 +1,13 @@
 :root {
   color-scheme: dark;
+  --night: #081223;
+  --night-panel: #0c1a33;
+  --night-mid: #14294f;
+  --ice-blue: #a9c1e8;
+  --text-primary: #eef3fb;
   font-family: "Avenir Next", Avenir, "Segoe UI", sans-serif;
-  background: #101817;
-  color: #f4f0e7;
+  background: var(--night);
+  color: var(--text-primary);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
 }
@@ -37,8 +42,8 @@ button {
   overflow: hidden;
   align-items: center;
   background:
-    radial-gradient(ellipse at 68% 32%, rgb(68 91 77 / 36%), transparent 48%),
-    linear-gradient(125deg, #101817 0%, #172522 58%, #101817 100%);
+    radial-gradient(ellipse at 68% 32%, rgb(51 83 136 / 36%), transparent 48%),
+    linear-gradient(125deg, var(--night) 0%, var(--night-mid) 58%, var(--night) 100%);
   isolation: isolate;
 }
 
@@ -53,7 +58,7 @@ button {
   inset: 10% 8%;
   background: linear-gradient(
     transparent 49.9%,
-    rgb(231 215 174 / 8%) 50%,
+    rgb(169 193 232 / 8%) 50%,
     transparent 50.1%
   );
   opacity: 0.35;
@@ -81,8 +86,8 @@ button {
 .scrim {
   z-index: -1;
   background:
-    linear-gradient(90deg, rgb(9 15 14 / 82%) 0%, rgb(9 15 14 / 43%) 52%, rgb(9 15 14 / 12%) 100%),
-    linear-gradient(0deg, rgb(9 15 14 / 78%) 0%, transparent 26%, transparent 72%, rgb(9 15 14 / 35%) 100%);
+    linear-gradient(90deg, rgb(5 12 23 / 82%) 0%, rgb(5 12 23 / 43%) 52%, rgb(5 12 23 / 12%) 100%),
+    linear-gradient(0deg, rgb(5 12 23 / 78%) 0%, transparent 26%, transparent 72%, rgb(5 12 23 / 35%) 100%);
 }
 
 .photo-credit {
@@ -97,10 +102,10 @@ button {
   max-width: min(70vw, 900px);
   margin: 0;
   padding: 7px 10px;
-  border: 1px solid rgb(244 240 231 / 14%);
+  border: 1px solid rgb(238 243 251 / 14%);
   border-radius: 2px;
-  background: rgb(16 24 23 / 72%);
-  color: rgb(244 240 231 / 86%);
+  background: rgb(8 18 35 / 78%);
+  color: rgb(238 243 251 / 86%);
   font-size: clamp(0.58rem, 0.72vw, 0.74rem);
   line-height: 1.4;
   letter-spacing: 0.03em;
@@ -109,7 +114,7 @@ button {
 .video-slide {
   position: absolute;
   inset: 0;
-  background: #000;
+  background: var(--night);
 }
 
 .video-slide[hidden] {
@@ -130,7 +135,7 @@ button {
   display: flex;
   gap: 16px;
   padding: 12px;
-  background: rgb(0 0 0 / 80%);
+  background: rgb(8 18 35 / 86%);
   opacity: 0;
 }
 
@@ -143,7 +148,7 @@ button {
   min-width: 100px;
   padding: 8px;
   border: 1px solid currentColor;
-  background: #101817;
+  background: var(--night-panel);
   cursor: pointer;
 }
 
@@ -170,12 +175,12 @@ button {
 }
 
 .photo-credit a {
-  color: #e8c982;
+  color: var(--ice-blue);
   text-underline-offset: 0.18em;
 }
 
 .photo-credit a:focus-visible {
-  outline: 2px solid #e8c982;
+  outline: 2px solid var(--ice-blue);
   outline-offset: 3px;
 }
 
@@ -205,7 +210,7 @@ button {
 }
 
 .project-mark {
-  color: rgb(244 240 231 / 70%);
+  color: rgb(238 243 251 / 70%);
 }
 
 .topbar-right {
@@ -215,15 +220,15 @@ button {
 }
 
 .slide-count {
-  color: rgb(244 240 231 / 70%);
+  color: rgb(238 243 251 / 70%);
   font-variant-numeric: tabular-nums;
 }
 
 .fullscreen-button {
   padding: 9px 14px;
-  border: 1px solid rgb(244 240 231 / 35%);
+  border: 1px solid rgb(238 243 251 / 35%);
   border-radius: 2px;
-  background: rgb(16 24 23 / 35%);
+  background: rgb(12 26 51 / 35%);
   cursor: pointer;
   font-size: 0.78rem;
   transition: background-color 160ms ease, border-color 160ms ease;
@@ -231,8 +236,8 @@ button {
 
 .fullscreen-button:hover,
 .fullscreen-button:focus-visible {
-  border-color: #e8c982;
-  background: rgb(16 24 23 / 78%);
+  border-color: var(--ice-blue);
+  background: rgb(12 26 51 / 78%);
 }
 
 .caption {
@@ -248,7 +253,7 @@ button {
 
 .place {
   margin-bottom: 20px;
-  color: #e8c982;
+  color: var(--ice-blue);
 }
 
 .song {
@@ -264,7 +269,7 @@ button {
 
 .photo-status {
   margin: 24px 0 0;
-  color: rgb(244 240 231 / 66%);
+  color: rgb(238 243 251 / 66%);
   font-size: 0.9rem;
   letter-spacing: 0.03em;
 }
@@ -280,8 +285,8 @@ button {
   gap: clamp(14px, 3vh, 30px);
   padding: clamp(24px, 5vh, 54px) 6vw;
   background:
-    radial-gradient(ellipse at 50% 45%, rgb(47 63 55 / 42%), transparent 57%),
-    #101817;
+    radial-gradient(ellipse at 50% 45%, rgb(44 71 116 / 42%), transparent 57%),
+    var(--night);
   opacity: 0;
   visibility: hidden;
   transition: opacity 450ms ease, visibility 450ms ease;
@@ -306,7 +311,7 @@ button {
 
 .travel-kicker {
   margin: 0;
-  color: #e8c982;
+  color: var(--ice-blue);
   font-size: 0.68rem;
   font-weight: 600;
   letter-spacing: 0.2em;
@@ -315,7 +320,7 @@ button {
 
 .travel-route-label {
   margin: 0;
-  color: #f4f0e7;
+  color: var(--text-primary);
   font-family: Georgia, "Times New Roman", serif;
   font-size: clamp(1.25rem, 3vw, 2.3rem);
   letter-spacing: -0.02em;
@@ -326,7 +331,7 @@ button {
   width: min(88vw, 1280px);
   aspect-ratio: 2 / 1;
   overflow: hidden;
-  background: #dfcfaa;
+  background: var(--night-mid);
   box-shadow: 0 24px 80px rgb(0 0 0 / 32%);
 }
 
@@ -354,29 +359,29 @@ button {
 }
 
 .route-dots {
-  stroke: rgb(112 88 60 / 62%);
+  stroke: rgb(130 152 190 / 62%);
   stroke-dasharray: 2 10;
   stroke-width: 2.5;
 }
 
 .route-active {
-  stroke: #a3442e;
+  stroke: var(--ice-blue);
   stroke-width: 3;
-  filter: drop-shadow(0 0 5px rgb(163 68 46 / 42%));
+  filter: drop-shadow(0 0 5px rgb(169 193 232 / 42%));
 }
 
 .route-track-sleepers {
-  stroke: #503a2a;
+  stroke: #536b94;
   stroke-width: 2.5;
   stroke-linecap: round;
 }
 
 .route-track-rails {
-  stroke: #a3442e;
+  stroke: var(--ice-blue);
   stroke-width: 2.5;
   stroke-linecap: round;
   stroke-linejoin: round;
-  filter: drop-shadow(0 0 3px rgb(244 225 190 / 75%));
+  filter: drop-shadow(0 0 3px rgb(238 243 251 / 75%));
 }
 
 .travel-overlay.is-train .route-active,
@@ -398,106 +403,106 @@ button {
 }
 
 .route-origin {
-  fill: #f5e9cf;
-  stroke: #5c4531;
+  fill: var(--text-primary);
+  stroke: #7289b0;
   stroke-width: 3;
 }
 
 .route-destination {
-  fill: #a3442e;
-  stroke: #f5e9cf;
+  fill: var(--ice-blue);
+  stroke: var(--text-primary);
   stroke-width: 3;
 }
 
 .flight-plane {
-  filter: drop-shadow(0 2px 4px rgb(255 246 225 / 72%));
+  filter: drop-shadow(0 2px 4px rgb(238 243 251 / 72%));
 }
 
 .plane-silhouette {
-  fill: #a3442e;
-  stroke: #503a2a;
+  fill: var(--ice-blue);
+  stroke: #263e63;
   stroke-width: 1.5;
   stroke-linejoin: round;
 }
 
 .train-smoke {
-  fill: #f4e3bf;
-  stroke: #503a2a;
+  fill: #dce8f8;
+  stroke: #263e63;
   stroke-width: 1;
 }
 
 .train-wheels circle {
-  fill: #503a2a;
-  stroke: #f5e9cf;
+  fill: #263e63;
+  stroke: var(--text-primary);
   stroke-width: 1.5;
 }
 
 .train-wheels path {
   fill: none;
-  stroke: #f5e9cf;
+  stroke: var(--text-primary);
   stroke-width: 1.4;
 }
 
 .train-frame,
 .train-chimney,
 .train-chimney-cap {
-  fill: #503a2a;
+  fill: #263e63;
 }
 
 .train-cab,
 .train-boiler,
 .train-cowcatcher {
-  fill: #a3442e;
-  stroke: #503a2a;
+  fill: var(--ice-blue);
+  stroke: #263e63;
   stroke-width: 1.5;
 }
 
 .train-window {
-  fill: #f4e3bf;
-  stroke: #503a2a;
+  fill: #e5eeff;
+  stroke: #263e63;
   stroke-width: 1;
 }
 
 .train-lamp {
-  fill: #f4e3bf;
-  stroke: #503a2a;
+  fill: #e5eeff;
+  stroke: #263e63;
   stroke-width: 1;
 }
 
 .boat-mast {
   fill: none;
-  stroke: #503a2a;
+  stroke: #263e63;
   stroke-width: 2;
   stroke-linecap: round;
 }
 
 .boat-sail {
-  fill: #f4e3bf;
-  stroke: #503a2a;
+  fill: #e5eeff;
+  stroke: #263e63;
   stroke-width: 1.2;
   stroke-linejoin: round;
 }
 
 .boat-hull {
-  fill: #a3442e;
-  stroke: #503a2a;
+  fill: var(--ice-blue);
+  stroke: #263e63;
   stroke-width: 1.5;
   stroke-linejoin: round;
 }
 
 .boat-deck {
-  fill: #503a2a;
+  fill: #263e63;
 }
 
 .boat-flag {
-  fill: #a3442e;
-  stroke: #503a2a;
+  fill: var(--ice-blue);
+  stroke: #263e63;
   stroke-width: 1;
 }
 
 .travel-caption {
   margin: 0;
-  color: rgb(244 240 231 / 72%);
+  color: rgb(238 243 251 / 72%);
   font-size: clamp(0.72rem, 0.9vw, 0.9rem);
   letter-spacing: 0.02em;
   text-align: center;
@@ -516,9 +521,9 @@ button {
   width: 44px;
   height: 44px;
   place-items: center;
-  border: 1px solid rgb(244 240 231 / 40%);
+  border: 1px solid rgb(238 243 251 / 40%);
   border-radius: 50%;
-  background: rgb(16 24 23 / 35%);
+  background: rgb(12 26 51 / 35%);
   cursor: pointer;
   font-size: 1.25rem;
   line-height: 1;
@@ -527,8 +532,8 @@ button {
 
 .controls button:hover,
 .controls button:focus-visible {
-  border-color: #e8c982;
-  background: rgb(16 24 23 / 84%);
+  border-color: var(--ice-blue);
+  background: rgb(12 26 51 / 84%);
 }
 
 .key-hint {
@@ -537,7 +542,7 @@ button {
   bottom: clamp(26px, 5vh, 54px);
   display: flex;
   gap: 20px;
-  color: rgb(244 240 231 / 60%);
+  color: rgb(238 243 251 / 60%);
   font-size: 0.62rem;
   letter-spacing: 0.11em;
 }
@@ -548,9 +553,9 @@ button {
 
 kbd {
   padding: 2px 5px;
-  border: 1px solid rgb(244 240 231 / 28%);
+  border: 1px solid rgb(238 243 251 / 28%);
   border-radius: 2px;
-  color: rgb(244 240 231 / 86%);
+  color: rgb(238 243 251 / 86%);
   font: inherit;
 }
 
