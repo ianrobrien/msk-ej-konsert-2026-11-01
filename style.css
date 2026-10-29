@@ -106,6 +106,65 @@ button {
   letter-spacing: 0.03em;
 }
 
+.video-slide {
+  position: absolute;
+  inset: 0;
+  background: #000;
+}
+
+.video-slide[hidden] {
+  display: none;
+}
+
+.video-slide video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.video-controls {
+  position: absolute;
+  right: 6vw;
+  bottom: 24px;
+  left: 6vw;
+  display: flex;
+  gap: 16px;
+  padding: 12px;
+  background: rgb(0 0 0 / 80%);
+  opacity: 0;
+}
+
+.video-slide:hover .video-controls,
+.video-slide:focus-within .video-controls {
+  opacity: 1;
+}
+
+.video-controls button {
+  min-width: 100px;
+  padding: 8px;
+  border: 1px solid currentColor;
+  background: #101817;
+  cursor: pointer;
+}
+
+.video-controls input {
+  flex: 1;
+  min-width: 0;
+}
+
+.stage.has-video .project-mark,
+.stage.has-video .song,
+.stage.has-video .place,
+.stage.has-video .key-hint {
+  visibility: hidden;
+}
+
+.stage.has-video .caption {
+  position: relative;
+  z-index: 1;
+  pointer-events: none;
+}
+
 .photo-credit[hidden] {
   display: none;
 }

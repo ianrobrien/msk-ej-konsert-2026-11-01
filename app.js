@@ -9,6 +9,10 @@
   const photoCreditElement = document.getElementById("photo-credit");
   const photoCreditLabelElement = document.getElementById("photo-credit-label");
   const photoCreditSourceElement = document.getElementById("photo-credit-source");
+  const videoSlide = document.getElementById("video-slide");
+  const video = document.getElementById("slide-video");
+  const videoPlayButton = document.getElementById("video-play-button");
+  const videoSeek = document.getElementById("video-seek");
   const travelOverlay = document.getElementById("travel-overlay");
   const travelKickerElement = document.getElementById("travel-kicker");
   const travelRouteLabel = document.getElementById("travel-route-label");
@@ -148,7 +152,24 @@
     travelOverlay.setAttribute("aria-hidden", "true");
   }
 
+  function stopVideo() {
+    video.pause();
+    video.removeAttribute("src");
+    video.load();
+    videoSlide.hidden = true;
+    stage.classList.remove("has-video");
+  }
+
+  function playVideo() {
+    video.play().catch((error) => {
+      if (error.name === "AbortError" || videoSlide.hidden || video.error) return;
+      photoStatusElement.hidden = false;
+      photoStatusElement.textContent = "Trykk «Spill av» for å starte videoen.";
+    });
+  }
+
   function renderSlide() {
+    stopVideo();
     window.clearInterval(photoTimer);
     imageLoadToken += 1;
     photoCreditElement.hidden = true;
@@ -173,6 +194,19 @@
     });
     visibleLayerIndex = 0;
     photoIndex = 0;
+
+    if (slide.video) {
+      stage.classList.add("has-video");
+      videoSlide.hidden = false;
+      video.setAttribute("aria-label", slide.title);
+      videoSlide.setAttribute("aria-label", slide.title);
+      videoSeek.value = "0";
+      videoSeek.disabled = true;
+      photoStatusElement.hidden = true;
+      video.src = slide.video;
+      playVideo();
+      return;
+    }
 
     if (slide.type === "interstitial") {
       photoStatusElement.hidden = true;
@@ -415,6 +449,8 @@
       return;
     }
 
+    stopVideo();
+    photoStatusElement.hidden = true;
     window.clearInterval(photoTimer);
     let vehicle = "plane";
     if (toSlide.incomingRoute?.from === fromSlide.id) {
@@ -617,8 +653,39 @@
     .getElementById("fullscreen-button")
     .addEventListener("click", toggleFullscreen);
 
+  videoPlayButton.addEventListener("click", () => {
+    if (video.paused) playVideo();
+    else video.pause();
+  });
+  video.addEventListener("play", () => {
+    videoPlayButton.textContent = "Pause";
+    photoStatusElement.hidden = true;
+  });
+  video.addEventListener("pause", () => {
+    videoPlayButton.textContent = "Spill av";
+  });
+  video.addEventListener("loadedmetadata", () => {
+    videoSeek.disabled = !Number.isFinite(video.duration) || video.duration <= 0;
+  });
+  video.addEventListener("timeupdate", () => {
+    if (!videoSeek.disabled) {
+      videoSeek.value = String(video.currentTime / video.duration * 100);
+    }
+  });
+  videoSeek.addEventListener("input", () => {
+    if (!videoSeek.disabled) {
+      video.currentTime = Number(videoSeek.value) / 100 * video.duration;
+    }
+  });
+  video.addEventListener("error", () => {
+    if (videoSlide.hidden) return;
+    photoStatusElement.hidden = false;
+    photoStatusElement.textContent =
+      `Kunne ikke laste inn videoen: ${config.slides[slideIndex].video}. Trykk høyre pil for å fortsette.`;
+  });
+
   stage.addEventListener("click", (event) => {
-    if (event.target.closest("button, a")) return;
+    if (event.target.closest("button, a, .video-slide")) return;
 
     const stageBounds = stage.getBoundingClientRect();
     moveSlide(event.clientX < stageBounds.left + stageBounds.width / 2 ? -1 : 1);
