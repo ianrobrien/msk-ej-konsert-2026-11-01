@@ -60,10 +60,11 @@ offline use.
 
 ## Opening video
 
-Upload the opening video as `assets/intro.mp4`, or change the video card's
-`video` path in `slides.js`. MP4 with H.264 video and AAC audio is recommended
-for browser compatibility; no conversion is needed if your MP4 already uses
-supported codecs. The file stays local and works offline.
+The opening video is `assets/videos/flight_K0RPS26_PA_video_no.mp4`. To use a
+different file, change the video card's `video` path in `slides.js`. MP4 with
+H.264 video and AAC audio is recommended for browser compatibility; no
+conversion is needed if your MP4 already uses supported codecs. The file stays
+local and works offline.
 
 Entering the video card starts playback with sound, subject to browser autoplay
 permissions. If playback is blocked, click `Spill av`. Hover over the video

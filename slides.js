@@ -17,7 +17,7 @@ window.CONCERT_CONFIG = {
       id: "opening-video",
       type: "interstitial",
       title: "Introduksjonsvideo",
-      video: "assets/intro.mp4",
+      video: "assets/videos/flight_K0RPS26_PA_video_no.mp4",
       routeToNextSong: true,
       routeOrigin: norwayLocation,
       photos: [],
