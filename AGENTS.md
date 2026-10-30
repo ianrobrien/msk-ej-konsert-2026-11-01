@@ -48,6 +48,26 @@ documentation in English.
   projection in a 1200x600 viewBox, covering 90 degrees north to 90 degrees
   south. Keep it aligned with the route projection in `app.js`.
 
+## Color palette and graphics
+
+- The map palette is split between `style.css` and `assets/world-map.svg`:
+  `--map-water` (`#286bad`) colors the water background, while the SVG uses
+  `#329b72` for land and `#f2f6ff` for borders and graticule lines. Update both
+  files together when changing the map palette; preserve the map geometry and
+  projection.
+- The `style.css` root variables define the stage palette: `--night`,
+  `--night-panel`, and `--night-mid` are dark backgrounds; `--text-primary`
+  is the main light text/detail color; `--ice-blue` is used in vehicle artwork.
+  `--travel-red` (`#d95d57`) colors route dots, active routes, and endpoint
+  outlines. `--travel-gold` (`#f1d06a`) is used for train rails.
+- Route and endpoint glow filters use literal RGB values matching the travel
+  variables. Update those filters when changing the corresponding colors.
+  Check contrast for route marks, endpoints, and vehicle artwork against both
+  the blue water and green land.
+- Preserve the vehicle-specific route widths when changing colors: route dots
+  are 2.5px by default and 7.5px for boats and trains; the active route is 3px
+  by default and 9px for boats, and is hidden for trains; train rails are 2.5px.
+
 ## Changing songs, places, or photos
 
 - Reorder the complete slide objects in `slides.js`. The route is calculated
