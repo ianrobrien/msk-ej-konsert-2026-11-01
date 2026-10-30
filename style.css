@@ -349,7 +349,11 @@ button {
 }
 
 .map-art {
-  object-fit: cover;
+  object-fit: contain;
+}
+
+.map-art.is-loading {
+  visibility: hidden;
 }
 
 .route-layer {

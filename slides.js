@@ -148,7 +148,7 @@ window.CONCERT_CONFIG = {
       id: "portias-slottsorkester",
       song: "Portias slottsorkester",
       place: "Irland",
-      point: { latitude: 53.346731, longitude: -6.25698 }, // Dublin
+      point: { latitude: 53.3498, longitude: -6.35 }, // Dublin, shifted inland for the close-up map
       incomingRoute: {
         from: "banana-boat-song",
         vehicle: "boat",
