@@ -694,7 +694,7 @@
       if (!event.repeat) movePhoto(1);
     } else if (event.key.toLowerCase() === "f") {
       event.preventDefault();
-      toggleFullscreen();
+      if (!event.repeat) toggleFullscreen();
     } else if (event.key.toLowerCase() === "h") {
       event.preventDefault();
       if (!event.repeat) {

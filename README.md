@@ -44,7 +44,7 @@ between songs follow their order. Interstitial route locations can define where
 a journey arrives or departs, and the video card's configured Norwegian
 origin determines the opening flight.
 
-Each song slide has three local photographs in `assets/photos`; replace a file
+Each song slide has five local photographs in `assets/photos`; replace a file
 or edit its `photos` array to change an image. Photo credits and source links are
 in `PHOTO_CREDITS.md`; the current photo's credit and source link also appear on
 screen. Photos cycle every 60 seconds by default; change `photoIntervalMs` in

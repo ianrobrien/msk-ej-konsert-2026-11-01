@@ -3,7 +3,7 @@
 ## Project goals
 
 Concert Journey is a calm, projector-friendly visual backdrop for a live concert.
-The current show has nine song-and-place stops, each with three photographs,
+The current show has nine song-and-place stops, each with five photographs,
 framed by welcome, pause, and closing cards. Photos rotate about once a minute.
 The operator advances manually because performance timings are not predictable.
 The show begins with a 60-second flight from Norway to the first song; route
