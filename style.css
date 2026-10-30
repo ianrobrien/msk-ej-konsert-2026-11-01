@@ -352,6 +352,10 @@ button {
   object-fit: cover;
 }
 
+.map-art.is-loading {
+  visibility: hidden;
+}
+
 .route-layer {
   overflow: visible;
 }
@@ -384,17 +388,17 @@ button {
 }
 
 .route-track-sleepers {
-  stroke: #536b94;
+  stroke: #76563f;
   stroke-width: 2.5;
   stroke-linecap: round;
 }
 
 .route-track-rails {
-  stroke: var(--travel-gold);
+  stroke: #aeb8c2;
   stroke-width: 2.5;
   stroke-linecap: round;
   stroke-linejoin: round;
-  filter: drop-shadow(0 0 3px rgb(241 208 106 / 75%));
+  filter: drop-shadow(0 0 2px rgb(174 184 194 / 35%));
 }
 
 .travel-overlay.is-train .route-active,

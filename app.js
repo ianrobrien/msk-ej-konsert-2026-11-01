@@ -17,12 +17,16 @@
   const travelKickerElement = document.getElementById("travel-kicker");
   const travelRouteLabel = document.getElementById("travel-route-label");
   const travelCaptionElement = document.getElementById("travel-caption");
+  const mapArt = document.getElementById("map-art");
   const routeDots = document.getElementById("route-dots");
   const routeActive = document.getElementById("route-active");
   const routeOrigin = document.getElementById("route-origin");
   const routeDestination = document.getElementById("route-destination");
   const routeTrackSleepers = document.getElementById("route-track-sleepers");
-  const routeTrackRails = document.getElementById("route-track-rails");
+  const routeTrackRails = [
+    document.getElementById("route-track-rail-left"),
+    document.getElementById("route-track-rail-right"),
+  ];
   const flightPlane = document.getElementById("flight-plane");
   const travelTrain = document.getElementById("travel-train");
   const travelBoat = document.getElementById("travel-boat");
@@ -48,6 +52,11 @@
     xFactor: 0.8487,
     yFactor: 1.3523,
   };
+  const fullWorldMap = {
+    src: "assets/world-map.svg",
+    viewBox: [0, 0, 1200, 600],
+  };
+  const fullWorldMapUrl = new URL(fullWorldMap.src, document.baseURI);
 
   function interpolateRobinson(values, latitude) {
     const position = Math.min(Math.abs(latitude) / 5, values.length - 1);
@@ -257,9 +266,94 @@
     };
   }
 
-  function drawRailway(pathLength, completedLength) {
-    const progressLength = Math.min(completedLength, pathLength);
+  function applyRouteMapView(point, viewBox) {
+    return {
+      x: (point.x - viewBox[0]) * mapProjection.width / viewBox[2],
+      y: (point.y - viewBox[1]) * mapProjection.height / viewBox[3],
+    };
+  }
 
+  function isUsableRouteMap(routeMap) {
+    if (
+      routeMap &&
+      typeof routeMap.src === "string" &&
+      Array.isArray(routeMap.viewBox) &&
+      routeMap.viewBox.length === 4 &&
+      routeMap.viewBox.every(Number.isFinite) &&
+      routeMap.viewBox[2] > 0 &&
+      routeMap.viewBox[3] > 0
+    ) {
+      try {
+        const routeMapUrl = new URL(routeMap.src, document.baseURI);
+        return routeMapUrl.origin !== fullWorldMapUrl.origin ||
+          routeMapUrl.pathname !== fullWorldMapUrl.pathname;
+      } catch {
+        return false;
+      }
+    }
+
+    return false;
+  }
+
+  function resolveRouteMap(fromSlide, toSlide) {
+    const routeMaps = Reflect.get(window, "CONCERT_ROUTE_MAPS");
+    const routeMap = [
+      routeMaps?.[JSON.stringify([fromSlide.id, toSlide.id])],
+      routeMaps?.[JSON.stringify([toSlide.id, fromSlide.id])],
+    ].find(isUsableRouteMap);
+    if (routeMap) {
+      return { routeMap, warning: null };
+    }
+
+    console.error(
+      `No generated route map for ${fromSlide.id} -> ${toSlide.id}. ` +
+        "Rerun the route-map generator from AGENTS.md.",
+    );
+    return {
+      routeMap: fullWorldMap,
+      warning: "Rutebakgrunnen mangler. Bruker verdenskartet i stedet.",
+    };
+  }
+
+  function showRouteMapWarning(message) {
+    photoStatusElement.hidden = false;
+    photoStatusElement.textContent = message;
+    travelCaptionElement.textContent = message;
+  }
+
+  async function prepareRouteMap(flight, routeMap) {
+    mapArt.classList.add("is-loading");
+    mapArt.src = routeMap.src;
+
+    try {
+      await mapArt.decode();
+      if (activeFlight !== flight) return null;
+      mapArt.classList.remove("is-loading");
+      return { viewBox: routeMap.viewBox, warning: null };
+    } catch (error) {
+      if (activeFlight !== flight) return null;
+
+      console.error(`Could not load route map ${routeMap.src}.`, error);
+      let warning = "Rutebakgrunnen kunne ikke lastes.";
+      if (routeMap.src !== fullWorldMap.src) {
+        warning += " Bruker verdenskartet i stedet.";
+        mapArt.src = fullWorldMap.src;
+        try {
+          await mapArt.decode();
+        } catch (fallbackError) {
+          if (activeFlight !== flight) return null;
+          console.error("Could not load the full-world map fallback.", fallbackError);
+          warning = "Rutebakgrunnen kunne ikke lastes.";
+        }
+      }
+
+      if (activeFlight !== flight) return null;
+      mapArt.classList.remove("is-loading");
+      return { viewBox: fullWorldMap.viewBox, warning };
+    }
+  }
+
+  function createRailwayRenderer(pathLength, trailingLength) {
     function getFrame(distance) {
       const point = routeActive.getPointAtLength(distance);
       const before = routeActive.getPointAtLength(Math.max(0, distance - 1));
@@ -283,30 +377,31 @@
       return `${point.x.toFixed(1)} ${point.y.toFixed(1)}`;
     }
 
-    const sampleCount = Math.max(1, Math.ceil(progressLength / 4));
-    const rails = progressLength > 0
-      ? [-3.5, 3.5].map((offset) => {
-        const points = Array.from({ length: sampleCount + 1 }, (_, index) => {
-          const distance = progressLength * index / sampleCount;
-          const { point, normal } = getFrame(distance);
+    const sampleCount = Math.max(1, Math.ceil(pathLength / 4));
+    const rails = [-3.5, 3.5].map((offset) => {
+      const points = Array.from({ length: sampleCount + 1 }, (_, index) => {
+        const distance = pathLength * index / sampleCount;
+        const { point, normal } = getFrame(distance);
 
-          return formatPoint({
-            x: point.x + normal.x * offset,
-            y: point.y + normal.y * offset,
-          });
+        return formatPoint({
+          x: point.x + normal.x * offset,
+          y: point.y + normal.y * offset,
         });
+      });
 
-        return `M ${points.join(" L ")}`;
-      })
-      : [];
-    routeTrackRails.setAttribute("d", rails.join(" "));
+      return `M ${points.join(" L ")}`;
+    });
+    const railLengths = routeTrackRails.map((rail, index) => {
+      rail.setAttribute("d", rails[index]);
+      const length = rail.getTotalLength();
+      rail.style.strokeDasharray = String(length);
+      rail.style.strokeDashoffset = String(length);
+      return length;
+    });
 
-    const sleeperDistances = [];
-    for (let distance = 0; distance <= progressLength; distance += 12) {
-      sleeperDistances.push(distance);
-    }
-
-    const sleepers = sleeperDistances.map((distance) => {
+    routeTrackSleepers.replaceChildren();
+    const sleepers = [];
+    for (let distance = 0; distance <= pathLength; distance += 12) {
       const { point, normal } = getFrame(distance);
       const start = {
         x: point.x - normal.x * 8,
@@ -316,17 +411,49 @@
         x: point.x + normal.x * 8,
         y: point.y + normal.y * 8,
       };
-
-      return `M ${formatPoint(start)} L ${formatPoint(end)}`;
-    });
-    routeTrackSleepers.setAttribute("d", sleepers.join(" "));
-
-    if (progressLength >= pathLength) {
-      routeDots.setAttribute("d", "");
+      const sleeper = document.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "path",
+      );
+      sleeper.setAttribute(
+        "d",
+        `M ${formatPoint(start)} L ${formatPoint(end)}`,
+      );
+      sleeper.setAttribute("fill", "none");
+      sleeper.style.display = "none";
+      routeTrackSleepers.append(sleeper);
+      sleepers.push({ distance, element: sleeper });
     }
+
+    let nextSleeperIndex = 0;
+    return (completedLength) => {
+      const completedTrackLength = Math.max(
+        0,
+        completedLength - trailingLength,
+      );
+      const progress = pathLength === 0
+        ? 1
+        : Math.min(completedTrackLength / pathLength, 1);
+      routeTrackRails.forEach((rail, index) => {
+        rail.style.strokeDashoffset = String(railLengths[index] * (1 - progress));
+      });
+
+      while (
+        nextSleeperIndex < sleepers.length &&
+        completedLength >= trailingLength &&
+        sleepers[nextSleeperIndex].distance <= completedTrackLength
+      ) {
+        sleepers[nextSleeperIndex].element.style.display = "";
+        nextSleeperIndex += 1;
+      }
+
+      if (completedLength >= pathLength) {
+        routeDots.setAttribute("d", "");
+      }
+    };
   }
 
-  function animateFlight(fromPoint, toPoint, flight, onComplete) {
+  function animateFlight(fromPoint, toPoint, flight, viewBox, onComplete) {
     const start = project(fromPoint);
     const end = project(toPoint);
     const distance = Math.hypot(end.x - start.x, end.y - start.y);
@@ -334,17 +461,26 @@
       x: (start.x + end.x) / 2,
       y: Math.max(24, (start.y + end.y) / 2 - Math.min(120, distance * 0.18)),
     };
-    const pathData = `M ${start.x} ${start.y} Q ${control.x} ${control.y} ${end.x} ${end.y}`;
+    const routeStart = applyRouteMapView(start, viewBox);
+    const routeControl = applyRouteMapView(control, viewBox);
+    const routeEnd = applyRouteMapView(end, viewBox);
+    const pathData =
+      `M ${routeStart.x} ${routeStart.y} ` +
+      `Q ${routeControl.x} ${routeControl.y} ${routeEnd.x} ${routeEnd.y}`;
 
     routeDots.setAttribute("d", pathData);
     routeActive.setAttribute("d", pathData);
-    routeOrigin.setAttribute("cx", String(start.x));
-    routeOrigin.setAttribute("cy", String(start.y));
-    routeDestination.setAttribute("cx", String(end.x));
-    routeDestination.setAttribute("cy", String(end.y));
+    routeOrigin.setAttribute("cx", String(routeStart.x));
+    routeOrigin.setAttribute("cy", String(routeStart.y));
+    routeDestination.setAttribute("cx", String(routeEnd.x));
+    routeDestination.setAttribute("cy", String(routeEnd.y));
     const pathLength = routeActive.getTotalLength();
     routeActive.style.strokeDasharray = String(pathLength);
     routeActive.style.strokeDashoffset = String(pathLength);
+    const updateRailway = flight.vehicle === "steam-train"
+      ? createRailwayRenderer(pathLength, 24 * 0.65)
+      : null;
+    updateRailway?.(0);
 
     const reducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
@@ -372,9 +508,7 @@
           nextPoint.x - beforePoint.x,
         ) * (180 / Math.PI);
 
-      if (flight.vehicle === "steam-train") {
-        drawRailway(pathLength, length);
-      }
+      updateRailway?.(length);
       routeActive.style.strokeDashoffset = String(pathLength - length);
       const vehicle = flight.vehicle === "steam-train"
         ? travelTrain
@@ -436,6 +570,7 @@
       return;
     }
 
+    const { routeMap, warning } = resolveRouteMap(fromSlide, toSlide);
     stage.classList.add("is-traveling");
     stopVideo();
     photoStatusElement.hidden = true;
@@ -453,30 +588,46 @@
     travelOverlay.classList.toggle("is-train", vehicle === "steam-train");
     travelOverlay.classList.toggle("is-boat", vehicle === "boat");
     travelKickerElement.textContent = "PÅ REISE";
-    travelCaptionElement.textContent =
-      "Trykk høyre pil eller mellomrom for neste land, eller venstre pil for forrige.";
     travelRouteLabel.textContent =
       `${fromLocation.place}  \u2192  ${toLocation.place}`;
+    travelCaptionElement.textContent = "Laster inn kartutsnitt …";
+    if (warning) showRouteMapWarning(warning);
     travelOverlay.classList.add("is-active");
     travelOverlay.setAttribute("aria-hidden", "false");
 
-    flight.frameId = window.requestAnimationFrame(() => {
-      if (activeFlight !== flight) return;
-      flight.frameId = null;
-      animateFlight(fromLocation.point, toLocation.point, flight, () => {
-        activeFlight = null;
-        slideIndex = toIndex;
-        lastFlightOriginIndex = fromIndex;
-        isTransitioning = false;
-        isWaitingForPhotos = true;
-        travelKickerElement.textContent = "ANKOMMET";
-        const destinationName = toSlide.song ?? toSlide.title ??
-          toLocation.place;
-        const nextAction = toSlide.photos.length > 0
-          ? "vise bildene"
-          : "fortsette";
+    prepareRouteMap(flight, routeMap).then((preparedMap) => {
+      if (!preparedMap || activeFlight !== flight) return;
+      const routeMapWarning = warning ?? preparedMap.warning;
+      if (routeMapWarning) {
+        showRouteMapWarning(routeMapWarning);
+      } else {
         travelCaptionElement.textContent =
-          `${destinationName} · Trykk høyre pil eller mellomrom for å ${nextAction}.`;
+          "Trykk høyre pil eller mellomrom for neste land, eller venstre pil for forrige.";
+      }
+      flight.frameId = window.requestAnimationFrame(() => {
+        if (activeFlight !== flight) return;
+        flight.frameId = null;
+        animateFlight(
+          fromLocation.point,
+          toLocation.point,
+          flight,
+          preparedMap.viewBox,
+          () => {
+            activeFlight = null;
+            slideIndex = toIndex;
+            lastFlightOriginIndex = fromIndex;
+            isTransitioning = false;
+            isWaitingForPhotos = true;
+            travelKickerElement.textContent = "ANKOMMET";
+            const destinationName = toSlide.song ?? toSlide.title ??
+              toLocation.place;
+            const nextAction = toSlide.photos.length > 0
+              ? "vise bildene"
+              : "fortsette";
+            travelCaptionElement.textContent =
+              `${destinationName} · Trykk høyre pil eller mellomrom for å ${nextAction}.`;
+          },
+        );
       });
     });
   }
@@ -491,6 +642,7 @@
     activeFlight = null;
     isTransitioning = false;
     lastFlightOriginIndex = null;
+    mapArt.classList.remove("is-loading");
     slideIndex = index;
     renderSlide();
   }

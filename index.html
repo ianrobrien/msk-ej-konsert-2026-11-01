@@ -7,6 +7,7 @@
     <title>Konsertreisen</title>
     <link rel="stylesheet" href="style.css">
     <script defer src="slides.js"></script>
+    <script defer src="assets/route-maps/manifest.js"></script>
     <script defer src="app.js"></script>
   </head>
   <body>
@@ -40,13 +41,14 @@
         <div class="map-frame">
           <img
             class="map-art"
-            src="assets/world-map.svg"
+            id="map-art"
             alt=""
             aria-hidden="true"
           >
           <svg
             class="route-layer"
             viewBox="0 0 1200 600"
+            preserveAspectRatio="xMidYMid slice"
             aria-hidden="true"
           >
             <path
@@ -62,14 +64,18 @@
               stroke-linecap="round"
             ></path>
             <g class="route-tracks">
-              <path
+              <g
                 class="route-track-sleepers"
                 id="route-track-sleepers"
+              ></g>
+              <path
+                class="route-track-rails"
+                id="route-track-rail-left"
                 fill="none"
               ></path>
               <path
                 class="route-track-rails"
-                id="route-track-rails"
+                id="route-track-rail-right"
                 fill="none"
               ></path>
             </g>

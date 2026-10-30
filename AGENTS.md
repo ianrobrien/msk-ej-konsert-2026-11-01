@@ -25,7 +25,9 @@ documentation in English.
 ## Architecture
 
 - This is a static, offline-first site built with plain HTML, CSS, and JavaScript.
-  There is no build step, package manager, backend, or runtime network dependency.
+  There is no production build step, package manager, backend, or runtime network
+  dependency. Deno is only needed to regenerate route-map assets after slide or
+  map changes.
 - `index.html` provides the stage and controls. It loads `slides.js` before
   `app.js` with `defer`; preserve that order because the app reads the config
   during initialization.
@@ -43,10 +45,123 @@ documentation in English.
 - `style.css` contains the presentation layout, typography, and visual
   transitions. Keep text and controls legible on a large screen.
 - `assets/photos/` contains the locally bundled photographs.
-  `assets/world-map.svg` is the map used by the flight animation, based on the
-  public-domain Natural Earth 1:50m land dataset. It uses the Robinson
-  projection in a 1200x600 viewBox, covering 90 degrees north to 90 degrees
-  south. Keep it aligned with the route projection in `app.js`.
+  `assets/world-map.svg` is the authoritative map source, based on the
+  public-domain Natural Earth 1:50m land dataset. Route-specific SVG backgrounds
+  in `assets/route-maps/` are generated from the current `slides.js` route order
+  and share its Robinson projection. Regenerate them after changing slide order,
+  route endpoints, or projection by running this from the repository root:
+
+  ```sh
+  deno run --allow-read=slides.js,assets/world-map.svg,assets/route-maps \
+    --allow-write=assets/route-maps scripts/generate-route-maps.js
+  ```
+
+  The source map uses a 1200x600 viewBox covering 90 degrees north to 90 degrees
+  south; the generated manifest is loaded before `app.js`. Keep the generator's
+  route discovery in sync with `app.js` when transition rules change.
+
+### Generated route-map assets and colors
+
+The route backgrounds are SVGs, not PNGs. `scripts/generate-route-maps.js`
+reads `slides.js` and `assets/world-map.svg`, finds route pairs using the same
+transition rules as `app.js`, and writes one SVG per pair plus
+`assets/route-maps/manifest.js`. Each generated SVG keeps the full source-map
+geometry and changes its `viewBox` to frame the route; it remains vector and
+does not geometrically clip paths to the route bounds. The generator scales
+each explicit `stroke-width` by the cropped viewBox width divided by 1200 so
+close-up borders and graticules stay thin. Both travel directions use the same
+generated SVG. Generated SVGs and the manifest are outputs; do not edit them
+by hand.
+
+Change colors in their source files, not in generated route maps:
+
+- The map SVG has transparent water, so the water color comes from
+  `style.css`'s `.map-frame` background (`--map-water`).
+- Land fill, graticule lines, and country borders are the final three `<use>`
+  elements in `assets/world-map.svg`. The generator copies the source SVG
+  styling into every route background while changing its `viewBox` and
+  stroke widths.
+- The animated route, endpoint markers, and vehicles are separate SVG markup
+  in `index.html`, with their colors in `style.css`. Route lines, dots, and
+  markers use `--travel-red`; update their hard-coded red glow filters at the
+  same time if that accent changes.
+- Train sleepers and rails have separate colors in `.route-track-sleepers`
+  and `.route-track-rails`; the rails' glow is separately hard-coded.
+- Vehicle fills and outlines are set by the `.plane-*`, `.train-*`, and
+  `.boat-*` rules in `style.css`. These use shared colors such as `--ice-blue`
+  and `--text-primary` as well as literal fills and outlines, so inspect the
+  full vehicle rule block when changing the vehicle palette.
+- The general stage palette is declared in `style.css`'s `:root`; some
+  translucent backgrounds, gradients, text, and shadows use literal `rgb()`
+  colors rather than variables. The browser theme color is also set in
+  `index.html` and should stay coordinated with the stage background.
+
+Regenerate route maps after changing `assets/world-map.svg` styling or its
+geometry, as well as after route-order, endpoint, or projection changes. CSS
+changes to the map water or animated overlay do not require regeneration.
+Use the generation command above.
+
+### Route projection and endpoint alignment
+
+Route anchors in `slides.js` use decimal-degree latitude and longitude. When a
+slide has `routeOrigin`, that location supplies its endpoint. The generator and
+`app.js` project each endpoint into the source map's 1200x600 coordinates using
+the same Robinson projection: `robinsonX` and `robinsonY` are linearly
+interpolated at five-degree latitude intervals, and the projected map is scaled
+to fit the source dimensions with `xFactor: 0.8487` and `yFactor: 1.3523`.
+Keep the `project()` implementations and projection constants in
+`scripts/generate-route-maps.js` and `app.js` in sync.
+
+For each latitude, interpolate the neighboring entries in the projection
+tables at `abs(latitude) / 5`. With the resulting `xScale` and `yScale`, the
+projection is:
+
+```text
+projectionTop = yFactor * robinsonY(90)
+projectionBottom = -yFactor * robinsonY(90)
+mapScale = min(1200 / (2 * xFactor * pi),
+               600 / (projectionTop - projectionBottom))
+topMargin = (600 - (projectionTop - projectionBottom) * mapScale) / 2
+longitudeRadians = longitude * pi / 180
+northing = sign(latitude) * yFactor * yScale
+mapX = 600 + xFactor * longitudeRadians * xScale * mapScale
+mapY = topMargin + (projectionTop - northing) * mapScale
+```
+
+The route is a quadratic Bézier from projected start to finish. Let
+`distance = hypot(end.x - start.x, end.y - start.y)`; its control point is:
+
+```text
+controlX = (start.x + end.x) / 2
+controlY = max(24, (start.y + end.y) / 2 - min(120, distance * 0.18))
+```
+
+The generator frames the exact curve bounds in a 2:1 viewBox, targeting a 72%
+route fill and capping zoom at 18x. To repeat that calculation, it chooses
+`width = max(1200 / 18, bounds.width / 0.72, bounds.height * 2 / 0.72)`,
+`height = width / 2`, then centers that viewBox on the curve bounds. If the
+chosen width is at least 1200, it uses the full `[0, 0, 1200, 600]` map.
+
+The start and finish dots are not independently positioned: `app.js` projects
+the same endpoint coordinates used by the route, then maps them into the
+generated viewBox for the 1200x600 overlay:
+
+```text
+overlayX = (mapX - viewBoxX) * 1200 / viewBoxWidth
+overlayY = (mapY - viewBoxY) * 600 / viewBoxHeight
+```
+
+The map image and route overlay must use the same fit. Keep `.map-art` at
+`object-fit: cover` and the route SVG at
+`preserveAspectRatio="xMidYMid slice"` so both crop the 2:1 artwork identically
+when the flex layout compresses the frame. Pairing `cover` with `meet` shifts
+the overlay; pairing `contain` with `meet` can leave water-colored side margins.
+
+If a dot appears off land, first verify or adjust the slide's geographic point
+against `assets/world-map.svg`, rerun the route-map generator, and reload the
+page. If the dot and map still disagree, check the map/overlay fit above, then
+compare the projection and viewBox conversion in `app.js` with the generator.
+Do not add a separate dot offset: the dot and route must share the same endpoint.
 
 ## Color palette and graphics
 
