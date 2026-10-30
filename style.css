@@ -372,19 +372,10 @@ button {
   stroke-width: 2.5;
 }
 
-.travel-overlay.is-boat .route-dots,
-.travel-overlay.is-train .route-dots {
-  stroke-width: 7.5;
-}
-
 .route-active {
   stroke: var(--travel-red);
-  stroke-width: 3;
-  filter: drop-shadow(0 0 5px rgb(217 93 87 / 42%));
-}
-
-.travel-overlay.is-boat .route-active {
   stroke-width: 9;
+  filter: drop-shadow(0 0 5px rgb(217 93 87 / 42%));
 }
 
 .route-track-sleepers {
