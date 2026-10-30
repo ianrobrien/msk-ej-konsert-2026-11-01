@@ -56,6 +56,7 @@
     src: "assets/world-map.svg",
     viewBox: [0, 0, 1200, 600],
   };
+  const fullWorldMapUrl = new URL(fullWorldMap.src, document.baseURI);
 
   function interpolateRobinson(values, latitude) {
     const position = Math.min(Math.abs(latitude) / 5, values.length - 1);
@@ -272,9 +273,7 @@
     };
   }
 
-  function resolveRouteMap(fromSlide, toSlide) {
-    const key = JSON.stringify([fromSlide.id, toSlide.id]);
-    const routeMap = Reflect.get(window, "CONCERT_ROUTE_MAPS")?.[key];
+  function isUsableRouteMap(routeMap) {
     if (
       routeMap &&
       typeof routeMap.src === "string" &&
@@ -284,6 +283,25 @@
       routeMap.viewBox[2] > 0 &&
       routeMap.viewBox[3] > 0
     ) {
+      try {
+        const routeMapUrl = new URL(routeMap.src, document.baseURI);
+        return routeMapUrl.origin !== fullWorldMapUrl.origin ||
+          routeMapUrl.pathname !== fullWorldMapUrl.pathname;
+      } catch {
+        return false;
+      }
+    }
+
+    return false;
+  }
+
+  function resolveRouteMap(fromSlide, toSlide) {
+    const routeMaps = Reflect.get(window, "CONCERT_ROUTE_MAPS");
+    const routeMap = [
+      routeMaps?.[JSON.stringify([fromSlide.id, toSlide.id])],
+      routeMaps?.[JSON.stringify([toSlide.id, fromSlide.id])],
+    ].find(isUsableRouteMap);
+    if (routeMap) {
       return { routeMap, warning: null };
     }
 
