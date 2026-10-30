@@ -363,13 +363,9 @@ button {
 }
 
 .route-dots {
-  stroke: var(--travel-gold);
+  stroke: var(--travel-red);
   stroke-dasharray: 2 10;
   stroke-width: 2.5;
-}
-
-.travel-overlay:not(.is-train) .route-dots {
-  stroke: var(--travel-red);
 }
 
 .route-active {
