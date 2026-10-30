@@ -70,20 +70,36 @@ geometry and changes its `viewBox` to frame the route; it remains vector and
 does not geometrically clip paths to the route bounds. The generator scales
 each explicit `stroke-width` by the cropped viewBox width divided by 1200 so
 close-up borders and graticules stay thin. Both travel directions use the same
-generated SVG.
+generated SVG. Generated SVGs and the manifest are outputs; do not edit them
+by hand.
 
-Change colors in the source files, not in generated route maps:
+Change colors in their source files, not in generated route maps:
 
-- The map SVG has transparent water. Its background color is `--map-water` in
-  `style.css`, applied by `.map-frame`.
-- Land fill and country/graticule line colors are on the final `<use>` elements
-  in `assets/world-map.svg`. The generator copies those colors to each route
-  background.
-- Animated route lines, endpoint markers, and vehicles are the separate SVG
-  overlay in `index.html`, styled by `style.css` and its color variables.
+- The map SVG has transparent water, so the water color comes from
+  `style.css`'s `.map-frame` background (`--map-water`).
+- Land fill, graticule lines, and country borders are the final three `<use>`
+  elements in `assets/world-map.svg`. The generator copies the source SVG
+  styling into every route background while changing its `viewBox` and
+  stroke widths.
+- The animated route, endpoint markers, and vehicles are separate SVG markup
+  in `index.html`, with their colors in `style.css`. Route lines, dots, and
+  markers use `--travel-red`; update their hard-coded red glow filters at the
+  same time if that accent changes.
+- Train sleepers and rails have separate colors in `.route-track-sleepers`
+  and `.route-track-rails`; the rails' glow is separately hard-coded.
+- Vehicle fills and outlines are set by the `.plane-*`, `.train-*`, and
+  `.boat-*` rules in `style.css`. These use shared colors such as `--ice-blue`
+  and `--text-primary` as well as literal fills and outlines, so inspect the
+  full vehicle rule block when changing the vehicle palette.
+- The general stage palette is declared in `style.css`'s `:root`; some
+  translucent backgrounds, gradients, text, and shadows use literal `rgb()`
+  colors rather than variables. The browser theme color is also set in
+  `index.html` and should stay coordinated with the stage background.
 
-After changing map colors or the source SVG, regenerate route maps with the
-command above.
+Regenerate route maps after changing `assets/world-map.svg` styling or its
+geometry, as well as after route-order, endpoint, or projection changes. CSS
+changes to the map water or animated overlay do not require regeneration.
+Use the generation command above.
 
 ### Route projection and endpoint alignment
 
