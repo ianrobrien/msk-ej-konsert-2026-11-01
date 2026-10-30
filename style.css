@@ -330,7 +330,8 @@ button {
 
 .map-frame {
   position: relative;
-  width: min(88vw, 1280px);
+  flex: 0 0 auto;
+  width: min(88vw, 1280px, max(0px, calc(200vh - 24rem)));
   aspect-ratio: 2 / 1;
   overflow: hidden;
   background: var(--map-water);
@@ -599,7 +600,7 @@ kbd {
   }
 
   .map-frame {
-    width: 86vw;
+    width: min(86vw, max(0px, calc(200vh - 24rem)));
   }
 
   .travel-kicker {
