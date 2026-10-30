@@ -380,13 +380,13 @@ button {
 
 .route-track-sleepers {
   stroke: #76563f;
-  stroke-width: 2.5;
+  stroke-width: 5;
   stroke-linecap: round;
 }
 
 .route-track-rails {
   stroke: #aeb8c2;
-  stroke-width: 2.5;
+  stroke-width: 5;
   stroke-linecap: round;
   stroke-linejoin: round;
   filter: drop-shadow(0 0 2px rgb(174 184 194 / 35%));

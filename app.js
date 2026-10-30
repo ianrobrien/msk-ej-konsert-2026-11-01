@@ -378,7 +378,7 @@
     }
 
     const sampleCount = Math.max(1, Math.ceil(pathLength / 4));
-    const rails = [-3.5, 3.5].map((offset) => {
+    const rails = [-7, 7].map((offset) => {
       const points = Array.from({ length: sampleCount + 1 }, (_, index) => {
         const distance = pathLength * index / sampleCount;
         const { point, normal } = getFrame(distance);
@@ -401,15 +401,15 @@
 
     routeTrackSleepers.replaceChildren();
     const sleepers = [];
-    for (let distance = 0; distance <= pathLength; distance += 12) {
+    for (let distance = 0; distance <= pathLength; distance += 24) {
       const { point, normal } = getFrame(distance);
       const start = {
-        x: point.x - normal.x * 8,
-        y: point.y - normal.y * 8,
+        x: point.x - normal.x * 16,
+        y: point.y - normal.y * 16,
       };
       const end = {
-        x: point.x + normal.x * 8,
-        y: point.y + normal.y * 8,
+        x: point.x + normal.x * 16,
+        y: point.y + normal.y * 16,
       };
       const sleeper = document.createElementNS(
         "http://www.w3.org/2000/svg",
@@ -477,8 +477,9 @@
     const pathLength = routeActive.getTotalLength();
     routeActive.style.strokeDasharray = String(pathLength);
     routeActive.style.strokeDashoffset = String(pathLength);
+    const trainScale = 1.3;
     const updateRailway = flight.vehicle === "steam-train"
-      ? createRailwayRenderer(pathLength, 24 * 0.65)
+      ? createRailwayRenderer(pathLength, 24 * trainScale)
       : null;
     updateRailway?.(0);
 
@@ -524,7 +525,7 @@
       const facingScale = needsReverseFacing ? " scale(-1 1)" : "";
       const rotationOffset = flight.vehicle === "plane" ? 90 : 0;
       const scale = flight.vehicle === "steam-train"
-        ? " scale(0.65)"
+        ? ` scale(${trainScale})`
         : flight.vehicle === "boat"
         ? " scale(0.8)"
         : "";
