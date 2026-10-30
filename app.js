@@ -528,9 +528,10 @@
         : flight.vehicle === "boat"
         ? " scale(0.8)"
         : "";
+      const boatLift = flight.vehicle === "boat" ? 4 : 0;
       vehicle.setAttribute(
         "transform",
-        `translate(${point.x} ${point.y}) rotate(${vehicleAngle + rotationOffset})${facingScale}${scale}`,
+        `translate(${point.x} ${point.y - boatLift}) rotate(${vehicleAngle + rotationOffset})${facingScale}${scale}`,
       );
 
       if (progress < 1) {
