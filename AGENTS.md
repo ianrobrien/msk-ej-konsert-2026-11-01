@@ -135,12 +135,11 @@ overlayX = (mapX - viewBoxX) * 1200 / viewBoxWidth
 overlayY = (mapY - viewBoxY) * 600 / viewBoxHeight
 ```
 
-The map image and route overlay must use the same 2:1 fit. Keep `.map-art` at
-`object-fit: contain` to match the route SVG's
-`preserveAspectRatio="xMidYMid meet"`; `cover` can crop the map while the
-overlay letterboxes it, shifting dots and route lines when the flex layout
-compresses the frame vertically. The contained map may leave water-colored
-margins if the frame is not 2:1, which is preferable to misalignment.
+The map image and route overlay must use the same fit. Keep `.map-art` at
+`object-fit: cover` and the route SVG at
+`preserveAspectRatio="xMidYMid slice"` so both crop the 2:1 artwork identically
+when the flex layout compresses the frame. Pairing `cover` with `meet` shifts
+the overlay; pairing `contain` with `meet` can leave water-colored side margins.
 
 If a dot appears off land, first verify or adjust the slide's geographic point
 against `assets/world-map.svg`, rerun the route-map generator, and reload the

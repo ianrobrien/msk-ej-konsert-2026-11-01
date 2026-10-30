@@ -349,7 +349,7 @@ button {
 }
 
 .map-art {
-  object-fit: contain;
+  object-fit: cover;
 }
 
 .map-art.is-loading {
