@@ -565,6 +565,7 @@ kbd {
 
 .stage.is-ui-hidden .slide-count,
 .stage.is-ui-hidden .fullscreen-button,
+.stage.is-ui-hidden .project-mark,
 .stage.is-ui-hidden .controls,
 .stage.is-ui-hidden .key-hint,
 .stage.is-ui-hidden .travel-caption {

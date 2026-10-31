@@ -228,9 +228,9 @@ Do not add a separate dot offset: the dot and route must share the same endpoint
   visited in order before returning farther back. Direct song routes otherwise
   animate in reverse and wait for confirmation.
 - `F` and the Fullscreen button toggle fullscreen.
-- `H` hides or shows the slide number, fullscreen button, navigation arrows, and
-  keyboard hints. Keep the project mark, current song, and place visible. The
-  animated route remains visible.
+- `H` hides or shows the slide number, fullscreen button, navigation arrows,
+  keyboard hints, and project mark. Keep the current song and place visible.
+  The animated route remains visible.
 - Preserve visible error messages for missing photos, meaningful image alt text,
   and the reduced-motion preference for the flight animation.
 
