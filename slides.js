@@ -307,10 +307,10 @@ window.CONCERT_CONFIG = {
         },
         {
           src: "assets/photos/06-denmark-2.jpg",
-          credit: "Leif Jørgensen",
-          license: "CC BY-SA 4.0",
+          credit: "VINCENZO INZONE",
+          license: "Unsplash License",
           source:
-            "https://commons.wikimedia.org/wiki/File:Steam_train_at_Gr%C3%A6sted_Veterantr%C3%A6f_2017.jpg",
+            "https://unsplash.com/photos/bronze-mermaid-statue-sits-on-a-rock-by-the-water-P36YRoZVem8",
         },
         {
           src: "assets/photos/06-denmark-3.jpg",
@@ -433,38 +433,38 @@ window.CONCERT_CONFIG = {
       photos: [
         {
           src: "assets/photos/09-usa-1.jpg",
-          credit: "Patrick Tomasso",
+          credit: "Vidar Nordli-Mathisen",
           license: "Unsplash License",
           source:
-            "https://unsplash.com/photos/manhattan-skyline-and-brooklyn-bridge-SVVTZtTGyaU",
+            "https://unsplash.com/photos/cars-on-road-near-high-rise-buildings-during-daytime-ZYDhBqxJnJ8",
         },
         {
           src: "assets/photos/09-usa-2.jpg",
-          credit: "Stella He",
+          credit: "Partha Narasimhan",
           license: "Unsplash License",
           source:
-            "https://unsplash.com/photos/a-tall-building-with-a-balcony-and-flowers-on-the-balconies-cyZuN_AViJQ",
+            "https://unsplash.com/photos/city-skyline-during-night-time-R1xgso_3UDQ",
         },
         {
           src: "assets/photos/09-usa-3.jpg",
-          credit: "Matt Collamer",
+          credit: "Pierre Blaché",
           license: "Unsplash License",
           source:
-            "https://unsplash.com/photos/brown-brick-building-near-green-trees-during-daytime-UpYF6ibFud0",
+            "https://unsplash.com/photos/statue-of-liberty-and-manhattan-skyline-VMNG8BYFQfs",
         },
         {
           src: "assets/photos/09-usa-4.jpg",
-          credit: "Thom Milkovic",
+          credit: "Andrea Belussi",
           license: "Unsplash License",
           source:
-            "https://unsplash.com/photos/space-needle-and-seattle-skyline-skUTVJi8-jc",
+            "https://unsplash.com/photos/people-in-park--cTrOFIF12Q",
         },
         {
           src: "assets/photos/09-usa-5.jpg",
-          credit: "Maarten van den Heuvel",
+          credit: "Andre Benz",
           license: "Unsplash License",
           source:
-            "https://unsplash.com/photos/golden-gate-bridge-during-daytime-gZXx8lKAb7Y",
+            "https://unsplash.com/photos/aerial-view-of-city-buildings-during-nighttime-CR0E20Of7yU",
         },
       ],
     },

@@ -54,7 +54,7 @@ outside the projected image area and can be updated when photos are replaced.
 ## Denmark — Copenhagen Steam Railway Galop
 
 - `06-denmark-1.jpg` — Nick Karvounis, Unsplash License. [Source](https://unsplash.com/photos/red-boat-in-nyhavn-canal-copenhagen-cj9_lderSUk)
-- `06-denmark-2.jpg` — Leif Jørgensen, CC BY-SA 4.0. [Source](https://commons.wikimedia.org/wiki/File:Steam_train_at_Gr%C3%A6sted_Veterantr%C3%A6f_2017.jpg)
+- `06-denmark-2.jpg` — VINCENZO INZONE, Unsplash License. [Source](https://unsplash.com/photos/bronze-mermaid-statue-sits-on-a-rock-by-the-water-P36YRoZVem8)
 - `06-denmark-3.jpg` — Tomas Eidsvold, Unsplash License. [Source](https://unsplash.com/photos/green-grass-near-body-of-water-during-daytime-NQvGi9VAf4U)
 - `06-denmark-4.jpg` — Marina Šurniene, Unsplash License. [Source](https://unsplash.com/photos/brown-concrete-building-near-body-of-water-during-daytime-uW7GWyHsizI)
 - `06-denmark-5.jpg` — Christoffer Mouritsen, Unsplash License. [Source](https://unsplash.com/photos/aerial-photography-of-yellow-train-seiUizmGpv8)
@@ -77,8 +77,8 @@ outside the projected image area and can be updated when photos are replaced.
 
 ## USA — Sing Sing Sing
 
-- `09-usa-1.jpg` — Patrick Tomasso, Unsplash License. [Source](https://unsplash.com/photos/manhattan-skyline-and-brooklyn-bridge-SVVTZtTGyaU)
-- `09-usa-2.jpg` — Stella He, Unsplash License. [Source](https://unsplash.com/photos/a-tall-building-with-a-balcony-and-flowers-on-the-balconies-cyZuN_AViJQ)
-- `09-usa-3.jpg` — Matt Collamer, Unsplash License. [Source](https://unsplash.com/photos/brown-brick-building-near-green-trees-during-daytime-UpYF6ibFud0)
-- `09-usa-4.jpg` — Thom Milkovic, Unsplash License. [Source](https://unsplash.com/photos/space-needle-and-seattle-skyline-skUTVJi8-jc)
-- `09-usa-5.jpg` — Maarten van den Heuvel, Unsplash License. [Source](https://unsplash.com/photos/golden-gate-bridge-during-daytime-gZXx8lKAb7Y)
+- `09-usa-1.jpg` — Vidar Nordli-Mathisen, Unsplash License. [Source](https://unsplash.com/photos/cars-on-road-near-high-rise-buildings-during-daytime-ZYDhBqxJnJ8)
+- `09-usa-2.jpg` — Partha Narasimhan, Unsplash License. [Source](https://unsplash.com/photos/city-skyline-during-night-time-R1xgso_3UDQ)
+- `09-usa-3.jpg` — Pierre Blaché, Unsplash License. [Source](https://unsplash.com/photos/statue-of-liberty-and-manhattan-skyline-VMNG8BYFQfs)
+- `09-usa-4.jpg` — Andrea Belussi, Unsplash License. [Source](https://unsplash.com/photos/people-in-park--cTrOFIF12Q)
+- `09-usa-5.jpg` — Andre Benz, Unsplash License. [Source](https://unsplash.com/photos/aerial-view-of-city-buildings-during-nighttime-CR0E20Of7yU)
