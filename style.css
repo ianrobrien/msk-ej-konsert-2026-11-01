@@ -3,9 +3,9 @@
   --night: #081223;
   --night-panel: #0c1a33;
   --night-mid: #14294f;
-  --map-water: #286bad;
+  --map-water: #e7e1d2;
   --ice-blue: #a9c1e8;
-  --travel-gold: #f1d06a;
+  --route-ink: #526a83;
   --text-primary: #eef3fb;
   font-family: "Avenir Next", Avenir, "Segoe UI", sans-serif;
   background: var(--night);
@@ -361,15 +361,15 @@ button {
 }
 
 .route-dots {
-  stroke: var(--travel-gold);
+  stroke: var(--route-ink);
   stroke-dasharray: 2 10;
   stroke-width: 2.5;
 }
 
 .route-active {
-  stroke: var(--travel-gold);
+  stroke: var(--route-ink);
   stroke-width: 3;
-  filter: drop-shadow(0 0 5px rgb(241 208 106 / 42%));
+  filter: drop-shadow(0 0 3px rgb(231 225 210 / 82%));
 }
 
 .route-track-sleepers {
@@ -379,11 +379,11 @@ button {
 }
 
 .route-track-rails {
-  stroke: var(--travel-gold);
+  stroke: var(--route-ink);
   stroke-width: 2.5;
   stroke-linecap: round;
   stroke-linejoin: round;
-  filter: drop-shadow(0 0 3px rgb(241 208 106 / 75%));
+  filter: drop-shadow(0 0 2px rgb(231 225 210 / 82%));
 }
 
 .travel-overlay.is-train .route-active,
@@ -407,9 +407,9 @@ button {
 .route-origin,
 .route-destination {
   fill: var(--text-primary);
-  stroke: var(--travel-gold);
+  stroke: var(--route-ink);
   stroke-width: 3;
-  filter: drop-shadow(0 0 4px rgb(241 208 106 / 58%));
+  filter: drop-shadow(0 0 4px rgb(82 106 131 / 45%));
 }
 
 .flight-plane {
